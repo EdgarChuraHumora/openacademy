@@ -2,6 +2,7 @@
   "name": "backend",
   "private": true,
   "version": "0.0.0",
+  "author": "Edgar Chura Humora",
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",

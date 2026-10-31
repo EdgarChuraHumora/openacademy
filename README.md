@@ -6,6 +6,8 @@ Plataforma de matemáticas para primaria, secundaria y pre-universitario:
 - **Academia**: cursos por unidades con videos, teoría y ejercicios.
 - **Aventura** (próximamente): modo RPG donde se consiguen héroes resolviendo ejercicios.
 
+Autor: **Edgar Chura Humora** ([@EdgarChuraHumora](https://github.com/EdgarChuraHumora)). OpenAcademy es un proyecto independiente.
+
 ## Estructura
 
 ```

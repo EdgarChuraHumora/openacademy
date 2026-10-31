@@ -21,6 +21,7 @@ export default function AppLayout() {
       <main className="content">
         <Outlet />
       </main>
+      <footer className="footer">© OpenAcademy · Creado por Edgar Chura Humora</footer>
       <BottomNav />
     </div>
   )
