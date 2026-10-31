@@ -251,6 +251,21 @@ button { font-family: inherit; }
 .feedback--bad { background: #ffe1e7; color: var(--red-dark); }
 .feedback__text { flex: 1; display: flex; flex-direction: column; font-size: 1.05rem; }
 .feedback .btn { flex-basis: 100%; }
+.feedback__more {
+  flex-basis: 100%; display: flex; flex-direction: column; gap: 6px;
+  padding: 10px 12px; border-radius: 14px; background: var(--surface); color: var(--text);
+}
+
+.hints { display: flex; flex-direction: column; gap: 8px; }
+.hint {
+  padding: 10px 14px; border-radius: 14px; font-weight: 700;
+  background: #fff3cc; border: 2px solid var(--yellow); animation: pop 0.25s ease-out;
+}
+.hint-btn {
+  align-self: center; padding: 8px 16px; border-radius: 999px; cursor: pointer;
+  border: 2px dashed var(--yellow-dark); background: transparent;
+  font-family: inherit; font-weight: 800; color: var(--yellow-dark);
+}
 
 .result { align-items: center; }
 .stars { display: flex; gap: 8px; font-size: 2.8rem; }

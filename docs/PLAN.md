@@ -21,7 +21,7 @@ Marca cada casilla al terminarla y haz commit de este archivo para que el progre
 - [ ] Mover los quizzes de prueba a tablas (`games`, `questions`) y leerlos desde Supabase
 - [ ] Soporte de fórmulas con KaTeX en preguntas y respuestas
 - [ ] Panel docente básico: crear, editar y publicar un quiz, y compartirlo con enlace o código
-- [ ] Retroalimentación por pregunta: pista progresiva antes de la solución y explicación del error típico al fallar
+- [x] Retroalimentación por pregunta: pista progresiva antes de la solución y explicación del error típico al fallar
 
 ## Fase 2: Academia
 

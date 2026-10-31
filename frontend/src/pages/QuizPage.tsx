@@ -4,6 +4,8 @@ import Mascot from '../components/brand/Mascot'
 import { demoQuizzes } from '../features/games/quiz/demoQuizzes'
 
 const letters = ['A', 'B', 'C', 'D']
+const XP_CORRECT = 10
+const XP_WITH_HINT = 5 // si pidió pista, gana menos XP
 
 export default function QuizPage() {
   const { id } = useParams()
@@ -11,6 +13,8 @@ export default function QuizPage() {
   const [current, setCurrent] = useState(0)
   const [selected, setSelected] = useState<number | null>(null)
   const [score, setScore] = useState(0)
+  const [xp, setXp] = useState(0)
+  const [hintsShown, setHintsShown] = useState(0)
 
   if (!quiz) {
     return (
@@ -37,13 +41,15 @@ export default function QuizPage() {
         </div>
         <div className="result__stats">
           <div><strong>{score}/{total}</strong><span>correctas</span></div>
-          <div><strong>+{score * 10}</strong><span>XP</span></div>
+          <div><strong>+{xp}</strong><span>XP</span></div>
         </div>
         <button
           className="btn"
           onClick={() => {
             setCurrent(0)
             setScore(0)
+            setXp(0)
+            setHintsShown(0)
             setSelected(null)
           }}
         >
@@ -57,11 +63,17 @@ export default function QuizPage() {
   const question = quiz.questions[current]
   const answered = selected !== null
   const isCorrect = selected === question.answerIndex
+  const hints = question.hints ?? []
+  const earned = hintsShown > 0 ? XP_WITH_HINT : XP_CORRECT
+  const mistake = selected !== null ? question.mistakes?.[selected] : undefined
 
   function choose(index: number) {
     if (answered) return
     setSelected(index)
-    if (index === question.answerIndex) setScore((s) => s + 1)
+    if (index === question.answerIndex) {
+      setScore((s) => s + 1)
+      setXp((x) => x + earned)
+    }
   }
 
   return (
@@ -94,17 +106,39 @@ export default function QuizPage() {
         })}
       </div>
 
+      {!answered && hints.length > 0 && (
+        <div className="hints">
+          {hints.slice(0, hintsShown).map((hint, i) => (
+            <p key={i} className="hint">
+              <span aria-hidden="true">💡</span> {hint}
+            </p>
+          ))}
+          {hintsShown < hints.length && (
+            <button className="hint-btn" onClick={() => setHintsShown((n) => n + 1)}>
+              {hintsShown === 0 ? `💡 Pedir una pista (ganas ${XP_WITH_HINT} XP en vez de ${XP_CORRECT})` : '💡 Otra pista'}
+            </button>
+          )}
+        </div>
+      )}
+
       {answered && (
         <div className={`feedback ${isCorrect ? 'feedback--ok' : 'feedback--bad'}`}>
           <Mascot size={64} mood={isCorrect ? 'celebrate' : 'sad'} />
           <div className="feedback__text">
-            <strong>{isCorrect ? '¡Correcto! +10 XP' : 'Casi…'}</strong>
+            <strong>{isCorrect ? `¡Correcto! +${earned} XP` : 'Casi…'}</strong>
             {!isCorrect && <span>La respuesta era {question.options[question.answerIndex]}</span>}
           </div>
+          {!isCorrect && (mistake || question.explanation) && (
+            <div className="feedback__more">
+              {mistake && <p><strong>¿Qué pasó?</strong> {mistake}</p>}
+              {question.explanation && <p><strong>Solución:</strong> {question.explanation}</p>}
+            </div>
+          )}
           <button
             className={`btn ${isCorrect ? 'btn--green' : 'btn--red'}`}
             onClick={() => {
               setSelected(null)
+              setHintsShown(0)
               setCurrent((c) => c + 1)
             }}
           >
