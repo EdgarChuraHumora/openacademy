@@ -6,6 +6,8 @@ import QuizPage from './pages/QuizPage'
 import AcademyPage from './pages/AcademyPage'
 import ProfilePage from './pages/ProfilePage'
 import LoginPage from './pages/LoginPage'
+import LabPage from './pages/LabPage'
+import BalancePage from './pages/BalancePage'
 
 export default function App() {
   return (
@@ -16,7 +18,9 @@ export default function App() {
         <Route path="/juegos" element={<GamesPage />} />
         <Route path="/juegos/:id" element={<QuizPage />} />
         <Route path="/academia" element={<AcademyPage />} />
-        <Route path="/perfil" element={<ProfilePage />} />
+        <Route path="/laboratorio" element={<LabPage />} />
+        <Route path="/laboratorio/balanza" element={<BalancePage />} />
+        <Route path="/perfil"element={<ProfilePage />} />
       </Route>
     </Routes>
   )

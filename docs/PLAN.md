@@ -36,6 +36,9 @@ Marca cada casilla al terminarla y haz commit de este archivo para que el progre
 ## Fase 2.5: Laboratorio (materiales virtuales)
 
 - [ ] Sección "Laboratorio" con manipulativos interactivos (ver `IDEAS_MATERIALES.md`), empezando por: tiras de fracciones, balanza de ecuaciones y geoplano
+  - [x] Página del Laboratorio y balanza de ecuaciones (`/laboratorio/balanza`, 7 ecuaciones de práctica)
+  - [ ] Tiras de fracciones
+  - [ ] Geoplano
 
 ## Fase 3: Más juegos (plantillas tipo Wordwall)
 

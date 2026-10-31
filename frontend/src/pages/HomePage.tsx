@@ -17,7 +17,7 @@ export default function HomePage() {
       </div>
 
       <h2 className="section-title">Explora</h2>
-      <div className="grid grid--3">
+      <div className="grid grid--2">
         <Link to="/juegos" className="module-card">
           <span className="tile tile--yellow">🎮</span>
           <div>
@@ -30,6 +30,13 @@ export default function HomePage() {
           <div>
             <h3>Academia</h3>
             <p>Cursos por unidades con videos y ejercicios.</p>
+          </div>
+        </Link>
+        <Link to="/laboratorio" className="module-card">
+          <span className="tile tile--pink">🧪</span>
+          <div>
+            <h3>Laboratorio</h3>
+            <p>Balanzas, fracciones y figuras para manipular.</p>
           </div>
         </Link>
         <div className="module-card module-card--epic">
