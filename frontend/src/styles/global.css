@@ -311,6 +311,69 @@ button { font-family: inherit; }
 .lab-actions__wide { grid-column: 1 / -1; }
 .steps { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 4px; font-weight: 700; }
 
+.lab-head { display: flex; align-items: center; gap: 12px; }
+.lab-head h1 { font-size: 1.5rem; }
+
+/* Tiras de fracciones: un color por cada tipo de tira */
+.strip {
+  display: grid; place-items: center; height: 100%; min-width: 0; padding: 0;
+  border: 2px solid rgba(0, 0, 0, 0.18); border-radius: 8px;
+  font-family: var(--font-title); font-weight: 700; font-size: 0.95rem; color: #fff;
+  cursor: pointer; overflow: hidden; white-space: nowrap;
+  animation: pop 0.2s ease-out;
+}
+.strip--2 { background: var(--red); }
+.strip--3 { background: #fb923c; }
+.strip--4 { background: var(--yellow); color: var(--text); }
+.strip--5 { background: var(--green); }
+.strip--6 { background: #14b8a6; }
+.strip--8 { background: #3b82f6; }
+.strip--10 { background: var(--primary); }
+.strip--12 { background: #ec4899; }
+.frac-track .strip--10, .frac-track .strip--12 { font-size: 0.7rem; }
+
+.frac-board {
+  display: flex; flex-direction: column; gap: 10px;
+  padding: 14px; border-radius: 24px; background: var(--surface); border: 2px solid var(--border);
+}
+.frac-whole {
+  display: grid; place-items: center; height: 44px; border-radius: 10px;
+  background: var(--night); color: #fff; font-family: var(--font-title); font-weight: 600;
+}
+.frac-row { display: flex; align-items: center; gap: 8px; }
+.frac-row__label {
+  flex-shrink: 0; width: 34px; height: 34px; border-radius: 10px; cursor: pointer;
+  border: 2px solid var(--border); background: var(--surface);
+  font-family: var(--font-title); font-weight: 700; color: var(--muted);
+}
+.frac-row--active .frac-row__label { background: var(--primary); border-color: var(--primary); color: #fff; }
+.frac-track {
+  position: relative; flex: 1; display: flex; height: 44px; border-radius: 10px;
+  background: repeating-linear-gradient(90deg, var(--bg) 0 10px, var(--primary-soft) 10px 20px);
+  border: 2px dashed var(--border);
+}
+.frac-row--active .frac-track { border-color: var(--primary); }
+.frac-target {
+  position: absolute; top: -8px; bottom: -8px; width: 0;
+  border-left: 3px dashed var(--primary); pointer-events: none;
+}
+.frac-target__label {
+  position: absolute; bottom: -22px; transform: translateX(-50%);
+  font-size: 0.75rem; font-weight: 800; color: var(--primary);
+}
+.frac-row:has(.frac-target) { margin-bottom: 14px; }
+
+.frac-prompt {
+  font-family: var(--font-title); font-size: 1.3rem; font-weight: 600; text-align: center;
+  padding: 14px; border-radius: 20px; background: var(--primary-soft); color: var(--primary-dark);
+}
+.frac-note { color: var(--red-dark); font-weight: 700; }
+.frac-compare { font-family: var(--font-title); font-size: 1.3rem; font-weight: 600; }
+
+.strip-palette { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.strip-palette__item { height: 48px; font-size: 1rem; box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2); }
+.strip-palette__item:active { transform: translateY(3px); box-shadow: none; }
+
 /* ---------- Perfil ---------- */
 .profile-head { display: flex; align-items: center; gap: 16px; }
 .avatar {

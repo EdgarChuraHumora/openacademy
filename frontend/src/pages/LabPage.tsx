@@ -9,7 +9,14 @@ const materials = [
     color: 'green',
     level: 'Álgebra',
   },
-  { title: 'Tiras de fracciones', text: 'Junta y compara tiras de 1/2, 1/3, 1/4…', icon: '🍫', color: 'pink', level: 'Fracciones' },
+  {
+    to: '/laboratorio/fracciones',
+    title: 'Tiras de fracciones',
+    text: 'Junta y compara tiras de 1/2, 1/3, 1/4… para sumar y encontrar equivalencias.',
+    icon: '🍫',
+    color: 'pink',
+    level: 'Fracciones',
+  },
   { title: 'Geoplano', text: 'Estira ligas para formar polígonos y medir su área.', icon: '📌', color: 'blue', level: 'Geometría' },
 ]
 

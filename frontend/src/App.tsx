@@ -8,6 +8,7 @@ import ProfilePage from './pages/ProfilePage'
 import LoginPage from './pages/LoginPage'
 import LabPage from './pages/LabPage'
 import BalancePage from './pages/BalancePage'
+import FractionStripsPage from './pages/FractionStripsPage'
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/academia" element={<AcademyPage />} />
         <Route path="/laboratorio" element={<LabPage />} />
         <Route path="/laboratorio/balanza" element={<BalancePage />} />
+        <Route path="/laboratorio/fracciones" element={<FractionStripsPage />} />
         <Route path="/perfil"element={<ProfilePage />} />
       </Route>
     </Routes>
