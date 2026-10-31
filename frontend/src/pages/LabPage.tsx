@@ -17,7 +17,14 @@ const materials = [
     color: 'pink',
     level: 'Fracciones',
   },
-  { title: 'Geoplano', text: 'Estira ligas para formar polígonos y medir su área.', icon: '📌', color: 'blue', level: 'Geometría' },
+  {
+    to: '/laboratorio/geoplano',
+    title: 'Geoplano',
+    text: 'Estira ligas para formar polígonos y medir su área y perímetro.',
+    icon: '📌',
+    color: 'blue',
+    level: 'Geometría',
+  },
 ]
 
 export default function LabPage() {
