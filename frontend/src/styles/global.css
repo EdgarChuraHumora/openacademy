@@ -356,6 +356,27 @@ button { font-family: inherit; }
 }
 .classify-chip--ok { border-color: var(--green); background: #d9f8e4; cursor: default; }
 
+/* ---------- Dominó ---------- */
+.domino {
+  display: grid; grid-template-columns: 1fr 1fr; align-items: stretch;
+  border-radius: 14px; border: 2px solid var(--text); background: var(--surface); overflow: hidden;
+  font-family: var(--font-title); font-size: 1.2rem; font-weight: 600; color: var(--text);
+}
+.domino__half { display: grid; place-items: center; min-height: 56px; padding: 6px 8px; text-align: center; line-height: 1.25; }
+.domino__half:first-child { border-right: 2px dashed var(--text); background: var(--primary-soft); }
+.domino-chain { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.domino--placed { font-size: 1rem; opacity: 0.6; }
+.domino--placed .domino__half { min-height: 44px; }
+.domino--last { opacity: 1; border-color: var(--primary); box-shadow: 0 4px 0 var(--primary-dark); animation: pop 0.25s ease-out; }
+.domino-hint {
+  padding: 10px 14px; border-radius: 14px; text-align: center; font-weight: 700;
+  background: #fff3cc; border: 2px solid var(--yellow);
+}
+.domino-hand { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.domino--hand { padding: 0; cursor: pointer; box-shadow: 0 4px 0 var(--border); transition: transform 0.08s; }
+.domino--hand:active { transform: translateY(4px); box-shadow: none; }
+.domino--wrong { border-color: var(--red); background: #ffe1e7; animation: shake 0.35s; }
+
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
   25% { transform: translateX(-6px); }
@@ -564,6 +585,7 @@ button { font-family: inherit; }
   .feedback .btn { flex-basis: auto; width: auto; }
   .tf-keys { display: block; }
   .classify-groups--3 { grid-template-columns: repeat(3, 1fr); }
+  .domino-hand { grid-template-columns: 1fr 1fr; }
 }
 
 /* Con 5 secciones, en pantallas medianas el menú superior se ajusta para no partirse */

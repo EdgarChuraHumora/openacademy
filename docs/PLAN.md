@@ -45,7 +45,7 @@ Marca cada casilla al terminarla y haz commit de este archivo para que el progre
 - [x] Emparejar (fórmula ↔ resultado): 3 juegos de prueba en `features/games/match/demoMatches.ts`
 - [x] Verdadero o falso contra el tiempo: 2 juegos de prueba en `features/games/truefalse/demoTrueFalse.ts`
 - [x] Ordenar los pasos de una resolución: 3 juegos de prueba en `features/games/order/demoOrders.ts`
-- [ ] Dominó (emparejar expresión ↔ resultado)
+- [x] Dominó (cadena circular: cada ficha empieza con el resultado de la anterior): 3 juegos de prueba en `features/games/domino/demoDominoes.ts`
 - [x] Clasificar (tocar el grupo de cada tarjeta, por ejemplo suceso seguro / probable / imposible)
 - [ ] Ruleta de ejercicios
 - [ ] Ranking por juego y por clase

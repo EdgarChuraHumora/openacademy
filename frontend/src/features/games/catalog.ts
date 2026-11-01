@@ -1,5 +1,7 @@
 import { demoClassify } from './classify/demoClassify'
 import type { ClassifyGame } from './classify/types'
+import { demoDominoes } from './domino/demoDominoes'
+import type { DominoGame } from './domino/types'
 import { demoMatches } from './match/demoMatches'
 import type { MatchGame } from './match/types'
 import { demoOrders } from './order/demoOrders'
@@ -16,6 +18,7 @@ export type GameEntry =
   | ({ kind: 'order' } & OrderGame)
   | ({ kind: 'truefalse' } & TrueFalseGame)
   | ({ kind: 'classify' } & ClassifyGame)
+  | ({ kind: 'domino' } & DominoGame)
 
 export const games: GameEntry[] = [
   ...demoQuizzes.map((q) => ({ kind: 'quiz' as const, ...q })),
@@ -23,12 +26,14 @@ export const games: GameEntry[] = [
   ...demoOrders.map((o) => ({ kind: 'order' as const, ...o })),
   ...demoTrueFalse.map((t) => ({ kind: 'truefalse' as const, ...t })),
   ...demoClassify.map((c) => ({ kind: 'classify' as const, ...c })),
+  ...demoDominoes.map((d) => ({ kind: 'domino' as const, ...d })),
 ]
 
 export const XP_PER_PAIR = 5
 export const XP_PER_ORDER = 10 // si lo ordena bien al primer intento; si no, la mitad
 export const XP_PER_TRUE_FALSE = 3
 export const XP_PER_CLASSIFY = 2 // por tarjeta bien ubicada a la primera; si no, 1
+export const XP_PER_DOMINO = 3 // por ficha colocada
 
 export function gameSummary(game: GameEntry) {
   switch (game.kind) {
@@ -42,5 +47,7 @@ export function gameSummary(game: GameEntry) {
       return `V o F · ${game.statements.length} afirmaciones en ${game.seconds} s · hasta +${game.statements.length * XP_PER_TRUE_FALSE} XP`
     case 'classify':
       return `Clasificar · ${game.items.length} tarjetas · +${game.items.length * XP_PER_CLASSIFY} XP`
+    case 'domino':
+      return `Dominó · ${game.pairs.length} fichas · +${(game.pairs.length - 1) * XP_PER_DOMINO} XP`
   }
 }

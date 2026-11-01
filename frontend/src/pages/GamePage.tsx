@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router-dom'
 import Mascot from '../components/brand/Mascot'
 import { games } from '../features/games/catalog'
 import ClassifyPage from './ClassifyPage'
+import DominoPage from './DominoPage'
 import MatchPage from './MatchPage'
 import OrderPage from './OrderPage'
 import QuizPage from './QuizPage'
@@ -34,5 +35,7 @@ export default function GamePage() {
       return <TrueFalsePage key={game.id} game={game} />
     case 'classify':
       return <ClassifyPage key={game.id} game={game} />
+    case 'domino':
+      return <DominoPage key={game.id} game={game} />
   }
 }
