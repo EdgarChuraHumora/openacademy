@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router-dom'
 import Mascot from '../components/brand/Mascot'
 import { games } from '../features/games/catalog'
 import MatchPage from './MatchPage'
+import OrderPage from './OrderPage'
 import QuizPage from './QuizPage'
 
 // Abre cada juego con la pantalla de su plantilla
@@ -20,5 +21,12 @@ export default function GamePage() {
   }
 
   // key: al cambiar de juego, la pantalla empieza de cero
-  return game.kind === 'quiz' ? <QuizPage key={game.id} quiz={game} /> : <MatchPage key={game.id} game={game} />
+  switch (game.kind) {
+    case 'quiz':
+      return <QuizPage key={game.id} quiz={game} />
+    case 'match':
+      return <MatchPage key={game.id} game={game} />
+    case 'order':
+      return <OrderPage key={game.id} game={game} />
+  }
 }

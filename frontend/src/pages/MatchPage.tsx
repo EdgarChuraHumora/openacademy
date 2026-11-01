@@ -4,17 +4,9 @@ import Mascot from '../components/brand/Mascot'
 import MathText from '../components/MathText'
 import { XP_PER_PAIR } from '../features/games/catalog'
 import type { MatchGame } from '../features/games/match/types'
+import { shuffle } from '../features/games/shuffle'
 
 type Side = 'left' | 'right'
-
-function shuffle(n: number) {
-  const a = Array.from({ length: n }, (_, i) => i)
-  for (let i = n - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[a[i], a[j]] = [a[j], a[i]]
-  }
-  return a
-}
 
 function newRound(n: number) {
   return { left: shuffle(n), right: shuffle(n), start: Date.now() }
