@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import Mascot from '../components/brand/Mascot'
+import MathText from '../components/MathText'
 import { demoQuizzes } from '../features/games/quiz/demoQuizzes'
 
 const letters = ['A', 'B', 'C', 'D']
@@ -87,7 +88,7 @@ export default function QuizPage() {
       </div>
 
       <p className="muted">{quiz.title}</p>
-      <div className="question">{question.question}</div>
+      <div className="question"><MathText text={question.question} /></div>
 
       <div className="options">
         {question.options.map((option, index) => {
@@ -100,7 +101,7 @@ export default function QuizPage() {
           return (
             <button key={option} className={`option ${state}`} onClick={() => choose(index)}>
               <span className="option__letter">{letters[index]}</span>
-              {option}
+              <MathText text={option} />
             </button>
           )
         })}
@@ -110,7 +111,7 @@ export default function QuizPage() {
         <div className="hints">
           {hints.slice(0, hintsShown).map((hint, i) => (
             <p key={i} className="hint">
-              <span aria-hidden="true">💡</span> {hint}
+              <span aria-hidden="true">💡</span> <MathText text={hint} />
             </p>
           ))}
           {hintsShown < hints.length && (
@@ -126,12 +127,12 @@ export default function QuizPage() {
           <Mascot size={64} mood={isCorrect ? 'celebrate' : 'sad'} />
           <div className="feedback__text">
             <strong>{isCorrect ? `¡Correcto! +${earned} XP` : 'Casi…'}</strong>
-            {!isCorrect && <span>La respuesta era {question.options[question.answerIndex]}</span>}
+            {!isCorrect && <span>La respuesta era <MathText text={question.options[question.answerIndex]} /></span>}
           </div>
           {!isCorrect && (mistake || question.explanation) && (
             <div className="feedback__more">
-              {mistake && <p><strong>¿Qué pasó?</strong> {mistake}</p>}
-              {question.explanation && <p><strong>Solución:</strong> {question.explanation}</p>}
+              {mistake && <p><strong>¿Qué pasó?</strong> <MathText text={mistake} /></p>}
+              {question.explanation && <p><strong>Solución:</strong> <MathText text={question.explanation} /></p>}
             </div>
           )}
           <button

@@ -19,7 +19,7 @@ Marca cada casilla al terminarla y haz commit de este archivo para que el progre
 - [ ] Tabla `profiles` (nombre, rol, grado, nivel, xp, monedas, racha) con Row Level Security
 - [ ] Guardar el XP y las partidas al terminar un quiz; mostrar el XP real en el encabezado y en Perfil
 - [ ] Mover los quizzes de prueba a tablas (`games`, `questions`) y leerlos desde Supabase
-- [ ] Soporte de fórmulas con KaTeX en preguntas y respuestas
+- [x] Soporte de fórmulas con KaTeX en preguntas y respuestas
 - [ ] Panel docente básico: crear, editar y publicar un quiz, y compartirlo con enlace o código
 - [x] Retroalimentación por pregunta: pista progresiva antes de la solución y explicación del error típico al fallar
 

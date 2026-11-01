@@ -52,13 +52,17 @@ docs/IDEAS_MATERIALES.md   ideas de materiales manipulativos virtuales
 frontend/
   public/                  favicon.svg, pwa-192x192.png, pwa-512x512.png (mascota Opi)
   src/
-    App.tsx                rutas
+    App.tsx                rutas (QuizPage se carga aparte porque usa KaTeX)
     main.tsx
     styles/global.css      TODO el diseño (variables de marca en :root)
+    components/MathText.tsx  texto con fórmulas KaTeX entre signos $ (ej. "La mitad de $\frac{3}{4}$")
     components/brand/      Mascot.tsx (Opi, moods: happy | sad | celebrate), Logo.tsx
     components/layout/     AppLayout, TopNav (escritorio), BottomNav (celular), navLinks.ts
-    features/games/quiz/   types.ts, demoQuizzes.ts (datos de prueba)
-    pages/                 HomePage, GamesPage, QuizPage, AcademyPage, ProfilePage, LoginPage
+    features/games/quiz/   types.ts, demoQuizzes.ts (datos de prueba con pistas, errores típicos y solución)
+    features/lab/          balance/ (balanza de ecuaciones), fractions/ (tiras), geoboard/ (geoplano)
+    lib/supabase.ts        cliente de Supabase (null si faltan las variables de .env)
+    pages/                 HomePage, GamesPage, QuizPage, AcademyPage, ProfilePage, LoginPage,
+                           LabPage, BalancePage, FractionStripsPage, GeoboardPage
   vercel.json              rewrite para que funcionen las rutas de React Router
   vite.config.ts           manifest PWA (nombre, colores, iconos)
 backend/
