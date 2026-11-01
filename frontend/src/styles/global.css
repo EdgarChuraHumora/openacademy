@@ -311,6 +311,20 @@ button { font-family: inherit; }
 .order-step--ok { border-color: var(--green); background: #d9f8e4; box-shadow: none; cursor: default; }
 .order-step--wrong { border-color: var(--red); animation: shake 0.35s; }
 
+/* ---------- Verdadero o falso ---------- */
+.progress__bar--time { background: var(--yellow); transition: width 0.1s linear; }
+.progress__bar--danger { background: var(--red); transition: width 0.1s linear; }
+.tf-statement { font-size: 1.8rem; transition: border-color 0.2s, background 0.2s; }
+.tf-statement--ok { border-color: var(--green); background: #d9f8e4; }
+.tf-statement--bad { border-color: var(--red); background: #ffe1e7; animation: shake 0.35s; }
+.tf-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.tf-buttons .btn { padding: 20px 12px; font-size: 1.15rem; }
+.tf-keys { display: none; font-size: 0.85rem; }
+.tf-review { width: 100%; text-align: left; }
+.tf-review__item { display: flex; flex-direction: column; gap: 2px; padding-top: 10px; border-top: 2px solid var(--border); }
+.tf-true { color: var(--green-dark); font-weight: 800; }
+.tf-false { color: var(--red-dark); font-weight: 800; }
+
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
   25% { transform: translateX(-6px); }
@@ -517,6 +531,7 @@ button { font-family: inherit; }
   .narrow { padding-top: 8px; }
   .question { font-size: 2.8rem; padding: 48px 16px; }
   .feedback .btn { flex-basis: auto; width: auto; }
+  .tf-keys { display: block; }
 }
 
 /* Con 5 secciones, en pantallas medianas el menú superior se ajusta para no partirse */

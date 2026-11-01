@@ -4,6 +4,7 @@ import { games } from '../features/games/catalog'
 import MatchPage from './MatchPage'
 import OrderPage from './OrderPage'
 import QuizPage from './QuizPage'
+import TrueFalsePage from './TrueFalsePage'
 
 // Abre cada juego con la pantalla de su plantilla
 export default function GamePage() {
@@ -28,5 +29,7 @@ export default function GamePage() {
       return <MatchPage key={game.id} game={game} />
     case 'order':
       return <OrderPage key={game.id} game={game} />
+    case 'truefalse':
+      return <TrueFalsePage key={game.id} game={game} />
   }
 }

@@ -43,7 +43,7 @@ Marca cada casilla al terminarla y haz commit de este archivo para que el progre
 ## Fase 3: Más juegos (plantillas tipo Wordwall)
 
 - [x] Emparejar (fórmula ↔ resultado): 3 juegos de prueba en `features/games/match/demoMatches.ts`
-- [ ] Verdadero o falso contra el tiempo
+- [x] Verdadero o falso contra el tiempo: 2 juegos de prueba en `features/games/truefalse/demoTrueFalse.ts`
 - [x] Ordenar los pasos de una resolución: 3 juegos de prueba en `features/games/order/demoOrders.ts`
 - [ ] Dominó (emparejar expresión ↔ resultado)
 - [ ] Clasificar (arrastrar a grupos, por ejemplo suceso seguro / probable / imposible)
