@@ -27,9 +27,11 @@ create policy "Cada usuario edita su perfil"
   using ((select auth.uid()) = id)
   with check ((select auth.uid()) = id);
 
+-- Permisos explícitos (el proyecto no expone tablas nuevas automáticamente).
 -- El alumno solo puede cambiar su nombre y su grado; el rol, el XP, las monedas
 -- y la racha solo los cambian las funciones del servidor (no se pueden "hackear" desde la web)
-revoke update on public.profiles from authenticated, anon;
+revoke all on public.profiles from anon, authenticated;
+grant select on public.profiles to authenticated;
 grant update (display_name, grade) on public.profiles to authenticated;
 
 -- Crea el perfil automáticamente cuando alguien se registra
@@ -67,6 +69,9 @@ create table public.game_results (
 create index game_results_user_idx on public.game_results (user_id, created_at desc);
 
 alter table public.game_results enable row level security;
+
+revoke all on public.game_results from anon, authenticated;
+grant select on public.game_results to authenticated;
 
 create policy "Cada usuario ve sus resultados"
   on public.game_results for select to authenticated
@@ -125,6 +130,9 @@ create table public.lesson_progress (
 );
 
 alter table public.lesson_progress enable row level security;
+
+revoke all on public.lesson_progress from anon, authenticated;
+grant select, insert, update on public.lesson_progress to authenticated;
 
 create policy "Cada usuario ve su avance"
   on public.lesson_progress for select to authenticated
