@@ -15,6 +15,8 @@ frontend/   React + TypeScript + Vite (PWA, se instala en el celular)
 backend/    Node.js + Express + TypeScript (API)
 ```
 
+**En línea:** https://openacademy-ten.vercel.app
+
 ## Desarrollo local
 
 Frontend (http://localhost:5173):

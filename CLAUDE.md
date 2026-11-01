@@ -39,7 +39,7 @@ Los pagos son para más adelante (alumno premium y suscripción docente o instit
 - **Frontend:** React 19 + TypeScript + Vite + React Router + `vite-plugin-pwa`. **No usar Astro.**
 - **Backend:** Node.js + Express + TypeScript (carpeta `backend/`), pequeño al inicio.
 - **Base de datos y login:** Supabase (PostgreSQL + Auth + Storage), conectado (proyecto `openacademy`, región São Paulo). Claves en `frontend/.env`.
-- **Despliegue:** frontend en Vercel (Root Directory = `frontend`); backend en Render (plan gratis).
+- **Despliegue:** frontend en Vercel (Root Directory = `frontend`), publicado en https://openacademy-ten.vercel.app; cada push a `main` se publica solo. Backend en Render (plan gratis), aún sin publicar.
 - **Futuro:** KaTeX para fórmulas, Phaser.js para el modo Aventura, Mercado Pago o Culqi para pagos (Perú), Capacitor si se quiere publicar en tiendas de apps.
 
 ## Estructura actual
@@ -121,6 +121,6 @@ cd backend && npm install && npm run dev       # http://localhost:3000/api/healt
 ## Siguiente paso inmediato
 
 El código ya está en GitHub (`EdgarChuraHumora/openacademy`). Ver `docs/PLAN.md`, sección "Ahora". En resumen:
-1. Publicar el frontend en Vercel y comprobarlo en el celular (instalar como PWA).
-2. Conectar Supabase: registro, login y perfil con XP guardado.
-3. Seguir con el resto de la Fase 1.
+1. ~~Publicar en Vercel~~ y ~~conectar Supabase~~ (hecho). Falta probar la instalación PWA en el celular.
+2. Configurar correos (SMTP) y volver a activar la confirmación por correo antes de tener alumnos reales.
+3. Seguir con el resto de la Fase 1: quizzes en la base de datos, panel docente y ranking.
