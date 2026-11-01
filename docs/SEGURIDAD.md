@@ -20,6 +20,8 @@ Lista de lo que protege la app y de lo que hay que cuidar. Revisarla antes de ca
 
 ## Pendientes y límites conocidos
 
+- **Confirmación por correo DESACTIVADA (31/10/2026):** el servicio de correos gratuito de Supabase solo permite unos pocos correos por hora. Antes de tener alumnos reales: configurar un servicio de correos (por ejemplo Resend) en Supabase → Authentication → Emails → SMTP, y volver a activar "Confirm email". Mientras tanto, "¿Olvidaste tu contraseña?" tampoco enviará correos de forma confiable.
+
 - **Trampas con el XP:** los juegos se calculan en el navegador. Mientras el XP no dé premios ni notas es aceptable; si el ranking da premios, validar puntajes en el servidor.
 - **Datos de menores (Ley 29733):** pedir solo nombre o apodo, grado y correo. Agregar política de privacidad y consentimiento de padres antes de abrir a colegios (consultar con alguien que conozca la ley).
 - **Copias de seguridad:** el plan gratis de Supabase no las incluye. Exportar los datos periódicamente.
