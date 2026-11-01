@@ -7,6 +7,8 @@ import type { MatchGame } from './match/types'
 import { demoOrders } from './order/demoOrders'
 import type { OrderGame } from './order/types'
 import { demoQuizzes } from './quiz/demoQuizzes'
+import { demoRoulettes } from './roulette/demoRoulettes'
+import type { RouletteGame } from './roulette/types'
 import type { Quiz } from './quiz/types'
 import { demoTrueFalse } from './truefalse/demoTrueFalse'
 import type { TrueFalseGame } from './truefalse/types'
@@ -19,6 +21,7 @@ export type GameEntry =
   | ({ kind: 'truefalse' } & TrueFalseGame)
   | ({ kind: 'classify' } & ClassifyGame)
   | ({ kind: 'domino' } & DominoGame)
+  | ({ kind: 'roulette' } & RouletteGame)
 
 export const games: GameEntry[] = [
   ...demoQuizzes.map((q) => ({ kind: 'quiz' as const, ...q })),
@@ -27,6 +30,7 @@ export const games: GameEntry[] = [
   ...demoTrueFalse.map((t) => ({ kind: 'truefalse' as const, ...t })),
   ...demoClassify.map((c) => ({ kind: 'classify' as const, ...c })),
   ...demoDominoes.map((d) => ({ kind: 'domino' as const, ...d })),
+  ...demoRoulettes.map((r) => ({ kind: 'roulette' as const, ...r })),
 ]
 
 export const XP_PER_PAIR = 5
@@ -34,6 +38,7 @@ export const XP_PER_ORDER = 10 // si lo ordena bien al primer intento; si no, la
 export const XP_PER_TRUE_FALSE = 3
 export const XP_PER_CLASSIFY = 2 // por tarjeta bien ubicada a la primera; si no, 1
 export const XP_PER_DOMINO = 3 // por ficha colocada
+export const XP_PER_ROULETTE = 10 // por ejercicio correcto
 
 export function gameSummary(game: GameEntry) {
   switch (game.kind) {
@@ -49,5 +54,7 @@ export function gameSummary(game: GameEntry) {
       return `Clasificar · ${game.items.length} tarjetas · +${game.items.length * XP_PER_CLASSIFY} XP`
     case 'domino':
       return `Dominó · ${game.pairs.length} fichas · +${(game.pairs.length - 1) * XP_PER_DOMINO} XP`
+    case 'roulette':
+      return `Ruleta · ${game.sectors.length} ejercicios · +${game.sectors.length * XP_PER_ROULETTE} XP`
   }
 }

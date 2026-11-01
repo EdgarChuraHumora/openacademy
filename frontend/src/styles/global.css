@@ -377,6 +377,25 @@ button { font-family: inherit; }
 .domino--hand:active { transform: translateY(4px); box-shadow: none; }
 .domino--wrong { border-color: var(--red); background: #ffe1e7; animation: shake 0.35s; }
 
+/* ---------- Ruleta ---------- */
+.wheel-box { padding: 8px; border-radius: 24px; background: var(--surface); border: 2px solid var(--border); }
+.wheel { display: block; width: 100%; max-width: 360px; height: auto; margin: 0 auto; }
+.wheel__spin { transform-origin: 0 0; }
+.wheel__sector path { stroke: #fff; stroke-width: 2; }
+.wheel__sector text { fill: #fff; font-family: var(--font-title); font-weight: 700; font-size: 13px; }
+.wheel__sector text.wheel__label--long { font-size: 10.5px; }
+.wheel__sector--0 path { fill: var(--primary); }
+.wheel__sector--1 path { fill: var(--yellow); }
+.wheel__sector--1 text { fill: var(--text); }
+.wheel__sector--2 path { fill: var(--green); }
+.wheel__sector--3 path { fill: var(--red); }
+.wheel__sector--4 path { fill: #3b82f6; }
+.wheel__sector--5 path { fill: #ec4899; }
+.wheel__sector--done path { fill: var(--border); }
+.wheel__sector--done text { fill: var(--muted); font-size: 18px; }
+.wheel__hub { fill: var(--surface); stroke: var(--text); stroke-width: 4; }
+.wheel__pointer { fill: var(--text); }
+
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
   25% { transform: translateX(-6px); }

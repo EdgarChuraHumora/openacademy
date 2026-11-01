@@ -6,6 +6,7 @@ import DominoPage from './DominoPage'
 import MatchPage from './MatchPage'
 import OrderPage from './OrderPage'
 import QuizPage from './QuizPage'
+import RoulettePage from './RoulettePage'
 import TrueFalsePage from './TrueFalsePage'
 
 // Abre cada juego con la pantalla de su plantilla
@@ -37,5 +38,7 @@ export default function GamePage() {
       return <ClassifyPage key={game.id} game={game} />
     case 'domino':
       return <DominoPage key={game.id} game={game} />
+    case 'roulette':
+      return <RoulettePage key={game.id} game={game} />
   }
 }

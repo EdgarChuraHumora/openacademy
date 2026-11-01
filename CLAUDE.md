@@ -58,18 +58,19 @@ frontend/
     components/MathText.tsx  texto con fórmulas KaTeX entre signos $ (ej. "La mitad de $\frac{3}{4}$")
     components/brand/      Mascot.tsx (Opi, moods: happy | sad | celebrate), Logo.tsx
     components/layout/     AppLayout, TopNav (escritorio), BottomNav (celular), navLinks.ts
-    features/games/        catalog.ts (lista de todos los juegos y su tipo: quiz | match | order | truefalse | classify | domino), shuffle.ts
+    features/games/        catalog.ts (lista de todos los juegos y su tipo: quiz | match | order | truefalse | classify | domino | roulette), shuffle.ts
     features/games/quiz/   types.ts, demoQuizzes.ts (datos de prueba con pistas, errores típicos y solución)
     features/games/match/  types.ts, demoMatches.ts (plantilla Emparejar)
     features/games/order/  types.ts, demoOrders.ts (plantilla Ordenar pasos)
     features/games/truefalse/  types.ts, demoTrueFalse.ts (plantilla Verdadero o falso contra el tiempo)
     features/games/classify/   types.ts, demoClassify.ts (plantilla Clasificar)
     features/games/domino/     types.ts, demoDominoes.ts (plantilla Dominó)
+    features/games/roulette/   types.ts, demoRoulettes.ts, Wheel.tsx (plantilla Ruleta)
     features/lab/          balance/ (balanza de ecuaciones), fractions/ (tiras), geoboard/ (geoplano)
     lib/supabase.ts        cliente de Supabase (null si faltan las variables de .env)
     pages/                 HomePage, GamesPage, QuizPage, AcademyPage, ProfilePage, LoginPage,
                            LabPage, BalancePage, FractionStripsPage, GeoboardPage,
-                           GamePage (abre cada juego según su tipo), MatchPage, OrderPage, TrueFalsePage, ClassifyPage, DominoPage
+                           GamePage (abre cada juego según su tipo), MatchPage, OrderPage, TrueFalsePage, ClassifyPage, DominoPage, RoulettePage
   vercel.json              rewrite para que funcionen las rutas de React Router
   vite.config.ts           manifest PWA (nombre, colores, iconos)
 backend/

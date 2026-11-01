@@ -47,7 +47,7 @@ Marca cada casilla al terminarla y haz commit de este archivo para que el progre
 - [x] Ordenar los pasos de una resolución: 3 juegos de prueba en `features/games/order/demoOrders.ts`
 - [x] Dominó (cadena circular: cada ficha empieza con el resultado de la anterior): 3 juegos de prueba en `features/games/domino/demoDominoes.ts`
 - [x] Clasificar (tocar el grupo de cada tarjeta, por ejemplo suceso seguro / probable / imposible)
-- [ ] Ruleta de ejercicios
+- [x] Ruleta de ejercicios: 2 juegos de prueba en `features/games/roulette/demoRoulettes.ts`
 - [ ] Ranking por juego y por clase
 
 ## Fase 4: Instituciones y docentes
