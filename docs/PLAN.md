@@ -25,11 +25,13 @@ Marca cada casilla al terminarla y haz commit de este archivo para que el progre
 
 ## Fase 2: Academia
 
-- [ ] Modelo Curso → Unidad → Clase (video de YouTube no listado + teoría + ejercicios)
+- [x] Modelo Curso → Unidad → Clase (video de YouTube no listado + teoría + ejemplo resuelto + ejercicios) en `features/academy/`
 - [ ] Primer curso completo (temario a definir con Edgar)
-- [ ] Ejercicios resueltos paso a paso (comprender, planificar, resolver, comprobar)
-- [ ] Avance del alumno por clase y unidad
-- [ ] Práctica de repaso al final de cada unidad
+  - [x] Álgebra, 1.º de secundaria · Unidad 1: Ecuaciones de primer grado (4 clases + repaso; contenido provisional para que Edgar lo revise)
+  - [ ] Grabar los videos y pegar su `videoId` en `features/academy/courses.ts`
+- [x] Ejercicios resueltos paso a paso (comprender, planificar, resolver, comprobar)
+- [x] Avance del alumno por clase y unidad (por ahora en el navegador, `lib/progress.ts`; pasar a Supabase)
+- [x] Práctica de repaso al final de cada unidad
 - [ ] Simulaciones de GeoGebra incrustadas en las clases (ver `IDEAS_MATERIALES.md`)
 - [ ] Más grados de secundaria y pre-universitario
 

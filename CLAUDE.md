@@ -17,8 +17,8 @@ Plataforma web de matemáticas, **para computadora y celular** (diseño responsi
 
 | Módulo | Inspiración | Público | Estado |
 |---|---|---|---|
-| **Juegos** | Educaplay, Wordwall | Primaria y secundaria | Quiz de opción múltiple funcionando con datos de prueba |
-| **Academia** | Academias pre-u (tipo "Cachimbo") | Secundaria (principal) y pre-universitario | Solo pantalla con cursos bloqueados |
+| **Juegos** | Educaplay, Wordwall | Primaria y secundaria | 7 plantillas con datos de prueba (quiz, emparejar, ordenar, V o F, clasificar, dominó, ruleta) |
+| **Academia** | Academias pre-u (tipo "Cachimbo") | Secundaria (principal) y pre-universitario | Álgebra: unidad 1 (4 clases + repaso); videos pendientes |
 | **Aventura** | Hero Wars (single player) | Primaria y secundaria | Solo tarjeta "Pronto" |
 
 La idea central: lo que el alumno aprende en Academia y gana en Juegos (XP, monedas, "fórmulas desbloqueadas") se usa en Aventura para conseguir y mejorar héroes.
@@ -66,11 +66,14 @@ frontend/
     features/games/classify/   types.ts, demoClassify.ts (plantilla Clasificar)
     features/games/domino/     types.ts, demoDominoes.ts (plantilla Dominó)
     features/games/roulette/   types.ts, demoRoulettes.ts, Wheel.tsx (plantilla Ruleta)
+    features/academy/      types.ts, courses.ts (Curso → Unidad → Clase, contenido de prueba)
     features/lab/          balance/ (balanza de ecuaciones), fractions/ (tiras), geoboard/ (geoplano)
     lib/supabase.ts        cliente de Supabase (null si faltan las variables de .env)
+    lib/progress.ts        avance de la Academia (localStorage por ahora)
     pages/                 HomePage, GamesPage, QuizPage, AcademyPage, ProfilePage, LoginPage,
                            LabPage, BalancePage, FractionStripsPage, GeoboardPage,
-                           GamePage (abre cada juego según su tipo), MatchPage, OrderPage, TrueFalsePage, ClassifyPage, DominoPage, RoulettePage
+                           GamePage (abre cada juego según su tipo), MatchPage, OrderPage, TrueFalsePage, ClassifyPage, DominoPage, RoulettePage,
+                           CoursePage, LessonPage, AcademyPracticePage (Academia)
   vercel.json              rewrite para que funcionen las rutas de React Router
   vite.config.ts           manifest PWA (nombre, colores, iconos)
 backend/

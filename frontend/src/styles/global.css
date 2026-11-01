@@ -427,6 +427,63 @@ button { font-family: inherit; }
 }
 .course-card__body { flex: 1; display: flex; flex-direction: column; gap: 6px; }
 .lock { position: absolute; top: 14px; right: 14px; opacity: 0.6; }
+.course-card--open { box-shadow: 0 4px 0 var(--border); transition: transform 0.12s; }
+.course-card--open:active { transform: translateY(3px); }
+
+.unit-card {
+  display: flex; flex-direction: column; gap: 12px; padding: 16px;
+  border-radius: var(--radius); background: var(--surface); border: 2px solid var(--border);
+}
+.unit-card__head { display: flex; flex-direction: column; gap: 4px; }
+.unit-card__head h2 { font-size: 1.3rem; }
+.lesson-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.lesson-row {
+  display: flex; align-items: center; gap: 12px; padding: 12px;
+  border-radius: 14px; border: 2px solid var(--border); background: var(--bg); font-weight: 700;
+}
+.lesson-row:hover { border-color: var(--primary); }
+.lesson-row__num {
+  flex-shrink: 0; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%;
+  background: var(--primary-soft); color: var(--primary); font-weight: 800;
+}
+.lesson-row__title { flex: 1; }
+.lesson-row__score { font-size: 0.85rem; color: var(--green-dark); font-weight: 800; }
+.lesson-row--done .lesson-row__num { background: var(--green); color: #fff; }
+.lesson-row--review { background: #fff3cc; border-color: var(--yellow); }
+
+.video {
+  position: relative; aspect-ratio: 16 / 9; border-radius: var(--radius); overflow: hidden; background: var(--night);
+}
+.video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video--soon { display: grid; place-content: center; justify-items: center; gap: 4px; color: #c9c2f5; font-weight: 700; }
+.video--soon span { font-size: 2.4rem; }
+.lesson-section h2 { font-size: 1.2rem; }
+.lesson-section p { line-height: 1.55; }
+.theory-formula {
+  padding: 12px; border-radius: 14px; text-align: center; font-size: 1.25rem;
+  background: var(--primary-soft); overflow-x: auto;
+}
+.theory-tip { padding: 10px 14px; border-radius: 14px; background: #fff3cc; border: 2px solid var(--yellow); font-weight: 700; }
+.solved-problem { font-weight: 800; }
+.solved-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.solved-step {
+  display: flex; flex-direction: column; gap: 4px; padding: 10px 12px;
+  border-radius: 14px; border-left: 5px solid var(--primary); background: var(--bg); animation: pop 0.25s ease-out;
+}
+.solved-step__stage { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: var(--primary); }
+.solved-step--planificar { border-left-color: var(--yellow-dark); }
+.solved-step--planificar .solved-step__stage { color: var(--yellow-dark); }
+.solved-step--resolver { border-left-color: var(--green); }
+.solved-step--resolver .solved-step__stage { color: var(--green-dark); }
+.solved-step--comprobar { border-left-color: var(--red); }
+.solved-step--comprobar .solved-step__stage { color: var(--red-dark); }
+.lab-link {
+  display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+  border-radius: var(--radius); background: var(--surface); border: 2px solid var(--border); box-shadow: 0 4px 0 var(--border);
+}
+.lab-link > span:last-child { display: flex; flex-direction: column; gap: 2px; }
+.lesson-nav { display: flex; justify-content: space-between; gap: 12px; }
+.lesson-nav .btn { width: auto; }
 
 /* ---------- Laboratorio ---------- */
 .game-card--soon { opacity: 0.6; box-shadow: none; }

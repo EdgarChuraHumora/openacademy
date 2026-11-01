@@ -8,7 +8,14 @@ const letters = ['A', 'B', 'C', 'D']
 const XP_CORRECT = 10
 const XP_WITH_HINT = 5 // si pidió pista, gana menos XP
 
-export default function QuizPage({ quiz }: { quiz: Quiz }) {
+interface QuizPageProps {
+  quiz: Quiz
+  exitTo?: string // a dónde vuelve al salir (por defecto, la lista de juegos)
+  exitLabel?: string
+  onFinish?: (score: number, total: number) => void
+}
+
+export default function QuizPage({ quiz, exitTo = '/juegos', exitLabel = 'Volver a juegos', onFinish }: QuizPageProps) {
   const [current, setCurrent] = useState(0)
   const [selected, setSelected] = useState<number | null>(null)
   const [score, setScore] = useState(0)
@@ -44,7 +51,7 @@ export default function QuizPage({ quiz }: { quiz: Quiz }) {
         >
           Jugar otra vez
         </button>
-        <Link to="/juegos" className="btn btn--ghost">Volver a juegos</Link>
+        <Link to={exitTo} className="btn btn--ghost">{exitLabel}</Link>
       </section>
     )
   }
@@ -68,14 +75,14 @@ export default function QuizPage({ quiz }: { quiz: Quiz }) {
   return (
     <section className="stack narrow">
       <div className="quiz-top">
-        <Link to="/juegos" className="quiz-close" aria-label="Salir del juego">✕</Link>
+        <Link to={exitTo} className="quiz-close" aria-label="Salir">✕</Link>
         <div className="progress">
           <div className="progress__bar" style={{ width: `${(current / total) * 100}%` }} />
         </div>
         <span className="quiz-count">{current + 1}/{total}</span>
       </div>
 
-      <p className="muted">{quiz.title}</p>
+      <p className="muted"><MathText text={quiz.title} /></p>
       <div className="question"><MathText text={question.question} /></div>
 
       <div className="options">
@@ -128,6 +135,7 @@ export default function QuizPage({ quiz }: { quiz: Quiz }) {
             onClick={() => {
               setSelected(null)
               setHintsShown(0)
+              if (current + 1 === total) onFinish?.(score, total)
               setCurrent((c) => c + 1)
             }}
           >

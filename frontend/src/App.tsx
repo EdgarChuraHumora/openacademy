@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, type ReactNode } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import AppLayout from './components/layout/AppLayout'
 import HomePage from './pages/HomePage'
@@ -11,8 +11,15 @@ import BalancePage from './pages/BalancePage'
 import FractionStripsPage from './pages/FractionStripsPage'
 import GeoboardPage from './pages/GeoboardPage'
 
-// Los juegos usan KaTeX (pesado), así que se descargan solo al abrir uno
+// Estas pantallas usan KaTeX (pesado), así que se descargan solo al abrirlas
 const GamePage = lazy(() => import('./pages/GamePage'))
+const CoursePage = lazy(() => import('./pages/CoursePage'))
+const LessonPage = lazy(() => import('./pages/LessonPage'))
+const AcademyPracticePage = lazy(() => import('./pages/AcademyPracticePage'))
+
+function Lazy({ children }: { children: ReactNode }) {
+  return <Suspense fallback={<p className="muted center">Cargando…</p>}>{children}</Suspense>
+}
 
 export default function App() {
   return (
@@ -21,15 +28,18 @@ export default function App() {
       <Route element={<AppLayout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/juegos" element={<GamesPage />} />
-        <Route
-          path="/juegos/:id"
-          element={
-            <Suspense fallback={<p className="muted center">Cargando…</p>}>
-              <GamePage />
-            </Suspense>
-          }
-        />
+        <Route path="/juegos/:id" element={<Lazy><GamePage /></Lazy>} />
         <Route path="/academia" element={<AcademyPage />} />
+        <Route path="/academia/:courseId" element={<Lazy><CoursePage /></Lazy>} />
+        <Route path="/academia/:courseId/clase/:lessonId" element={<Lazy><LessonPage /></Lazy>} />
+        <Route
+          path="/academia/:courseId/clase/:lessonId/practica"
+          element={<Lazy><AcademyPracticePage kind="lesson" /></Lazy>}
+        />
+        <Route
+          path="/academia/:courseId/unidad/:unitId/repaso"
+          element={<Lazy><AcademyPracticePage kind="review" /></Lazy>}
+        />
         <Route path="/laboratorio" element={<LabPage />} />
         <Route path="/laboratorio/balanza" element={<BalancePage />} />
         <Route path="/laboratorio/fracciones" element={<FractionStripsPage />} />
