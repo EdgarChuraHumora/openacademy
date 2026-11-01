@@ -1,0 +1,62 @@
+import type { ClassifyGame } from './types'
+
+// Datos de prueba: más adelante vendrán de la base de datos (Supabase)
+export const demoClassify: ClassifyGame[] = [
+  {
+    id: 'primos-compuestos',
+    title: '¿Primo o compuesto?',
+    level: 'primaria',
+    icon: '🗂️',
+    color: 'blue',
+    groups: ['Primo', 'Compuesto'],
+    items: [
+      { text: '2', group: 0 },
+      { text: '9', group: 1 },
+      { text: '7', group: 0 },
+      { text: '15', group: 1 },
+      { text: '11', group: 0 },
+      { text: '21', group: 1 },
+      { text: '17', group: 0 },
+      { text: '4', group: 1 },
+      { text: '23', group: 0 },
+      { text: '27', group: 1 },
+    ],
+  },
+  {
+    id: 'sucesos',
+    title: 'Seguro, probable o imposible',
+    level: 'primaria',
+    icon: '🗂️',
+    color: 'yellow',
+    groups: ['Seguro', 'Probable', 'Imposible'],
+    items: [
+      { text: 'Al lanzar un dado, sale un número menor que 7', group: 0 },
+      { text: 'Al lanzar un dado, sale 8', group: 2 },
+      { text: 'Al lanzar un dado, sale 3', group: 1 },
+      { text: 'Al lanzar una moneda, sale cara', group: 1 },
+      { text: 'Sacar una bolilla roja de una bolsa que solo tiene bolillas azules', group: 2 },
+      { text: 'Sacar una bolilla azul de una bolsa que solo tiene bolillas azules', group: 0 },
+      { text: 'Al lanzar un dado, sale un número par', group: 1 },
+      { text: 'Un mes tiene 35 días', group: 2 },
+      { text: 'Después del lunes viene el martes', group: 0 },
+    ],
+  },
+  {
+    id: 'lineal-afin',
+    title: '¿Función lineal o afín?',
+    level: 'secundaria',
+    icon: '🗂️',
+    color: 'green',
+    groups: ['Lineal: $y = mx$', 'Afín: $y = mx + b$'],
+    items: [
+      { text: '$y = 3x$', group: 0 },
+      { text: '$y = 2x + 1$', group: 1 },
+      { text: '$y = -x$', group: 0 },
+      { text: '$y = 5x - 4$', group: 1 },
+      { text: '$y = \\dfrac{x}{2}$', group: 0 },
+      { text: '$y = -2x + 7$', group: 1 },
+      { text: 'Taxi: S/ 5 al subir más S/ 2 por kilómetro', group: 1 },
+      { text: 'Precio de $x$ kg de arroz a S/ 4 el kilo', group: 0 },
+    ],
+  },
+]

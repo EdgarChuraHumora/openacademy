@@ -325,6 +325,37 @@ button { font-family: inherit; }
 .tf-true { color: var(--green-dark); font-weight: 800; }
 .tf-false { color: var(--red-dark); font-weight: 800; }
 
+/* ---------- Clasificar ---------- */
+.classify-card {
+  display: grid; place-items: center; min-height: 110px; padding: 18px; text-align: center;
+  border-radius: 24px; background: var(--surface); border: 2px solid var(--primary);
+  box-shadow: 0 5px 0 var(--primary-dark);
+  font-family: var(--font-title); font-size: 1.5rem; font-weight: 600; line-height: 1.3;
+  animation: pop 0.25s ease-out;
+}
+.classify-card--wrong { border-color: var(--red); box-shadow: 0 5px 0 var(--red-dark); }
+.classify-ready { font-weight: 800; color: var(--primary); }
+.classify-groups { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.classify-groups--2 { grid-template-columns: 1fr 1fr; }
+.classify-group {
+  display: flex; flex-direction: column; gap: 8px; padding: 8px;
+  border-radius: 20px; background: var(--primary-soft);
+}
+.classify-group__head {
+  padding: 14px 10px; border: none; border-radius: 14px; cursor: pointer;
+  background: var(--primary); color: #fff; box-shadow: 0 4px 0 var(--primary-dark);
+  font-family: var(--font-title); font-size: 1.1rem; font-weight: 600;
+}
+.classify-group__head:active { transform: translateY(4px); box-shadow: none; }
+.classify-group__head:disabled { opacity: 0.7; cursor: default; transform: none; }
+.classify-group__items { display: flex; flex-wrap: wrap; gap: 6px; }
+.classify-chip {
+  padding: 6px 10px; border-radius: 10px; cursor: pointer; text-align: left;
+  border: 2px solid var(--border); background: var(--surface); color: var(--text);
+  font-family: inherit; font-size: 0.85rem; font-weight: 700; animation: pop 0.2s ease-out;
+}
+.classify-chip--ok { border-color: var(--green); background: #d9f8e4; cursor: default; }
+
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
   25% { transform: translateX(-6px); }
@@ -532,6 +563,7 @@ button { font-family: inherit; }
   .question { font-size: 2.8rem; padding: 48px 16px; }
   .feedback .btn { flex-basis: auto; width: auto; }
   .tf-keys { display: block; }
+  .classify-groups--3 { grid-template-columns: repeat(3, 1fr); }
 }
 
 /* Con 5 secciones, en pantallas medianas el menú superior se ajusta para no partirse */
