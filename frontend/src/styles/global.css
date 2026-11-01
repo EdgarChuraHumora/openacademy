@@ -641,6 +641,19 @@ button { font-family: inherit; }
   border: 2px solid var(--border); background: var(--bg); color: var(--text); outline: none;
 }
 .field input:focus { border-color: var(--primary); }
+.field select {
+  padding: 13px 14px; border-radius: 14px; font-size: 1rem; font-family: inherit;
+  border: 2px solid var(--border); background: var(--bg); color: var(--text);
+}
+.auth__error, .auth__notice {
+  width: 100%; padding: 10px 14px; border-radius: 14px; font-weight: 700; text-align: center;
+}
+.auth__error { background: #ffe1e7; color: var(--red-dark); }
+.auth__notice { background: #d9f8e4; color: var(--green-dark); }
+.link-btn {
+  padding: 0; border: none; background: none; cursor: pointer;
+  font: inherit; font-weight: 700; color: var(--primary);
+}
 
 /* ---------- Tablets y computadoras ---------- */
 @media (min-width: 768px) {

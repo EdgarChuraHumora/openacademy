@@ -2,12 +2,14 @@ import { Link, useParams } from 'react-router-dom'
 import Mascot from '../components/brand/Mascot'
 import { findCourse, findLesson } from '../features/academy/courses'
 import { lessonKey, reviewKey, saveResult } from '../lib/progress'
+import { useRecordGame } from '../lib/results'
 import QuizPage from './QuizPage'
 
 // Ejercicios de una clase o repaso de una unidad, con la misma pantalla del quiz
 export default function AcademyPracticePage({ kind }: { kind: 'lesson' | 'review' }) {
   const { courseId, lessonId, unitId } = useParams()
   const course = findCourse(courseId)
+  const record = useRecordGame()
 
   let target = null
   if (course && kind === 'lesson') {
@@ -51,7 +53,10 @@ export default function AcademyPracticePage({ kind }: { kind: 'lesson' | 'review
       quiz={{ id: key, title, level: 'secundaria', icon: '📚', color: course.color, questions }}
       exitTo={exitTo}
       exitLabel={exitLabel}
-      onFinish={(score, total) => saveResult(key, score, total)}
+      onFinish={(score, total, xp) => {
+        saveResult(key, score, total)
+        record(`academia:${key}`, score, total, xp)
+      }}
     />
   )
 }

@@ -14,10 +14,10 @@ Marca cada casilla al terminarla y haz commit de este archivo para que el progre
 - [x] Subir a GitHub `EdgarChuraHumora/openacademy`
 - [x] Footer con "© OpenAcademy · Creado por Edgar Chura Humora" y `author` en los package.json
 - [ ] Publicar el frontend en Vercel (Root Directory = `frontend`) y probar la instalación PWA en el celular
-- [ ] Crear proyecto en Supabase; variables `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY` en `frontend/.env` y en Vercel
-- [ ] Registro, login, logout y recuperación de contraseña con Supabase Auth; rutas protegidas
-- [ ] Tabla `profiles` (nombre, rol, grado, nivel, xp, monedas, racha) con Row Level Security
-- [ ] Guardar el XP y las partidas al terminar un quiz; mostrar el XP real en el encabezado y en Perfil
+- [x] Crear proyecto en Supabase; variables `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY` en `frontend/.env` y en Vercel
+- [x] Registro, login, logout y recuperación de contraseña con Supabase Auth (falta configurar el envío de correos para alumnos)
+- [x] Tabla `profiles` (nombre, rol, grado, nivel, xp, monedas, racha) con Row Level Security
+- [x] Guardar el XP y las partidas al terminar cualquier juego o práctica; XP real en el encabezado y en Perfil; avance de la Academia en la cuenta
 - [ ] Mover los quizzes de prueba a tablas (`games`, `questions`) y leerlos desde Supabase
 - [x] Soporte de fórmulas con KaTeX en preguntas y respuestas
 - [ ] Panel docente básico: crear, editar y publicar un quiz, y compartirlo con enlace o código

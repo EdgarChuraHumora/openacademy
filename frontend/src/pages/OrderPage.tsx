@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Mascot from '../components/brand/Mascot'
 import MathText from '../components/MathText'
-import { XP_PER_ORDER } from '../features/games/catalog'
+import { XP_PER_ORDER, type OnFinish } from '../features/games/catalog'
 import type { OrderGame, OrderProblem } from '../features/games/order/types'
 import { shuffle } from '../features/games/shuffle'
 
@@ -13,7 +13,7 @@ function mixed(n: number) {
   return order
 }
 
-export default function OrderPage({ game }: { game: OrderGame }) {
+export default function OrderPage({ game, onFinish }: { game: OrderGame; onFinish?: OnFinish }) {
   const total = game.problems.length
   const [index, setIndex] = useState(0)
   const [xp, setXp] = useState(0)
@@ -21,10 +21,15 @@ export default function OrderPage({ game }: { game: OrderGame }) {
   const [finished, setFinished] = useState(false)
 
   function next(onFirstTry: boolean) {
-    setXp((x) => x + (onFirstTry ? XP_PER_ORDER : XP_PER_ORDER / 2))
-    if (onFirstTry) setFirstTry((n) => n + 1)
+    const newXp = xp + (onFirstTry ? XP_PER_ORDER : XP_PER_ORDER / 2)
+    const newFirst = firstTry + (onFirstTry ? 1 : 0)
+    setXp(newXp)
+    setFirstTry(newFirst)
     if (index + 1 < total) setIndex(index + 1)
-    else setFinished(true)
+    else {
+      setFinished(true)
+      onFinish?.(newFirst, total, newXp)
+    }
   }
 
   if (finished) {

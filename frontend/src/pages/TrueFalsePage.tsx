@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Mascot from '../components/brand/Mascot'
 import MathText from '../components/MathText'
-import { XP_PER_TRUE_FALSE } from '../features/games/catalog'
+import { XP_PER_TRUE_FALSE, type OnFinish } from '../features/games/catalog'
 import { shuffle } from '../features/games/shuffle'
 import type { TrueFalseGame } from '../features/games/truefalse/types'
 
@@ -13,7 +13,7 @@ interface Answer {
   ok: boolean
 }
 
-export default function TrueFalsePage({ game }: { game: TrueFalseGame }) {
+export default function TrueFalsePage({ game, onFinish }: { game: TrueFalseGame; onFinish?: OnFinish }) {
   const total = game.statements.length
   const limit = game.seconds * 1000
   const [phase, setPhase] = useState<Phase>('ready')
@@ -42,6 +42,15 @@ export default function TrueFalsePage({ game }: { game: TrueFalseGame }) {
 
   useEffect(() => () => clearTimeout(flashTimer.current), [])
 
+  // Avisa una sola vez por partida cuando termina (por tiempo o al responder todas)
+  const reported = useRef(false)
+  useEffect(() => {
+    if (!over || reported.current) return
+    reported.current = true
+    const correct = answers.filter((a) => a.ok).length
+    onFinish?.(correct, total, correct * XP_PER_TRUE_FALSE)
+  }, [over, answers, total, onFinish])
+
   function start() {
     const t = Date.now()
     setOrder(shuffle(total))
@@ -50,6 +59,7 @@ export default function TrueFalsePage({ game }: { game: TrueFalseGame }) {
     setStartedAt(t)
     setNow(t)
     setPhase('playing')
+    reported.current = false
   }
 
   function answer(value: boolean) {

@@ -12,7 +12,7 @@ interface QuizPageProps {
   quiz: Quiz
   exitTo?: string // a dónde vuelve al salir (por defecto, la lista de juegos)
   exitLabel?: string
-  onFinish?: (score: number, total: number) => void
+  onFinish?: (score: number, total: number, xp: number) => void
 }
 
 export default function QuizPage({ quiz, exitTo = '/juegos', exitLabel = 'Volver a juegos', onFinish }: QuizPageProps) {
@@ -135,7 +135,7 @@ export default function QuizPage({ quiz, exitTo = '/juegos', exitLabel = 'Volver
             onClick={() => {
               setSelected(null)
               setHintsShown(0)
-              if (current + 1 === total) onFinish?.(score, total)
+              if (current + 1 === total) onFinish?.(score, total, xp)
               setCurrent((c) => c + 1)
             }}
           >

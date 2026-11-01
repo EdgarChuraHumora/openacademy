@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Mascot from '../components/brand/Mascot'
 import MathText from '../components/MathText'
-import { XP_PER_ROULETTE } from '../features/games/catalog'
+import { XP_PER_ROULETTE, type OnFinish } from '../features/games/catalog'
 import Wheel from '../features/games/roulette/Wheel'
 import type { RouletteGame } from '../features/games/roulette/types'
 
@@ -12,7 +12,7 @@ const letters = ['A', 'B', 'C', 'D']
 const reduceMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 const SPIN_MS = reduceMotion ? 300 : 3200
 
-export default function RoulettePage({ game }: { game: RouletteGame }) {
+export default function RoulettePage({ game, onFinish }: { game: RouletteGame; onFinish?: OnFinish }) {
   const n = game.sectors.length
   const [rotation, setRotation] = useState(0)
   const [spinning, setSpinning] = useState(false)
@@ -50,7 +50,11 @@ export default function RoulettePage({ game }: { game: RouletteGame }) {
   function next() {
     setCurrent(null)
     setSelected(null)
-    if (remaining.length === 0) setFinished(true)
+    if (remaining.length === 0) {
+      setFinished(true)
+      const correct = results.filter(Boolean).length
+      onFinish?.(correct, n, correct * XP_PER_ROULETTE)
+    }
   }
 
   function restart() {

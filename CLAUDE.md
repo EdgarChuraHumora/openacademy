@@ -38,7 +38,7 @@ Los pagos son para más adelante (alumno premium y suscripción docente o instit
 
 - **Frontend:** React 19 + TypeScript + Vite + React Router + `vite-plugin-pwa`. **No usar Astro.**
 - **Backend:** Node.js + Express + TypeScript (carpeta `backend/`), pequeño al inicio.
-- **Base de datos y login:** Supabase (PostgreSQL + Auth + Storage), aún **no conectado**.
+- **Base de datos y login:** Supabase (PostgreSQL + Auth + Storage), conectado (proyecto `openacademy`, región São Paulo). Claves en `frontend/.env`.
 - **Despliegue:** frontend en Vercel (Root Directory = `frontend`); backend en Render (plan gratis).
 - **Futuro:** KaTeX para fórmulas, Phaser.js para el modo Aventura, Mercado Pago o Culqi para pagos (Perú), Capacitor si se quiere publicar en tiendas de apps.
 
@@ -72,7 +72,9 @@ frontend/
     features/academy/      types.ts, courses.ts (Curso → Unidad → Clase, contenido de prueba)
     features/lab/          balance/ (balanza de ecuaciones), fractions/ (tiras), geoboard/ (geoplano)
     lib/supabase.ts        cliente de Supabase (null si faltan las variables de .env)
-    lib/progress.ts        avance de la Academia (localStorage por ahora)
+    lib/auth.tsx           sesión y perfil (AuthProvider, useAuth)
+    lib/results.ts         useRecordGame: guarda resultado y XP con la función record_game
+    lib/progress.ts        avance de la Academia (localStorage + tabla lesson_progress)
     pages/                 HomePage, GamesPage, QuizPage, AcademyPage, ProfilePage, LoginPage,
                            LabPage, BalancePage, FractionStripsPage, GeoboardPage,
                            GamePage (abre cada juego según su tipo), MatchPage, OrderPage, TrueFalsePage, ClassifyPage, DominoPage, RoulettePage,

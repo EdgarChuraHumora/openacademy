@@ -2,11 +2,11 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Mascot from '../components/brand/Mascot'
 import MathText from '../components/MathText'
-import { XP_PER_CLASSIFY } from '../features/games/catalog'
+import { XP_PER_CLASSIFY, type OnFinish } from '../features/games/catalog'
 import type { ClassifyGame } from '../features/games/classify/types'
 import { shuffle } from '../features/games/shuffle'
 
-export default function ClassifyPage({ game }: { game: ClassifyGame }) {
+export default function ClassifyPage({ game, onFinish }: { game: ClassifyGame; onFinish?: OnFinish }) {
   const total = game.items.length
   const [deck, setDeck] = useState(() => shuffle(total)) // tarjetas por ubicar; la primera es la actual
   const [placed, setPlaced] = useState<(number | null)[]>(() => Array(total).fill(null)) // grupo elegido por tarjeta
@@ -33,7 +33,9 @@ export default function ClassifyPage({ game }: { game: ClassifyGame }) {
   function check() {
     const ok = placed.map((g, id) => g === game.items[id].group)
     const bad = ok.flatMap((good, id) => (good ? [] : [id]))
-    if (checks === 0) setFirstOk(ok.filter(Boolean).length)
+    const first = checks === 0 ? ok.filter(Boolean).length : firstOk
+    setFirstOk(first)
+    if (ok.every(Boolean)) onFinish?.(first, total, first * XP_PER_CLASSIFY + (total - first))
     setChecks(checks + 1)
     setLocked(ok)
     setWrong(bad)

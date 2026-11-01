@@ -6,6 +6,7 @@ import GamesPage from './pages/GamesPage'
 import AcademyPage from './pages/AcademyPage'
 import ProfilePage from './pages/ProfilePage'
 import LoginPage from './pages/LoginPage'
+import NewPasswordPage from './pages/NewPasswordPage'
 import LabPage from './pages/LabPage'
 import BalancePage from './pages/BalancePage'
 import FractionStripsPage from './pages/FractionStripsPage'
@@ -25,6 +26,7 @@ export default function App() {
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/nueva-clave" element={<NewPasswordPage />} />
       <Route element={<AppLayout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/juegos" element={<GamesPage />} />

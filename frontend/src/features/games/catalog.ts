@@ -33,6 +33,9 @@ export const games: GameEntry[] = [
   ...demoRoulettes.map((r) => ({ kind: 'roulette' as const, ...r })),
 ]
 
+// Lo llama cada juego al terminar, para guardar el resultado en la cuenta del alumno
+export type OnFinish = (score: number, total: number, xp: number) => void
+
 export const XP_PER_PAIR = 5
 export const XP_PER_ORDER = 10 // si lo ordena bien al primer intento; si no, la mitad
 export const XP_PER_TRUE_FALSE = 3

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Mascot from '../components/brand/Mascot'
 import MathText from '../components/MathText'
-import { XP_PER_PAIR } from '../features/games/catalog'
+import { XP_PER_PAIR, type OnFinish } from '../features/games/catalog'
 import type { MatchGame } from '../features/games/match/types'
 import { shuffle } from '../features/games/shuffle'
 
@@ -17,7 +17,7 @@ function formatTime(ms: number) {
   return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`
 }
 
-export default function MatchPage({ game }: { game: MatchGame }) {
+export default function MatchPage({ game, onFinish }: { game: MatchGame; onFinish?: OnFinish }) {
   const total = game.pairs.length
   const [round, setRound] = useState(() => newRound(total))
   const [matched, setMatched] = useState<number[]>([])
@@ -46,7 +46,10 @@ export default function MatchPage({ game }: { game: MatchGame }) {
     if (left === right) {
       const next = [...matched, id]
       setMatched(next)
-      if (next.length === total) setEndedAt(Date.now())
+      if (next.length === total) {
+        setEndedAt(Date.now())
+        onFinish?.(Math.max(0, total - errors), total, total * XP_PER_PAIR)
+      }
     } else {
       setErrors((e) => e + 1)
       setWrong({ left, right })

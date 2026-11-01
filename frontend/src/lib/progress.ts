@@ -1,8 +1,8 @@
 import { useSyncExternalStore } from 'react'
+import { supabase } from './supabase'
 
 // Avance del alumno en la Academia.
-// Por ahora se guarda solo en este navegador (localStorage); cuando conectemos Supabase
-// se guardará en la cuenta del alumno.
+// Se guarda en este navegador (localStorage) y, si el alumno inició sesión, también en su cuenta (Supabase).
 const KEY = 'openacademy:progress'
 
 export interface Result {
@@ -14,6 +14,7 @@ type Progress = Record<string, Result> // clave: "curso/clase" o "curso/unidad/r
 
 const listeners = new Set<() => void>()
 let cache: Progress | null = null
+let userId: string | null = null
 
 function read(): Progress {
   if (cache) return cache
@@ -25,25 +26,55 @@ function read(): Progress {
   return cache
 }
 
-// Guarda el resultado si es el primero o si mejora el anterior
-export function saveResult(key: string, score: number, total: number) {
-  const current = read()
-  const prev = current[key]
-  if (prev && prev.score >= score) return
-  cache = { ...current, [key]: { score, total } }
+function write(next: Progress) {
+  cache = next
   try {
-    localStorage.setItem(KEY, JSON.stringify(cache))
+    localStorage.setItem(KEY, JSON.stringify(next))
   } catch {
     // Sin almacenamiento (modo privado): el avance dura mientras la pestaña esté abierta
   }
   listeners.forEach((l) => l())
 }
 
+const better = (a: Result | undefined, b: Result) => !a || b.score > a.score
+
+// Guarda el resultado si es el primero o si mejora el anterior
+export function saveResult(key: string, score: number, total: number) {
+  if (!better(read()[key], { score, total })) return
+  write({ ...read(), [key]: { score, total } })
+  if (supabase && userId) {
+    supabase
+      .from('lesson_progress')
+      .upsert({ user_id: userId, key, score, total, updated_at: new Date().toISOString() })
+      .then(({ error }) => error && console.warn('No se pudo guardar el avance en la cuenta', error.message))
+  }
+}
+
+// Al iniciar sesión: junta el avance de la cuenta con el de este navegador (se queda el mejor)
+export async function syncProgress(id: string | null) {
+  userId = id
+  if (!supabase || !id) return
+  const { data } = await supabase.from('lesson_progress').select('key, score, total')
+  const merged = { ...read() }
+  for (const row of data ?? []) {
+    if (better(merged[row.key], row)) merged[row.key] = { score: row.score, total: row.total }
+  }
+  write(merged)
+  // Sube lo que solo estaba en este navegador
+  const remote = new Map((data ?? []).map((r) => [r.key, r.score]))
+  const pending = Object.entries(merged)
+    .filter(([k, r]) => (remote.get(k) ?? -1) < r.score)
+    .map(([k, r]) => ({ user_id: id, key: k, score: r.score, total: r.total }))
+  if (pending.length) await supabase.from('lesson_progress').upsert(pending)
+}
+
 export function useProgress() {
   return useSyncExternalStore(
     (listener) => {
       listeners.add(listener)
-      return () => listeners.delete(listener)
+      return () => {
+        listeners.delete(listener)
+      }
     },
     read,
   )

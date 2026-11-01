@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Mascot from '../components/brand/Mascot'
 import MathText from '../components/MathText'
-import { XP_PER_DOMINO } from '../features/games/catalog'
+import { XP_PER_DOMINO, type OnFinish } from '../features/games/catalog'
 import type { DominoGame } from '../features/games/domino/types'
 import { shuffle } from '../features/games/shuffle'
 
@@ -11,7 +11,7 @@ function newHand(n: number) {
   return shuffle(n - 1).map((i) => i + 1)
 }
 
-export default function DominoPage({ game }: { game: DominoGame }) {
+export default function DominoPage({ game, onFinish }: { game: DominoGame; onFinish?: OnFinish }) {
   const n = game.pairs.length
   const [chain, setChain] = useState(1) // fichas 0..chain-1 ya están en la mesa
   const [hand, setHand] = useState(() => newHand(n))
@@ -27,6 +27,7 @@ export default function DominoPage({ game }: { game: DominoGame }) {
     if (wrong !== null) return
     if (k === chain) {
       setChain(chain + 1)
+      if (chain + 1 === n) onFinish?.(Math.max(0, n - 1 - errors), n - 1, (n - 1) * XP_PER_DOMINO)
       setHand(hand.filter((h) => h !== k))
     } else {
       setErrors(errors + 1)
