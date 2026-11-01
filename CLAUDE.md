@@ -49,6 +49,9 @@ CLAUDE.md                  este archivo
 README.md
 docs/PLAN.md               hoja de ruta por fases
 docs/IDEAS_MATERIALES.md   ideas de materiales manipulativos virtuales
+docs/SEGURIDAD.md          qué protege la app y qué falta cuidar
+supabase/migrations/       SQL de las tablas (con Row Level Security); se pegan en el SQL Editor de Supabase
+.github/dependabot.yml     avisos mensuales de librerías
 frontend/
   public/                  favicon.svg, pwa-192x192.png, pwa-512x512.png (mascota Opi)
   src/
