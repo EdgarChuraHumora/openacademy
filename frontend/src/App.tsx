@@ -11,8 +11,8 @@ import BalancePage from './pages/BalancePage'
 import FractionStripsPage from './pages/FractionStripsPage'
 import GeoboardPage from './pages/GeoboardPage'
 
-// El quiz usa KaTeX (pesado), así que se descarga solo al abrir un juego
-const QuizPage = lazy(() => import('./pages/QuizPage'))
+// Los juegos usan KaTeX (pesado), así que se descargan solo al abrir uno
+const GamePage = lazy(() => import('./pages/GamePage'))
 
 export default function App() {
   return (
@@ -25,7 +25,7 @@ export default function App() {
           path="/juegos/:id"
           element={
             <Suspense fallback={<p className="muted center">Cargando…</p>}>
-              <QuizPage />
+              <GamePage />
             </Suspense>
           }
         />

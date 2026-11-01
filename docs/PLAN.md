@@ -42,7 +42,7 @@ Marca cada casilla al terminarla y haz commit de este archivo para que el progre
 
 ## Fase 3: Más juegos (plantillas tipo Wordwall)
 
-- [ ] Emparejar (fórmula ↔ resultado)
+- [x] Emparejar (fórmula ↔ resultado): 3 juegos de prueba en `features/games/match/demoMatches.ts`
 - [ ] Verdadero o falso contra el tiempo
 - [ ] Ordenar los pasos de una resolución
 - [ ] Dominó (emparejar expresión ↔ resultado)

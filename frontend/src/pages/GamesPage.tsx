@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { demoQuizzes } from '../features/games/quiz/demoQuizzes'
+import { gameSummary, games } from '../features/games/catalog'
 
 const filters = [
   { value: 'todos', label: 'Todos' },
@@ -12,7 +12,7 @@ type Filter = (typeof filters)[number]['value']
 
 export default function GamesPage() {
   const [filter, setFilter] = useState<Filter>('todos')
-  const quizzes = demoQuizzes.filter((q) => filter === 'todos' || q.level === filter)
+  const visible = games.filter((g) => filter === 'todos' || g.level === filter)
 
   return (
     <section className="stack">
@@ -32,13 +32,13 @@ export default function GamesPage() {
         ))}
       </div>
       <div className="grid">
-        {quizzes.map((quiz) => (
+        {visible.map((quiz) => (
           <Link key={quiz.id} to={`/juegos/${quiz.id}`} className="game-card">
             <span className={`game-card__cover tile--${quiz.color}`}>{quiz.icon}</span>
             <div className="game-card__body">
               <span className="badge">{quiz.level}</span>
               <h3>{quiz.title}</h3>
-              <p className="muted">{quiz.questions.length} preguntas · +{quiz.questions.length * 10} XP</p>
+              <p className="muted">{gameSummary(quiz)}</p>
             </div>
           </Link>
         ))}

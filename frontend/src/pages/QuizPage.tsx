@@ -1,31 +1,19 @@
 import { useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Mascot from '../components/brand/Mascot'
 import MathText from '../components/MathText'
-import { demoQuizzes } from '../features/games/quiz/demoQuizzes'
+import type { Quiz } from '../features/games/quiz/types'
 
 const letters = ['A', 'B', 'C', 'D']
 const XP_CORRECT = 10
 const XP_WITH_HINT = 5 // si pidió pista, gana menos XP
 
-export default function QuizPage() {
-  const { id } = useParams()
-  const quiz = demoQuizzes.find((q) => q.id === id)
+export default function QuizPage({ quiz }: { quiz: Quiz }) {
   const [current, setCurrent] = useState(0)
   const [selected, setSelected] = useState<number | null>(null)
   const [score, setScore] = useState(0)
   const [xp, setXp] = useState(0)
   const [hintsShown, setHintsShown] = useState(0)
-
-  if (!quiz) {
-    return (
-      <section className="stack narrow center">
-        <Mascot mood="sad" />
-        <p>Juego no encontrado.</p>
-        <Link to="/juegos" className="btn">Volver a juegos</Link>
-      </section>
-    )
-  }
 
   const total = quiz.questions.length
 
