@@ -1,5 +1,5 @@
 import { lazy, Suspense, type ReactNode } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Link, Route, Routes } from 'react-router-dom'
 import AppLayout from './components/layout/AppLayout'
 import HomePage from './pages/HomePage'
 import GamesPage from './pages/GamesPage'
@@ -54,6 +54,16 @@ export default function App() {
         <Route path="/docente/nuevo" element={<Lazy><QuizEditorPage /></Lazy>} />
         <Route path="/docente/editar/:id" element={<Lazy><QuizEditorPage key="editar" /></Lazy>} />
         <Route path="/perfil" element={<ProfilePage />} />
+        <Route
+          path="*"
+          element={
+            <section className="stack narrow center">
+              <h1>Página no encontrada</h1>
+              <p className="muted">Puede que la app se haya actualizado. Vuelve al inicio.</p>
+              <Link to="/" className="btn">Ir al inicio</Link>
+            </section>
+          }
+        />
       </Route>
     </Routes>
   )
