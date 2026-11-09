@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
+import ClassifyEditor from '../features/teacher/ClassifyEditor'
+import DominoEditor from '../features/teacher/DominoEditor'
 import MatchEditor from '../features/teacher/MatchEditor'
+import OrderEditor from '../features/teacher/OrderEditor'
 import QuizEditor from '../features/teacher/QuizEditor'
+import RouletteEditor from '../features/teacher/RouletteEditor'
 import TrueFalseEditor from '../features/teacher/TrueFalseEditor'
 import { useAuth } from '../lib/auth'
 import { supabase } from '../lib/supabase'
@@ -9,13 +13,17 @@ import type { DbGame } from '../lib/userGames'
 import { TeacherGate, useIsTeacher } from './TeacherPage'
 
 // Tipos de juego que ya se pueden crear desde el panel docente
-export const editableKinds = ['quiz', 'match', 'truefalse'] as const
+export const editableKinds = ['quiz', 'match', 'truefalse', 'order', 'classify', 'domino', 'roulette'] as const
 type EditableKind = (typeof editableKinds)[number]
 const isEditable = (kind: string): kind is EditableKind => (editableKinds as readonly string[]).includes(kind)
 
 function Editor({ kind, initial }: { kind: EditableKind; initial?: DbGame }) {
   if (kind === 'match') return <MatchEditor initial={initial} />
   if (kind === 'truefalse') return <TrueFalseEditor initial={initial} />
+  if (kind === 'order') return <OrderEditor initial={initial} />
+  if (kind === 'classify') return <ClassifyEditor initial={initial} />
+  if (kind === 'domino') return <DominoEditor initial={initial} />
+  if (kind === 'roulette') return <RouletteEditor initial={initial} />
   return <QuizEditor initial={initial} />
 }
 
@@ -48,7 +56,7 @@ export default function GameEditorPage() {
   if (!row || !isEditable(row.kind)) {
     return (
       <section className="stack narrow center">
-        <p>No encontramos ese juego entre los tuyos, o todavía no se puede editar desde aquí.</p>
+        <p>No encontramos ese juego entre los tuyos.</p>
         <Link to="/docente" className="btn">Volver al panel docente</Link>
       </section>
     )

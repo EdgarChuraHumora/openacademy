@@ -70,7 +70,7 @@ frontend/
     features/games/domino/     types.ts, demoDominoes.ts (plantilla Dominó)
     features/games/roulette/   types.ts, demoRoulettes.ts, Wheel.tsx (plantilla Ruleta)
     features/academy/      types.ts, courses.ts (Curso → Unidad → Clase, contenido de prueba)
-    features/teacher/      editorShared.tsx (partes comunes) y editores: QuizEditor, MatchEditor, TrueFalseEditor
+    features/teacher/      editorShared.tsx (partes comunes) y un editor por plantilla (Quiz, Match, TrueFalse, Order, Classify, Domino, Roulette)
     features/lab/          balance/ (balanza de ecuaciones), fractions/ (tiras), geoboard/ (geoplano)
     lib/supabase.ts        cliente de Supabase (null si faltan las variables de .env)
     lib/auth.tsx           sesión y perfil (AuthProvider, useAuth)

@@ -804,3 +804,9 @@ button { font-family: inherit; }
 /* Las columnas del editor no deben empujar el ancho de la pantalla en celular */
 .editor-row > * { min-width: 0; }
 .field input, .field select, .field textarea { min-width: 0; width: 100%; box-sizing: border-box; }
+.editor-step { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.editor-step > input { flex: 1; min-width: 0; padding: 11px 12px; border-radius: 12px; border: 2px solid var(--border); font: inherit; background: var(--bg); }
+.editor-step > select { padding: 10px; border-radius: 12px; border: 2px solid var(--border); font: inherit; font-weight: 700; background: var(--bg); max-width: 40%; }
+.editor-step .editor-option__preview { padding-left: 38px; }
+.domino--preview { opacity: 1; }
+.field input[type='radio'], .field input[type='checkbox'] { width: auto; flex: none; }

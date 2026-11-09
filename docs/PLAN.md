@@ -23,8 +23,7 @@ Marca cada casilla al terminarla y haz commit de este archivo para que el progre
 - [ ] Pasar los juegos de prueba del código a la tabla (opcional: hoy conviven ambos)
 - [x] Soporte de fórmulas con KaTeX en preguntas y respuestas
 - [x] Panel docente básico (`/docente`): crear, editar, publicar y borrar quizzes; compartir con enlace o código de 6 letras
-- [x] Editores de Emparejar y Verdadero o falso (`features/teacher/`)
-- [ ] Editores de Ordenar, Clasificar, Dominó y Ruleta
+- [x] Editores de las 7 plantillas en el panel docente (`features/teacher/`)
 - [x] Solicitud "Soy docente" y pantalla de administración (`/admin`) para aprobar docentes y cambiar roles
 - [x] Retroalimentación por pregunta: pista progresiva antes de la solución y explicación del error típico al fallar
 

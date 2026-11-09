@@ -111,6 +111,26 @@ export default function TeacherPage() {
           <strong>Verdadero o falso</strong>
           <small className="muted">Afirmaciones contra el reloj</small>
         </Link>
+        <Link to="/docente/nuevo?tipo=order" className="create-card">
+          <span aria-hidden="true">🪜</span>
+          <strong>Ordenar pasos</strong>
+          <small className="muted">Ordenar la resolución de un problema</small>
+        </Link>
+        <Link to="/docente/nuevo?tipo=classify" className="create-card">
+          <span aria-hidden="true">🗂️</span>
+          <strong>Clasificar</strong>
+          <small className="muted">Ubicar tarjetas en 2 o 3 grupos</small>
+        </Link>
+        <Link to="/docente/nuevo?tipo=domino" className="create-card">
+          <span aria-hidden="true">🧩</span>
+          <strong>Dominó</strong>
+          <small className="muted">Fichas en cadena: operación y resultado</small>
+        </Link>
+        <Link to="/docente/nuevo?tipo=roulette" className="create-card">
+          <span aria-hidden="true">🎡</span>
+          <strong>Ruleta</strong>
+          <small className="muted">Girar y resolver el ejercicio del sector</small>
+        </Link>
       </div>
 
       {games === null ? (
@@ -145,7 +165,7 @@ export default function TeacherPage() {
               )}
               <div className="teacher-game__actions">
                 <Link to={`/juegos/${g.id}`} className="btn btn--ghost btn--small">Probar</Link>
-                {(g.kind === 'quiz' || g.kind === 'match' || g.kind === 'truefalse') && <Link to={`/docente/editar/${g.id}`} className="btn btn--ghost btn--small">Editar</Link>}
+                <Link to={`/docente/editar/${g.id}`} className="btn btn--ghost btn--small">Editar</Link>
                 <button className="btn btn--ghost btn--small teacher-game__delete" onClick={() => remove(g)}>Borrar</button>
               </div>
             </li>
