@@ -83,6 +83,7 @@ export default function MatchPage({ game, onFinish }: { game: MatchGame; onFinis
           <div><strong>+{total * XP_PER_PAIR}</strong><span>XP</span></div>
         </div>
         <button className="btn" onClick={restart}>Jugar otra vez</button>
+        <Link to={`/ranking?juego=${game.id}`} className="ranking-link">🏆 Ver el ranking de este juego</Link>
         <Link to="/juegos" className="btn btn--ghost">Volver a juegos</Link>
       </section>
     )

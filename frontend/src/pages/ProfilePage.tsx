@@ -82,6 +82,8 @@ export default function ProfilePage() {
         ))}
       </div>
 
+      <Link to="/ranking" className="ranking-link">🏆 Ver el ranking</Link>
+
       {editing ? (
         <form className="card" onSubmit={save}>
           <label className="field">

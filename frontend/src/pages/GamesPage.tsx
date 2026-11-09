@@ -20,6 +20,7 @@ export default function GamesPage() {
         <h1>Juegos</h1>
         <p className="muted">Elige un reto y gana XP.</p>
       </div>
+      <Link to="/ranking" className="ranking-link">🏆 Ver el ranking de la semana</Link>
       <div className="filters">
         {filters.map((f) => (
           <button

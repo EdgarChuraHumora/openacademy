@@ -608,6 +608,22 @@ button { font-family: inherit; }
 .strip-palette__item { height: 48px; font-size: 1rem; box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2); }
 .strip-palette__item:active { transform: translateY(3px); box-shadow: none; }
 
+/* ---------- Ranking ---------- */
+.ranking-link {
+  align-self: center; padding: 8px 16px; border-radius: 999px;
+  background: #fff3cc; border: 2px solid var(--yellow); color: var(--text); font-weight: 800;
+}
+.ranking { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.ranking__row {
+  display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+  border-radius: 16px; background: var(--surface); border: 2px solid var(--border);
+}
+.ranking__row:nth-child(-n + 3) { border-color: var(--yellow); }
+.ranking__row--me { background: var(--primary-soft); border-color: var(--primary); }
+.ranking__pos { width: 32px; text-align: center; font-family: var(--font-title); font-size: 1.2rem; font-weight: 700; color: var(--muted); }
+.ranking__name { flex: 1; font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ranking__points { font-family: var(--font-title); font-weight: 600; color: var(--primary); white-space: nowrap; }
+
 /* ---------- Perfil ---------- */
 .profile-head { display: flex; align-items: center; gap: 16px; }
 .avatar {

@@ -51,6 +51,9 @@ export default function QuizPage({ quiz, exitTo = '/juegos', exitLabel = 'Volver
         >
           Jugar otra vez
         </button>
+        {exitTo === '/juegos' && (
+          <Link to={`/ranking?juego=${quiz.id}`} className="ranking-link">🏆 Ver el ranking de este juego</Link>
+        )}
         <Link to={exitTo} className="btn btn--ghost">{exitLabel}</Link>
       </section>
     )

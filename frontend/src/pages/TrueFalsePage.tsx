@@ -132,6 +132,7 @@ export default function TrueFalsePage({ game, onFinish }: { game: TrueFalseGame;
         )}
 
         <button className="btn" onClick={start}>Jugar otra vez</button>
+        <Link to={`/ranking?juego=${game.id}`} className="ranking-link">🏆 Ver el ranking de este juego</Link>
         <Link to="/juegos" className="btn btn--ghost">Volver a juegos</Link>
       </section>
     )

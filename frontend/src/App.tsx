@@ -11,6 +11,7 @@ import LabPage from './pages/LabPage'
 import BalancePage from './pages/BalancePage'
 import FractionStripsPage from './pages/FractionStripsPage'
 import GeoboardPage from './pages/GeoboardPage'
+import RankingPage from './pages/RankingPage'
 
 // Estas pantallas usan KaTeX (pesado), así que se descargan solo al abrirlas
 const GamePage = lazy(() => import('./pages/GamePage'))
@@ -46,6 +47,7 @@ export default function App() {
         <Route path="/laboratorio/balanza" element={<BalancePage />} />
         <Route path="/laboratorio/fracciones" element={<FractionStripsPage />} />
         <Route path="/laboratorio/geoplano" element={<GeoboardPage />} />
+        <Route path="/ranking" element={<RankingPage />} />
         <Route path="/perfil" element={<ProfilePage />} />
       </Route>
     </Routes>
