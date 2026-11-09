@@ -21,6 +21,11 @@ const AcademyPracticePage = lazy(() => import('./pages/AcademyPracticePage'))
 const TeacherPage = lazy(() => import('./pages/TeacherPage'))
 const GameEditorPage = lazy(() => import('./pages/GameEditorPage'))
 const AdminPage = lazy(() => import('./pages/AdminPage'))
+const TeacherClassroomsPage = lazy(() => import('./pages/TeacherClassroomsPage'))
+const TeacherClassroomPage = lazy(() => import('./pages/TeacherClassroomPage'))
+const MyClassroomsPage = lazy(() => import('./pages/MyClassroomsPage'))
+const JoinClassroomPage = lazy(() => import('./pages/MyClassroomsPage').then((m) => ({ default: m.JoinClassroomPage })))
+const ClassroomPage = lazy(() => import('./pages/ClassroomPage'))
 
 function Lazy({ children }: { children: ReactNode }) {
   return <Suspense fallback={<p className="muted center">Cargando…</p>}>{children}</Suspense>
@@ -55,6 +60,11 @@ export default function App() {
         <Route path="/admin" element={<Lazy><AdminPage /></Lazy>} />
         <Route path="/docente/nuevo" element={<Lazy><GameEditorPage /></Lazy>} />
         <Route path="/docente/editar/:id" element={<Lazy><GameEditorPage /></Lazy>} />
+        <Route path="/docente/aulas" element={<Lazy><TeacherClassroomsPage /></Lazy>} />
+        <Route path="/docente/aulas/:id" element={<Lazy><TeacherClassroomPage /></Lazy>} />
+        <Route path="/aulas" element={<Lazy><MyClassroomsPage /></Lazy>} />
+        <Route path="/aulas/unirse/:code" element={<Lazy><JoinClassroomPage /></Lazy>} />
+        <Route path="/aulas/:id" element={<Lazy><ClassroomPage /></Lazy>} />
         <Route path="/perfil" element={<ProfilePage />} />
         <Route
           path="*"

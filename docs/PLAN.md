@@ -55,13 +55,15 @@ Marca cada casilla al terminarla y haz commit de este archivo para que el progre
 - [x] Clasificar (tocar el grupo de cada tarjeta, por ejemplo suceso seguro / probable / imposible)
 - [x] Ruleta de ejercicios: 2 juegos de prueba en `features/games/roulette/demoRoulettes.ts`
 - [x] Ranking semanal (XP de todos los juegos) y por juego (`/ranking`, función `leaderboard` en Supabase)
-- [ ] Ranking por clase (cuando existan las aulas de la Fase 4)
+- [x] Ranking por aula (semanal, `classroom_leaderboard`)
 
 ## Fase 4: Instituciones y docentes
 
-- [ ] Tablas `organizations`, `memberships` (institución, docente, alumno), `classes`
-- [ ] El docente asigna juegos y clases a su aula y ve resultados por alumno y competencia
-- [ ] Reportes de resultados por alumno y por tema
+- [x] Aulas (`0005_aulas.sql`): el docente crea un aula con código de 6 letras, los alumnos entran con el código o un enlace (`/aulas/unirse/CODIGO`)
+- [x] El docente asigna juegos (propios o de OpenAcademy) y ve el mejor resultado de cada alumno en cada juego; descarga en CSV para Excel
+- [ ] Asignar clases de la Academia al aula y fecha límite para los juegos
+- [ ] Tablas `organizations` y `memberships` (institución con varios docentes)
+- [ ] Reportes por competencia y por tema
 
 ## Fase 5: Aventura (RPG single player)
 

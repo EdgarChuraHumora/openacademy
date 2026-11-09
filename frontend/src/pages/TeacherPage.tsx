@@ -95,6 +95,15 @@ export default function TeacherPage() {
         <p className="muted">Crea juegos para tus alumnos y compártelos con un enlace o un código.</p>
       </div>
 
+      <Link to="/docente/aulas" className="classroom-card">
+        <span className="tile tile--blue" aria-hidden="true">🏫</span>
+        <div>
+          <strong>Mis aulas</strong>
+          <p className="muted">Asigna juegos a tus alumnos y mira sus resultados</p>
+        </div>
+      </Link>
+
+      <h2 className="section-title">Crear un juego</h2>
       <div className="create-grid">
         <Link to="/docente/nuevo?tipo=quiz" className="create-card">
           <span aria-hidden="true">❓</span>

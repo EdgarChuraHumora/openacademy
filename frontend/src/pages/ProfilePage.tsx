@@ -83,6 +83,7 @@ export default function ProfilePage() {
       </div>
 
       <div className="games-links">
+        <Link to="/aulas" className="ranking-link">🏫 Mis aulas</Link>
         <Link to="/ranking" className="ranking-link">🏆 Ver el ranking</Link>
         {(profile.role === 'teacher' || profile.role === 'admin') && (
           <Link to="/docente" className="ranking-link">🧑‍🏫 Panel docente</Link>
