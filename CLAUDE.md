@@ -70,6 +70,7 @@ frontend/
     features/games/domino/     types.ts, demoDominoes.ts (plantilla Dominó)
     features/games/roulette/   types.ts, demoRoulettes.ts, Wheel.tsx (plantilla Ruleta)
     features/academy/      types.ts, courses.ts (Curso → Unidad → Clase, contenido de prueba)
+    features/teacher/      editorShared.tsx (partes comunes) y editores: QuizEditor, MatchEditor, TrueFalseEditor
     features/lab/          balance/ (balanza de ecuaciones), fractions/ (tiras), geoboard/ (geoplano)
     lib/supabase.ts        cliente de Supabase (null si faltan las variables de .env)
     lib/auth.tsx           sesión y perfil (AuthProvider, useAuth)
@@ -80,7 +81,7 @@ frontend/
                            LabPage, BalancePage, FractionStripsPage, GeoboardPage,
                            GamePage (abre cada juego según su tipo), MatchPage, OrderPage, TrueFalsePage, ClassifyPage, DominoPage, RoulettePage,
                            CoursePage, LessonPage, AcademyPracticePage (Academia), RankingPage,
-                           TeacherPage (panel docente) y QuizEditorPage (crear y editar quizzes), AdminPage (roles)
+                           TeacherPage (panel docente) y GameEditorPage (elige el editor según el tipo), AdminPage (roles)
   vercel.json              rewrite para que funcionen las rutas de React Router
   vite.config.ts           manifest PWA (nombre, colores, iconos)
 backend/

@@ -779,3 +779,28 @@ button { font-family: inherit; }
   padding: 8px 10px; border-radius: 12px; border: 2px solid var(--border);
   font-family: inherit; font-weight: 700; background: var(--bg);
 }
+
+/* ---------- Editores del panel docente ---------- */
+.create-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.create-card {
+  display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: 12px; align-items: center;
+  padding: 14px; border-radius: var(--radius); background: var(--surface);
+  border: 2px solid var(--border); box-shadow: 0 4px 0 var(--border);
+}
+.create-card span { grid-row: span 2; font-size: 1.8rem; }
+.create-card:active { transform: translateY(3px); box-shadow: none; }
+.tf-choice { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.tf-choice__btn {
+  padding: 10px; border-radius: 12px; cursor: pointer; font-family: inherit; font-weight: 800;
+  border: 2px solid var(--border); background: var(--surface); color: var(--muted);
+}
+.tf-choice__btn--true { border-color: var(--green); background: #d9f8e4; color: var(--green-dark); }
+.tf-choice__btn--false { border-color: var(--red); background: #ffe1e7; color: var(--red-dark); }
+@media (min-width: 768px) {
+  .create-grid { grid-template-columns: repeat(3, 1fr); }
+  .create-card { grid-template-columns: 1fr; text-align: center; justify-items: center; row-gap: 4px; }
+  .create-card span { grid-row: auto; }
+}
+/* Las columnas del editor no deben empujar el ancho de la pantalla en celular */
+.editor-row > * { min-width: 0; }
+.field input, .field select, .field textarea { min-width: 0; width: 100%; box-sizing: border-box; }

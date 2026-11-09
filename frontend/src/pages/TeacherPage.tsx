@@ -95,13 +95,29 @@ export default function TeacherPage() {
         <p className="muted">Crea juegos para tus alumnos y compártelos con un enlace o un código.</p>
       </div>
 
-      <Link to="/docente/nuevo" className="btn btn--green">+ Crear un quiz</Link>
+      <div className="create-grid">
+        <Link to="/docente/nuevo?tipo=quiz" className="create-card">
+          <span aria-hidden="true">❓</span>
+          <strong>Quiz</strong>
+          <small className="muted">Preguntas con 4 opciones, pistas y solución</small>
+        </Link>
+        <Link to="/docente/nuevo?tipo=match" className="create-card">
+          <span aria-hidden="true">🔗</span>
+          <strong>Emparejar</strong>
+          <small className="muted">Unir cada expresión con su resultado</small>
+        </Link>
+        <Link to="/docente/nuevo?tipo=truefalse" className="create-card">
+          <span aria-hidden="true">⏱️</span>
+          <strong>Verdadero o falso</strong>
+          <small className="muted">Afirmaciones contra el reloj</small>
+        </Link>
+      </div>
 
       {games === null ? (
         <p className="muted center">Cargando tus juegos…</p>
       ) : games.length === 0 ? (
         <div className="card center">
-          <p>Aún no has creado juegos. Empieza con un quiz: escribe tus preguntas y publícalo.</p>
+          <p>Aún no has creado juegos. Elige un tipo de juego arriba, escribe el contenido y publícalo.</p>
         </div>
       ) : (
         <ul className="teacher-list">
@@ -129,7 +145,7 @@ export default function TeacherPage() {
               )}
               <div className="teacher-game__actions">
                 <Link to={`/juegos/${g.id}`} className="btn btn--ghost btn--small">Probar</Link>
-                {g.kind === 'quiz' && <Link to={`/docente/editar/${g.id}`} className="btn btn--ghost btn--small">Editar</Link>}
+                {(g.kind === 'quiz' || g.kind === 'match' || g.kind === 'truefalse') && <Link to={`/docente/editar/${g.id}`} className="btn btn--ghost btn--small">Editar</Link>}
                 <button className="btn btn--ghost btn--small teacher-game__delete" onClick={() => remove(g)}>Borrar</button>
               </div>
             </li>
