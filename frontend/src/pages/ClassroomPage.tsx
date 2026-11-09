@@ -3,9 +3,12 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import Mascot from '../components/brand/Mascot'
 import { useAuth } from '../lib/auth'
 import {
+  byDue,
+  dueLabel,
   fetchAssigned,
   fetchClassroom,
   fetchLeaderboard,
+  isOnTime,
   pctClass,
   type AssignedGame,
   type Classroom,
@@ -24,26 +27,31 @@ export default function ClassroomPage() {
   const [assigned, setAssigned] = useState<AssignedGame[]>([])
   const [ranking, setRanking] = useState<LeaderRow[]>([])
   const [best, setBest] = useState<Record<string, number>>({})
+  const [onTime, setOnTime] = useState<Record<string, boolean>>({})
 
   useEffect(() => {
     if (!session) return
     Promise.all([fetchClassroom(id), fetchAssigned(id), fetchLeaderboard(id)]).then(async ([r, a, l]) => {
       setRoom(r)
-      setAssigned(a)
+      setAssigned([...a].sort(byDue))
       setRanking(l)
       if (!supabase || a.length === 0) return
       // Mejor resultado propio en cada juego asignado
       const { data } = await supabase
         .from('game_results')
-        .select('game_id, score, total')
+        .select('game_id, score, total, created_at')
         .eq('user_id', session.user.id)
         .in('game_id', a.map((g) => `juego:${g.game_id}`))
       const map: Record<string, number> = {}
+      const timely: Record<string, boolean> = {}
       for (const row of data ?? []) {
         const key = row.game_id.slice('juego:'.length)
         map[key] = Math.max(map[key] ?? 0, Math.round((100 * row.score) / row.total))
+        const due = a.find((g) => g.game_id === key)?.due_date
+        timely[key] = (timely[key] ?? false) || !due || isOnTime(row.created_at, due)
       }
       setBest(map)
+      setOnTime(timely)
     })
   }, [id, session])
 
@@ -111,9 +119,15 @@ export default function ClassroomPage() {
                         {best[g.game_id] === undefined ? (
                           'Pendiente'
                         ) : (
-                          <>Tu mejor resultado: <span className={pctClass(best[g.game_id])}>{best[g.game_id]}%</span></>
+                          <>
+                            Tu mejor resultado: <span className={pctClass(best[g.game_id])}>{best[g.game_id]}%</span>
+                            {onTime[g.game_id] === false && <span className="pct pct--low"> · entregado tarde</span>}
+                          </>
                         )}
                       </span>
+                    )}
+                    {g.due_date && (isOwner || best[g.game_id] === undefined) && (
+                      <span className={dueLabel(g.due_date).className}>{dueLabel(g.due_date).text}</span>
                     )}
                   </div>
                   <span className="assigned-game__play">Jugar ▶</span>

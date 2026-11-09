@@ -3,10 +3,15 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { games as builtInGames } from '../features/games/catalog'
 import { useAuth } from '../lib/auth'
 import {
+  byDue,
+  daysLeft,
+  dueLabel,
   fetchAssigned,
   fetchClassroom,
   joinUrl,
+  formatDue,
   pctClass,
+  todayLima,
   type AssignedGame,
   type ClassStudent,
   type Classroom,
@@ -32,7 +37,11 @@ function downloadCsv(name: string, students: ClassStudent[], assigned: AssignedG
     s.display_name,
     s.grade ?? '',
     s.week_xp,
-    ...assigned.map((g) => cell(s.student_id, g.game_id)?.best_pct ?? ''),
+    ...assigned.map((g) => {
+      const c = cell(s.student_id, g.game_id)
+      if (!c) return g.due_date && daysLeft(g.due_date) < 0 ? 'no entregó' : ''
+      return c.on_time === false ? `${c.best_pct} (tarde)` : c.best_pct
+    }),
   ])
   // El BOM (﻿) hace que Excel lea bien las tildes
   const csv = '﻿' + [head, ...lines].map((l) => l.map(quote).join(';')).join('\n')
@@ -55,6 +64,7 @@ export default function TeacherClassroomPage() {
   const [report, setReport] = useState<ReportCell[]>([])
   const [myGames, setMyGames] = useState<DbGame[]>([])
   const [pick, setPick] = useState('')
+  const [due, setDue] = useState('')
   const [copied, setCopied] = useState(false)
   const [error, setError] = useState('')
 
@@ -67,7 +77,7 @@ export default function TeacherClassroomPage() {
       supabase.rpc('classroom_report', { p_classroom: id }),
     ])
     setRoom(r)
-    setAssigned(a)
+    setAssigned([...a].sort(byDue))
     setStudents((s.data as ClassStudent[]) ?? [])
     setReport((rep.data as ReportCell[]) ?? [])
   }, [id])
@@ -103,9 +113,21 @@ export default function TeacherClassroomPage() {
     setError('')
     const { error } = await supabase
       .from('classroom_games')
-      .insert({ classroom_id: id, game_id: option.id, title: option.title.slice(0, 80), icon: option.icon })
+      .insert({ classroom_id: id, game_id: option.id, title: option.title.slice(0, 80), icon: option.icon, due_date: due || null })
     if (error) setError('No se pudo asignar el juego.')
     setPick('')
+    setDue('')
+    load()
+  }
+
+  async function changeDue(game: AssignedGame, value: string) {
+    if (!supabase) return
+    const { error } = await supabase
+      .from('classroom_games')
+      .update({ due_date: value || null })
+      .eq('classroom_id', id)
+      .eq('game_id', game.game_id)
+    if (error) setError('No se pudo cambiar la fecha límite.')
     load()
   }
 
@@ -184,6 +206,10 @@ export default function TeacherClassroomPage() {
             )}
           </select>
         </label>
+        <label className="field">
+          Fecha límite (opcional)
+          <input type="date" value={due} min={todayLima()} onChange={(e) => setDue(e.target.value)} />
+        </label>
         <button className="btn" disabled={!pick} onClick={assign}>Asignar al aula</button>
       </div>
       {assigned.length > 0 && (
@@ -199,6 +225,16 @@ export default function TeacherClassroomPage() {
                     {report.filter((r) => r.game_id === g.game_id).length} de {students.length} lo jugaron
                     {avg !== null && <> · promedio <span className={pctClass(avg)}>{avg}%</span></>}
                   </span>
+                  {g.due_date && <span className={dueLabel(g.due_date).className}>{dueLabel(g.due_date).text}</span>}
+                  <label className="due-input">
+                    Fecha límite:
+                    <input
+                      type="date"
+                      value={g.due_date ?? ''}
+                      onChange={(e) => changeDue(g, e.target.value)}
+                      aria-label={`Fecha límite de ${g.title}`}
+                    />
+                  </label>
                 </div>
                 <button className="link-btn teacher-game__delete" onClick={() => unassign(g)}>Quitar</button>
               </li>
@@ -224,6 +260,7 @@ export default function TeacherClassroomPage() {
                   {assigned.map((g) => (
                     <th key={g.game_id} scope="col" title={g.title}>
                       <span aria-hidden="true">{g.icon}</span> {g.title}
+                      {g.due_date && <small className="muted"> · {formatDue(g.due_date)}</small>}
                     </th>
                   ))}
                   <th scope="col"><span className="sr-only">Acciones</span></th>
@@ -244,7 +281,10 @@ export default function TeacherClassroomPage() {
                           {c ? (
                             <span className={pctClass(c.best_pct)} title={`${c.attempts} intento(s), último el ${date(c.last_played)}`}>
                               {c.best_pct}%
+                              {c.on_time === false && <span className="late-mark">tarde</span>}
                             </span>
+                          ) : g.due_date && daysLeft(g.due_date) < 0 ? (
+                            <span className="pct pct--low">Falta</span>
                           ) : (
                             <span className="muted">—</span>
                           )}

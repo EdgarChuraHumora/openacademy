@@ -848,3 +848,9 @@ button { font-family: inherit; }
 .results-table tbody th { text-align: left; font-weight: 800; position: sticky; left: 0; background: var(--surface); }
 .results-table tbody th small { display: block; font-weight: 600; }
 .results-table tbody tr:last-child > * { border-bottom: none; }
+.due { font-size: 0.8rem; font-weight: 800; color: var(--primary); }
+.due--soon { color: var(--yellow-dark); }
+.due--late { color: var(--red-dark); }
+.late-mark { display: block; font-size: 0.7rem; font-weight: 800; color: var(--red-dark); }
+.due-input { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 700; color: var(--muted); }
+.due-input input { padding: 4px 6px; border-radius: 8px; border: 2px solid var(--border); font: inherit; min-width: 0; }
