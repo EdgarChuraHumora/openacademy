@@ -1,0 +1,17 @@
+<!-- Supabase → Authentication → Emails → Templates → Confirm sign up
+     Asunto: Confirma tu cuenta de OpenAcademy -->
+<div style="font-family: Arial, sans-serif; max-width: 480px; margin: 0 auto; color: #1e1b4b;">
+  <h2 style="color: #6c4cf5;">¡Bienvenido a OpenAcademy!</h2>
+  <p>Hola {{ .Data.display_name }}:</p>
+  <p>Gracias por registrarte. Para activar tu cuenta, toca el botón:</p>
+  <p style="text-align: center; margin: 28px 0;">
+    <a href="{{ .ConfirmationURL }}"
+       style="background: #6c4cf5; color: #ffffff; padding: 14px 24px; border-radius: 12px; text-decoration: none; font-weight: bold;">
+      Confirmar mi cuenta
+    </a>
+  </p>
+  <p style="color: #6b6893; font-size: 13px;">
+    Si no creaste una cuenta en OpenAcademy, puedes ignorar este correo.
+  </p>
+  <p style="color: #6b6893; font-size: 13px;">© OpenAcademy · Creado por Edgar Chura Humora</p>
+</div>
