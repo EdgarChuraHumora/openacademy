@@ -51,7 +51,8 @@ Marca cada casilla al terminarla y haz commit de este archivo para que el progre
 - [x] Dominó (cadena circular: cada ficha empieza con el resultado de la anterior): 3 juegos de prueba en `features/games/domino/demoDominoes.ts`
 - [x] Clasificar (tocar el grupo de cada tarjeta, por ejemplo suceso seguro / probable / imposible)
 - [x] Ruleta de ejercicios: 2 juegos de prueba en `features/games/roulette/demoRoulettes.ts`
-- [ ] Ranking por juego y por clase
+- [x] Ranking semanal (XP de todos los juegos) y por juego (`/ranking`, función `leaderboard` en Supabase)
+- [ ] Ranking por clase (cuando existan las aulas de la Fase 4)
 
 ## Fase 4: Instituciones y docentes
 

@@ -24,6 +24,7 @@ Lista de lo que protege la app y de lo que hay que cuidar. Revisarla antes de ca
 
 - **Trampas con el XP:** los juegos se calculan en el navegador. Mientras el XP no dé premios ni notas es aceptable; si el ranking da premios, validar puntajes en el servidor.
 - **Datos de menores (Ley 29733):** pedir solo nombre o apodo, grado y correo. Agregar política de privacidad y consentimiento de padres antes de abrir a colegios (consultar con alguien que conozca la ley).
+- **Pausa por inactividad:** el plan gratis de Supabase pausa el proyecto si pasa 7 días sin uso (pasó el 9/11/2026). Mientras está pausado, el login y el XP no funcionan en la web. Se reactiva en el panel de Supabase con "Resume project" (tarda unos minutos).
 - **Copias de seguridad:** el plan gratis de Supabase no las incluye. Exportar los datos periódicamente.
 - **Vercel Hobby** es para uso no comercial: al empezar a cobrar, pasar a un plan que lo permita.
 - **Pagos:** nunca manejar datos de tarjetas; Mercado Pago o Culqi los procesan y avisan por webhook al backend.

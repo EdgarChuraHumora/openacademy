@@ -5,7 +5,7 @@
 
 -- p_game_id = null → XP sumado en todos los juegos durante los últimos 7 días (hora de Perú)
 -- p_game_id = 'juego:tablas' → mejor resultado de cada alumno en ese juego (siempre)
-create function public.leaderboard(p_game_id text default null)
+create or replace function public.leaderboard(p_game_id text default null)
 returns table (pos bigint, display_name text, points integer, is_me boolean)
 language sql
 stable
@@ -24,7 +24,7 @@ as $$
   ),
   ranked as (
     select rank() over (order by s.points desc, s.first_at) as pos,
-           p.display_name, s.points, s.user_id = auth.uid() as is_me
+           p.display_name, s.points, coalesce(s.user_id = auth.uid(), false) as is_me
     from scores s
     join public.profiles p on p.id = s.user_id
     where s.points > 0
