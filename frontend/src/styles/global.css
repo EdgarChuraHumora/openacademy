@@ -624,6 +624,65 @@ button { font-family: inherit; }
 .ranking__name { flex: 1; font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ranking__points { font-family: var(--font-title); font-weight: 600; color: var(--primary); white-space: nowrap; }
 
+/* ---------- Juegos de docentes y código ---------- */
+.games-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.game-card__author { font-size: 0.8rem; }
+.join-code {
+  display: flex; flex-direction: column; gap: 6px; padding: 12px 14px;
+  border-radius: var(--radius); background: var(--primary-soft); font-weight: 800;
+}
+.join-code__row { display: flex; gap: 8px; }
+.join-code input {
+  flex: 1; min-width: 0; padding: 10px 12px; border-radius: 12px; border: 2px solid var(--border);
+  font-family: var(--font-title); font-size: 1.1rem; letter-spacing: 2px; text-transform: uppercase;
+}
+.join-code .btn--small { margin-left: 0; }
+.draft-banner {
+  max-width: 560px; margin: 0 auto 12px; padding: 8px 12px; border-radius: 12px; text-align: center;
+  background: #fff3cc; border: 2px solid var(--yellow); font-weight: 700;
+}
+
+/* ---------- Panel docente ---------- */
+.teacher-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.teacher-game {
+  display: flex; flex-direction: column; gap: 8px; padding: 14px;
+  border-radius: var(--radius); background: var(--surface); border: 2px solid var(--border);
+}
+.teacher-game__head { display: flex; align-items: center; gap: 12px; }
+.teacher-game__head .tile { width: 44px; height: 44px; font-size: 1.3rem; }
+.teacher-game__code { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.teacher-game__code strong { font-family: var(--font-title); letter-spacing: 2px; }
+.teacher-game__actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.teacher-game__actions .btn--small { margin-left: 0; }
+.teacher-game__delete { color: var(--red-dark); }
+.status { font-weight: 800; color: var(--yellow-dark); }
+.status--ok { color: var(--green-dark); }
+
+.editor-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.icon-picker { display: flex; flex-wrap: wrap; gap: 6px; }
+.icon-picker__item {
+  width: 42px; height: 42px; border-radius: 12px; cursor: pointer; font-size: 1.3rem;
+  border: 2px solid var(--border); background: var(--surface);
+}
+.icon-picker__item--on { border-color: var(--primary); background: var(--primary-soft); }
+.editor-help ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+.editor-help summary, .editor-question summary { cursor: pointer; font-weight: 800; }
+.editor-question__head { display: flex; justify-content: space-between; align-items: center; }
+.editor-question__tools { display: flex; gap: 12px; }
+.editor-question__remove { color: var(--red-dark); }
+.editor-preview { padding: 10px; border-radius: 12px; background: var(--primary-soft); text-align: center; font-size: 1.2rem; }
+.editor-option { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.editor-option input[type='text'], .editor-option input:not([type]) { flex: 1; min-width: 0; }
+.editor-option--correct .option__letter { background: var(--green); color: #fff; }
+.editor-option__preview { flex-basis: 100%; padding-left: 64px; }
+.field textarea {
+  padding: 13px 14px; border-radius: 14px; font-size: 1rem; font-family: inherit; resize: vertical;
+  border: 2px solid var(--border); background: var(--bg); color: var(--text);
+}
+.editor-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.share-box { align-items: center; text-align: center; background: #d9f8e4; border-color: var(--green); }
+.share-box__code { font-family: var(--font-title); font-size: 1.6rem; letter-spacing: 4px; color: var(--green-dark); }
+
 /* ---------- Perfil ---------- */
 .profile-head { display: flex; align-items: center; gap: 16px; }
 .avatar {

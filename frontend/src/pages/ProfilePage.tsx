@@ -82,7 +82,12 @@ export default function ProfilePage() {
         ))}
       </div>
 
-      <Link to="/ranking" className="ranking-link">🏆 Ver el ranking</Link>
+      <div className="games-links">
+        <Link to="/ranking" className="ranking-link">🏆 Ver el ranking</Link>
+        {(profile.role === 'teacher' || profile.role === 'admin') && (
+          <Link to="/docente" className="ranking-link">🧑‍🏫 Panel docente</Link>
+        )}
+      </div>
 
       {editing ? (
         <form className="card" onSubmit={save}>

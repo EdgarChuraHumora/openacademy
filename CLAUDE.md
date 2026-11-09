@@ -75,10 +75,12 @@ frontend/
     lib/auth.tsx           sesión y perfil (AuthProvider, useAuth)
     lib/results.ts         useRecordGame: guarda resultado y XP con la función record_game
     lib/progress.ts        avance de la Academia (localStorage + tabla lesson_progress)
+    lib/userGames.ts       juegos creados por docentes (tabla games): leer, buscar por código, convertir al formato del catálogo
     pages/                 HomePage, GamesPage, QuizPage, AcademyPage, ProfilePage, LoginPage,
                            LabPage, BalancePage, FractionStripsPage, GeoboardPage,
                            GamePage (abre cada juego según su tipo), MatchPage, OrderPage, TrueFalsePage, ClassifyPage, DominoPage, RoulettePage,
-                           CoursePage, LessonPage, AcademyPracticePage (Academia)
+                           CoursePage, LessonPage, AcademyPracticePage (Academia), RankingPage,
+                           TeacherPage (panel docente) y QuizEditorPage (crear y editar quizzes)
   vercel.json              rewrite para que funcionen las rutas de React Router
   vite.config.ts           manifest PWA (nombre, colores, iconos)
 backend/

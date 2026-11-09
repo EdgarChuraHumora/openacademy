@@ -19,9 +19,12 @@ Marca cada casilla al terminarla y haz commit de este archivo para que el progre
 - [x] Registro, login, logout y recuperación de contraseña con Supabase Auth (falta configurar el envío de correos para alumnos)
 - [x] Tabla `profiles` (nombre, rol, grado, nivel, xp, monedas, racha) con Row Level Security
 - [x] Guardar el XP y las partidas al terminar cualquier juego o práctica; XP real en el encabezado y en Perfil; avance de la Academia en la cuenta
-- [ ] Mover los quizzes de prueba a tablas (`games`, `questions`) y leerlos desde Supabase
+- [x] Tabla `games` en Supabase (una sola tabla con `content` en JSON para las 7 plantillas); los juegos publicados se leen desde ahí
+- [ ] Pasar los juegos de prueba del código a la tabla (opcional: hoy conviven ambos)
 - [x] Soporte de fórmulas con KaTeX en preguntas y respuestas
-- [ ] Panel docente básico: crear, editar y publicar un quiz, y compartirlo con enlace o código
+- [x] Panel docente básico (`/docente`): crear, editar, publicar y borrar quizzes; compartir con enlace o código de 6 letras
+- [ ] Editor para las otras 6 plantillas (emparejar, ordenar, V o F, clasificar, dominó, ruleta)
+- [ ] Pantalla para que el superadmin active cuentas de docente (hoy se hace con SQL: `update public.profiles set role = 'teacher' where …`)
 - [x] Retroalimentación por pregunta: pista progresiva antes de la solución y explicación del error típico al fallar
 
 ## Fase 2: Academia
