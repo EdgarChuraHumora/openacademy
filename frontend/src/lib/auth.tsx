@@ -13,6 +13,7 @@ export interface Profile {
   coins: number
   streak: number
   last_active: string | null
+  teacher_requested_at: string | null
 }
 
 interface AuthState {

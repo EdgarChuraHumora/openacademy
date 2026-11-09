@@ -24,7 +24,7 @@ Marca cada casilla al terminarla y haz commit de este archivo para que el progre
 - [x] Soporte de fórmulas con KaTeX en preguntas y respuestas
 - [x] Panel docente básico (`/docente`): crear, editar, publicar y borrar quizzes; compartir con enlace o código de 6 letras
 - [ ] Editor para las otras 6 plantillas (emparejar, ordenar, V o F, clasificar, dominó, ruleta)
-- [ ] Pantalla para que el superadmin active cuentas de docente (hoy se hace con SQL: `update public.profiles set role = 'teacher' where …`)
+- [x] Solicitud "Soy docente" y pantalla de administración (`/admin`) para aprobar docentes y cambiar roles
 - [x] Retroalimentación por pregunta: pista progresiva antes de la solución y explicación del error típico al fallar
 
 ## Fase 2: Academia

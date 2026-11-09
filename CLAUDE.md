@@ -80,7 +80,7 @@ frontend/
                            LabPage, BalancePage, FractionStripsPage, GeoboardPage,
                            GamePage (abre cada juego según su tipo), MatchPage, OrderPage, TrueFalsePage, ClassifyPage, DominoPage, RoulettePage,
                            CoursePage, LessonPage, AcademyPracticePage (Academia), RankingPage,
-                           TeacherPage (panel docente) y QuizEditorPage (crear y editar quizzes)
+                           TeacherPage (panel docente) y QuizEditorPage (crear y editar quizzes), AdminPage (roles)
   vercel.json              rewrite para que funcionen las rutas de React Router
   vite.config.ts           manifest PWA (nombre, colores, iconos)
 backend/

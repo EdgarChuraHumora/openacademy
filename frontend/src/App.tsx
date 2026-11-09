@@ -20,6 +20,7 @@ const LessonPage = lazy(() => import('./pages/LessonPage'))
 const AcademyPracticePage = lazy(() => import('./pages/AcademyPracticePage'))
 const TeacherPage = lazy(() => import('./pages/TeacherPage'))
 const QuizEditorPage = lazy(() => import('./pages/QuizEditorPage'))
+const AdminPage = lazy(() => import('./pages/AdminPage'))
 
 function Lazy({ children }: { children: ReactNode }) {
   return <Suspense fallback={<p className="muted center">Cargando…</p>}>{children}</Suspense>
@@ -51,6 +52,7 @@ export default function App() {
         <Route path="/laboratorio/geoplano" element={<GeoboardPage />} />
         <Route path="/ranking" element={<RankingPage />} />
         <Route path="/docente" element={<Lazy><TeacherPage /></Lazy>} />
+        <Route path="/admin" element={<Lazy><AdminPage /></Lazy>} />
         <Route path="/docente/nuevo" element={<Lazy><QuizEditorPage /></Lazy>} />
         <Route path="/docente/editar/:id" element={<Lazy><QuizEditorPage key="editar" /></Lazy>} />
         <Route path="/perfil" element={<ProfilePage />} />

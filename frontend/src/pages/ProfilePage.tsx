@@ -87,6 +87,7 @@ export default function ProfilePage() {
         {(profile.role === 'teacher' || profile.role === 'admin') && (
           <Link to="/docente" className="ranking-link">🧑‍🏫 Panel docente</Link>
         )}
+        {profile.role === 'admin' && <Link to="/admin" className="ranking-link">🛠️ Administración</Link>}
       </div>
 
       {editing ? (

@@ -12,8 +12,18 @@ export function useIsTeacher() {
 
 // Pantalla para quien no es docente (o no inició sesión)
 export function TeacherGate() {
-  const { session, loading } = useAuth()
+  const { session, profile, loading, refreshProfile } = useAuth()
+  const [busy, setBusy] = useState(false)
   if (loading) return <p className="muted center">Cargando…</p>
+
+  async function request() {
+    if (!supabase) return
+    setBusy(true)
+    await supabase.rpc('request_teacher')
+    await refreshProfile()
+    setBusy(false)
+  }
+
   return (
     <section className="stack narrow center">
       <Mascot size={110} />
@@ -23,10 +33,18 @@ export function TeacherGate() {
           <p className="muted">Inicia sesión con tu cuenta de docente para crear juegos para tus alumnos.</p>
           <Link to="/login" className="btn">Iniciar sesión</Link>
         </>
-      ) : (
-        <p className="muted">
-          Tu cuenta es de alumno. Si eres profesor, escribe a OpenAcademy para que activen tu cuenta de docente.
+      ) : profile?.teacher_requested_at ? (
+        <p className="auth__notice">
+          Tu solicitud se envió el {new Date(profile.teacher_requested_at).toLocaleDateString('es-PE')}. Te avisaremos cuando
+          activen tu cuenta de docente.
         </p>
+      ) : (
+        <>
+          <p className="muted">Tu cuenta es de alumno. Si eres profesor, pide que activen tu cuenta de docente.</p>
+          <button className="btn" disabled={busy} onClick={request}>
+            {busy ? 'Enviando…' : 'Soy docente: pedir acceso'}
+          </button>
+        </>
       )}
     </section>
   )
