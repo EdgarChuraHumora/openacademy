@@ -19,7 +19,7 @@ Plataforma web de matemáticas, **para computadora y celular** (diseño responsi
 |---|---|---|---|
 | **Juegos** | Educaplay, Wordwall | Primaria y secundaria | 7 plantillas con datos de prueba (quiz, emparejar, ordenar, V o F, clasificar, dominó, ruleta) |
 | **Academia** | Academias pre-u (tipo "Cachimbo") | Secundaria (principal) y pre-universitario | Álgebra: unidad 1 (4 clases + repaso); videos pendientes |
-| **Aventura** | Hero Wars (single player) | Primaria y secundaria | 4 héroes, mapa de 9 etapas, combate por turnos con ejercicios al azar, monedas y tienda de mejoras (React; avance en el navegador) |
+| **Aventura** | Hero Wars (single player) | Primaria y secundaria | 4 héroes, mapa de 9 etapas, combate por turnos con ejercicios al azar, monedas y tienda de mejoras (React; avance en la cuenta, o en el navegador sin sesión) |
 
 La idea central: lo que el alumno aprende en Academia y gana en Juegos (XP, monedas, "fórmulas desbloqueadas") se usa en Aventura para conseguir y mejorar héroes.
 
@@ -72,7 +72,7 @@ frontend/
     features/academy/      types.ts, courses.ts (Curso → Unidad → Clase, contenido de prueba)
     features/teacher/      editorShared.tsx (partes comunes) y un editor por plantilla (Quiz, Match, TrueFalse, Order, Classify, Domino, Roulette)
     features/lab/          balance/ (balanza de ecuaciones), fractions/ (tiras), geoboard/ (geoplano)
-    features/adventure/    data.ts (héroes y etapas), questions.ts (ejercicios al azar), storage.ts (avance en localStorage), Characters.tsx (dibujos SVG de héroes y monstruos)
+    features/adventure/    data.ts (héroes y etapas), questions.ts (ejercicios al azar), storage.ts (avance en localStorage), useAdventure.ts (avance en la cuenta), Characters.tsx (dibujos SVG de héroes y monstruos)
     lib/supabase.ts        cliente de Supabase (null si faltan las variables de .env)
     lib/auth.tsx           sesión y perfil (AuthProvider, useAuth)
     lib/results.ts         useRecordGame: guarda resultado y XP con la función record_game

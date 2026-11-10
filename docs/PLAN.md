@@ -73,7 +73,7 @@ Marca cada casilla al terminarla y haz commit de este archivo para que el progre
   - [x] Mapa con 6 etapas y jefe final; cada etapa se abre al ganar la anterior; estrellas según la vida que queda
   - [x] Combate por turnos: cada ataque es un ejercicio generado al azar (`features/adventure/questions.ts`), 20 s por ejercicio, crítico si responde rápido, poder especial cada 3 aciertos
   - [x] El héroe sube de nivel (+10 % de vida y ataque) y la victoria suma XP a la cuenta
-- [ ] Guardar el avance de la Aventura en Supabase (hoy está en el navegador)
+- [x] Avance de la Aventura en la cuenta (`0007_aventura.sql`); sin sesión sigue en el navegador y se pasa a la cuenta al iniciar sesión
 - [x] 4.º héroe: Azaria (Estadística y Probabilidad: promedio, moda, mediana, rango y probabilidad); mapa de 9 etapas
 - [x] Dibujos propios en SVG de los 4 héroes y los 9 monstruos (`features/adventure/Characters.tsx`, estilo de Opi)
 - [x] Monedas por victoria y tienda de mejoras por héroe (+6 % de ataque o vida, hasta 5 de cada una)

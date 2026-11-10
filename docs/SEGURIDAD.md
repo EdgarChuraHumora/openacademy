@@ -15,6 +15,7 @@ Lista de lo que protege la app y de lo que hay que cuidar. Revisarla antes de ca
 - Claves solo en `frontend/.env` (git no lo sube) y en las variables de entorno de Vercel. En el repositorio solo está `.env.example`.
 - La clave `anon` de Supabase es pública por diseño; lo que protege los datos es **Row Level Security**, activada en todas las tablas (`supabase/migrations/`).
 - Los alumnos solo pueden cambiar su nombre y su grado. XP, nivel, racha, monedas y rol solo los cambian funciones del servidor (`record_game`), con límites.
+- Aventura (`0007_aventura.sql`): estrellas, XP de héroe, monedas y mejoras solo cambian con `adventure_win`, `adventure_buy` y `adventure_import`; el servidor calcula los premios, revisa que la etapa y el héroe estén desbloqueados, pide 15 s entre victorias y pone topes al pasar el avance del navegador. Probado el 10/11/2026 (8 intentos de trampa bloqueados).
 - Contenido escrito por docentes: React y KaTeX (`trust: false`) no ejecutan código metido en preguntas o respuestas.
 - Dependabot revisa las librerías una vez al mes (`.github/dependabot.yml`).
 
