@@ -1,0 +1,362 @@
+import type { Unit } from './types'
+
+// Álgebra 1.º de secundaria · Unidad 3 (contenido provisional para que Edgar lo revise)
+export const algebraUnit3: Unit = {
+  id: 'proporcionalidad',
+  title: 'Proporcionalidad',
+  description: 'Razones, proporciones, regla de tres y porcentajes en situaciones de la vida diaria.',
+  lessons: [
+    {
+      id: 'razones-proporciones',
+      title: 'Razones y proporciones',
+      theory: [
+        { type: 'p', text: 'Una razón compara dos cantidades dividiéndolas. Si en un aula hay 12 chicas y 8 chicos, la razón de chicas a chicos es $\\frac{12}{8} = \\frac{3}{2}$: por cada 3 chicas hay 2 chicos.' },
+        { type: 'p', text: 'Una proporción es una igualdad entre dos razones. En toda proporción, los productos en cruz son iguales:' },
+        { type: 'formula', text: '$\\dfrac{a}{b} = \\dfrac{c}{d} \\;\\Longleftrightarrow\\; a \\cdot d = b \\cdot c$' },
+        { type: 'tip', text: 'Para hallar el término que falta, multiplica en cruz y despeja: es una ecuación como las de la unidad 1.' },
+      ],
+      example: {
+        problem: 'Halla $x$ en $\\dfrac{x}{6} = \\dfrac{10}{15}$.',
+        steps: [
+          { stage: 'Comprender', text: 'Son dos razones iguales y falta un término.' },
+          { stage: 'Planificar', text: 'Multiplico en cruz: $15 \\cdot x = 6 \\cdot 10$.' },
+          { stage: 'Resolver', text: '$15x = 60 \\;\\Rightarrow\\; x = 4$' },
+          { stage: 'Comprobar', text: '$\\frac{4}{6} = \\frac{2}{3}$ y $\\frac{10}{15} = \\frac{2}{3}$ ✓' },
+        ],
+      },
+      exercises: [
+        {
+          question: 'En una caja hay 15 bolas rojas y 10 azules. ¿Cuál es la razón de rojas a azules, simplificada?',
+          options: ['$\\frac{3}{2}$', '$\\frac{2}{3}$', '$\\frac{3}{5}$', '$\\frac{15}{25}$'],
+          answerIndex: 0,
+          hints: ['La razón de rojas a azules es $\\frac{15}{10}$.', 'Simplifica dividiendo arriba y abajo entre 5.'],
+          explanation: '$\\frac{15}{10} = \\frac{3}{2}$: por cada 3 rojas hay 2 azules.',
+          mistakes: {
+            1: 'Está al revés: primero van las rojas y luego las azules.',
+            2: '$\\frac{3}{5}$ compara las rojas con el total de bolas, no con las azules.',
+            3: '$\\frac{15}{25}$ son las rojas sobre el total (y sin simplificar).',
+          },
+        },
+        {
+          question: 'Halla $x$: $\\dfrac{x}{8} = \\dfrac{3}{4}$',
+          options: ['$x = 6$', '$x = 32$', '$x = 7$', '$x = \\frac{3}{2}$'],
+          answerIndex: 0,
+          hints: ['Multiplica en cruz: $4 \\cdot x = 8 \\cdot 3$.'],
+          explanation: '$4x = 24 \\Rightarrow x = 6$. Comprueba: $\\frac{6}{8} = \\frac{3}{4}$.',
+          mistakes: {
+            1: 'Multiplicaste $8 \\cdot 4$. En cruz es $4 \\cdot x = 8 \\cdot 3$.',
+            2: 'Restaste 1 porque $3 = 4 - 1$; en una proporción se multiplica en cruz, no se resta.',
+            3: '$\\frac{3}{2}$ es solo $3 \\div 2$; plantea $4x = 24$.',
+          },
+        },
+        {
+          question: 'Halla $x$: $\\dfrac{5}{x} = \\dfrac{15}{21}$',
+          options: ['$x = 7$', '$x = 11$', '$x = 63$', '$x = 3$'],
+          answerIndex: 0,
+          hints: ['Multiplica en cruz: $15 \\cdot x = 5 \\cdot 21$.'],
+          explanation: '$15x = 105 \\Rightarrow x = 7$. Comprueba: $\\frac{5}{7} = \\frac{15}{21}$.',
+          mistakes: {
+            1: 'Sumaste 6 (como $15 + 6 = 21$); en las proporciones se multiplica, no se suma.',
+            2: 'Multiplicaste 21 por 3; es al revés: como $15 = 5 \\cdot 3$, entonces $x = 21 \\div 3$.',
+            3: '3 es el número que multiplica a 5 para llegar a 15; $x$ es $21 \\div 3$.',
+          },
+        },
+        {
+          question: 'Una receta usa 2 tazas de harina por cada 3 huevos. Si uso 9 huevos, ¿cuántas tazas de harina necesito?',
+          options: ['6', '8', '4,5', '13,5'],
+          answerIndex: 0,
+          hints: ['Plantea $\\frac{2}{3} = \\frac{x}{9}$.', 'Los huevos se triplican: la harina también.'],
+          explanation: '$3x = 18 \\Rightarrow x = 6$ tazas.',
+          mistakes: {
+            1: 'Sumaste 6 tazas porque hay 6 huevos más; en una proporción los huevos se triplican y la harina también.',
+            2: '4,5 es $9 \\div 2$: dividiste los huevos entre 2, pero la receta usa 2 tazas por cada 3 huevos.',
+            3: '13,5 sale de poner huevos sobre harina: $\\frac{3}{2} = \\frac{x}{9}$.',
+          },
+        },
+      ],
+    },
+    {
+      id: 'proporcionalidad-directa',
+      title: 'Magnitudes directamente proporcionales',
+      theory: [
+        { type: 'p', text: 'Dos magnitudes son directamente proporcionales si, cuando una se duplica, la otra también se duplica; y si una se reduce a la mitad, la otra también.' },
+        { type: 'p', text: 'Ejemplo: 1 kg de arroz cuesta S/ 4; 2 kg cuestan S/ 8; 5 kg, S/ 20. El cociente siempre es el mismo:' },
+        { type: 'formula', text: '$\\dfrac{\\text{precio}}{\\text{kilos}} = \\dfrac{8}{2} = \\dfrac{20}{5} = 4 = k$' },
+        { type: 'p', text: 'A $k$ se le llama constante de proporcionalidad, y se cumple $y = k \\cdot x$.' },
+        { type: 'tip', text: 'Regla de tres directa: "más kilos, más soles". Plantea la proporción y multiplica en cruz.' },
+      ],
+      example: {
+        problem: 'Si 3 cuadernos cuestan S/ 12, ¿cuánto cuestan 7 cuadernos?',
+        steps: [
+          { stage: 'Comprender', text: 'Más cuadernos, más dinero: es proporcionalidad directa.' },
+          { stage: 'Planificar', text: 'Planteo $\\frac{3}{12} = \\frac{7}{x}$ y multiplico en cruz.' },
+          { stage: 'Resolver', text: '$3x = 84 \\;\\Rightarrow\\; x = 28$. Cuestan S/ 28.' },
+          { stage: 'Comprobar', text: 'Cada cuaderno cuesta S/ 4 y $7 \\cdot 4 = 28$ ✓' },
+        ],
+      },
+      exercises: [
+        {
+          question: '¿Cuál de estas parejas de magnitudes es directamente proporcional?',
+          options: ['Litros de gasolina y lo que pagas', 'Velocidad y tiempo de un viaje', 'Edad y estatura de una persona', 'Obreros y días para terminar una obra'],
+          answerIndex: 0,
+          hints: ['Pregúntate: si una se duplica, ¿la otra también se duplica?'],
+          explanation: 'Si compras el doble de litros, pagas el doble: es directa.',
+          mistakes: {
+            1: 'A más velocidad, menos tiempo: es inversamente proporcional.',
+            2: 'La estatura no crece siempre al mismo ritmo que la edad: no es proporcional.',
+            3: 'A más obreros, menos días: es inversamente proporcional.',
+          },
+        },
+        {
+          question: 'Si 4 kg de papa cuestan S/ 10, ¿cuánto cuestan 6 kg?',
+          options: ['S/ 15', 'S/ 12', 'S/ 24', 'S/ 2,40'],
+          answerIndex: 0,
+          hints: ['Plantea $\\frac{4}{10} = \\frac{6}{x}$.', 'O calcula primero el precio de 1 kg: $10 \\div 4$.'],
+          explanation: '1 kg cuesta S/ 2,50, así que 6 kg cuestan $6 \\cdot 2{,}50 = 15$ soles.',
+          mistakes: {
+            1: 'Sumaste S/ 2 porque hay 2 kg más; pero el kilo cuesta S/ 2,50.',
+            2: 'Multiplicaste $6 \\cdot 4$; plantea $\\frac{4}{10} = \\frac{6}{x}$.',
+            3: 'Dividiste kilos entre soles ($6 \\cdot 4 \\div 10$); la razón está al revés.',
+          },
+        },
+        {
+          question: 'Un auto recorre 150 km con 10 litros de gasolina. ¿Cuántos km recorre con 4 litros?',
+          options: ['60', '375', '144', '40'],
+          answerIndex: 0,
+          hints: ['¿Cuántos km recorre con 1 litro?'],
+          explanation: 'Con 1 litro recorre 15 km; con 4 litros, $4 \\cdot 15 = 60$ km.',
+          mistakes: {
+            1: '375 sale de $150 \\cdot 10 \\div 4$: eso sería inversa. Con menos gasolina recorre menos.',
+            2: 'Restaste 6 (los litros de menos) a 150; hay que usar la proporción.',
+            3: '40 es $4 \\cdot 10$; el auto recorre 15 km por litro, no 10.',
+          },
+        },
+        {
+          question: '$y$ es directamente proporcional a $x$. Cuando $x = 3$, $y = 12$. ¿Cuánto vale $y$ cuando $x = 5$?',
+          options: ['20', '14', '15', '60'],
+          answerIndex: 0,
+          hints: ['La constante es $k = \\frac{y}{x} = \\frac{12}{3}$.'],
+          explanation: '$k = 4$, entonces $y = 4 \\cdot 5 = 20$.',
+          mistakes: {
+            1: 'Sumaste 2 a 12 porque $x$ aumentó en 2; en la proporcionalidad se multiplica por $k = 4$.',
+            2: '15 es $3 \\cdot 5$; hay que multiplicar por la constante $k = 4$.',
+            3: '60 es $12 \\cdot 5$; falta dividir entre 3.',
+          },
+        },
+      ],
+    },
+    {
+      id: 'proporcionalidad-inversa',
+      title: 'Magnitudes inversamente proporcionales',
+      theory: [
+        { type: 'p', text: 'Dos magnitudes son inversamente proporcionales si, cuando una se duplica, la otra se reduce a la mitad.' },
+        { type: 'p', text: 'Ejemplo: 2 pintores pintan un aula en 6 horas; 4 pintores, en 3 horas; 6 pintores, en 2 horas. Lo que se mantiene igual es el producto:' },
+        { type: 'formula', text: '$2 \\cdot 6 = 4 \\cdot 3 = 6 \\cdot 2 = 12$' },
+        { type: 'tip', text: 'Regla de tres inversa: "más obreros, menos días". No multipliques en cruz: multiplica en línea, $a \\cdot b = c \\cdot x$.' },
+      ],
+      example: {
+        problem: '5 obreros construyen un muro en 12 días. ¿En cuántos días lo harían 10 obreros?',
+        steps: [
+          { stage: 'Comprender', text: 'Más obreros, menos días: es proporcionalidad inversa.' },
+          { stage: 'Planificar', text: 'El producto obreros × días no cambia: $5 \\cdot 12 = 10 \\cdot x$.' },
+          { stage: 'Resolver', text: '$60 = 10x \\;\\Rightarrow\\; x = 6$ días.' },
+          { stage: 'Comprobar', text: 'Con el doble de obreros, la mitad de días: $12 \\div 2 = 6$ ✓' },
+        ],
+      },
+      exercises: [
+        {
+          question: '3 caños iguales llenan un tanque en 8 horas. ¿En cuántas horas lo llenan 6 caños?',
+          options: ['4', '16', '11', '2'],
+          answerIndex: 0,
+          hints: ['Más caños, menos horas: es inversa.', 'Plantea $3 \\cdot 8 = 6 \\cdot x$.'],
+          explanation: '$24 = 6x \\Rightarrow x = 4$ horas.',
+          mistakes: {
+            1: '16 sería si fuera directa; con más caños el tanque se llena más rápido.',
+            2: '11 es $8 + 3$: sumaste los caños que se agregan.',
+            3: 'Comprueba: $6 \\cdot 2 = 12$, pero $3 \\cdot 8 = 24$. El producto debe ser igual.',
+          },
+        },
+        {
+          question: 'Un viaje dura 4 horas a 60 km/h. ¿Cuánto dura a 80 km/h?',
+          options: ['3 horas', '5,3 horas', '6 horas', '2 horas'],
+          answerIndex: 0,
+          hints: ['La distancia es $60 \\cdot 4 = 240$ km.', 'A 80 km/h: $240 \\div 80$.'],
+          explanation: '$60 \\cdot 4 = 80 \\cdot x \\Rightarrow 240 = 80x \\Rightarrow x = 3$ horas.',
+          mistakes: {
+            1: '5,3 sale de la regla de tres directa; a más velocidad, menos tiempo.',
+            2: 'Más velocidad debe dar menos tiempo, no más.',
+            3: 'Comprueba: $80 \\cdot 2 = 160$ km, pero la distancia es 240 km.',
+          },
+        },
+        {
+          question: 'Con 12 obreros una obra dura 15 días. ¿Cuántos obreros se necesitan para terminarla en 10 días?',
+          options: ['18', '8', '17', '30'],
+          answerIndex: 0,
+          hints: ['Para terminar antes se necesitan más obreros.', 'Plantea $12 \\cdot 15 = x \\cdot 10$.'],
+          explanation: '$180 = 10x \\Rightarrow x = 18$ obreros.',
+          mistakes: {
+            1: '8 sale de la regla directa; para terminar antes hacen falta más obreros, no menos.',
+            2: '17 es $12 + 5$: sumaste los días que se adelanta la obra.',
+            3: 'Comprueba: $30 \\cdot 10 = 300$, pero $12 \\cdot 15 = 180$.',
+          },
+        },
+        {
+          question: '$x$ e $y$ son inversamente proporcionales. Cuando $x = 4$, $y = 9$. ¿Cuánto vale $y$ cuando $x = 6$?',
+          options: ['6', '13,5', '11', '3'],
+          answerIndex: 0,
+          hints: ['En la inversa, el producto es constante: $4 \\cdot 9 = 36$.'],
+          explanation: '$6 \\cdot y = 36 \\Rightarrow y = 6$.',
+          mistakes: {
+            1: '13,5 sale de la proporción directa; en la inversa el producto $x \\cdot y$ es constante.',
+            2: '11 es $9 + 2$: sumaste lo que creció $x$.',
+            3: 'Comprueba: $6 \\cdot 3 = 18$, no 36.',
+          },
+        },
+      ],
+    },
+    {
+      id: 'porcentajes',
+      title: 'Porcentajes, aumentos y descuentos',
+      theory: [
+        { type: 'p', text: 'Un porcentaje es una razón con denominador 100: el 25 % significa 25 de cada 100.' },
+        { type: 'formula', text: '$a\\,\\% \\text{ de } N = \\dfrac{a}{100} \\cdot N$' },
+        { type: 'p', text: 'Ejemplo: el 20 % de S/ 150 es $\\frac{20}{100} \\cdot 150 = 30$ soles.' },
+        { type: 'p', text: 'Descuento: si una zapatilla cuesta S/ 200 y tiene 15 % de descuento, pagas el 85 %: $0{,}85 \\cdot 200 = 170$ soles.' },
+        { type: 'tip', text: 'Atajos: el 50 % es la mitad, el 25 % es la cuarta parte y el 10 % es dividir entre 10.' },
+      ],
+      example: {
+        problem: 'Un celular cuesta S/ 800 y su precio sube 5 %. ¿Cuánto cuesta ahora?',
+        steps: [
+          { stage: 'Comprender', text: 'Al precio se le suma el 5 % de 800.' },
+          { stage: 'Planificar', text: 'Calculo el 5 % de 800 y lo sumo al precio.' },
+          { stage: 'Resolver', text: '$\\frac{5}{100} \\cdot 800 = 40$; $800 + 40 = 840$ soles.' },
+          { stage: 'Comprobar', text: 'Con el atajo: $1{,}05 \\cdot 800 = 840$ ✓' },
+        ],
+      },
+      exercises: [
+        {
+          question: '¿Cuánto es el 30 % de 250?',
+          options: ['75', '30', '83,3', '220'],
+          answerIndex: 0,
+          hints: ['El 10 % de 250 es 25.', 'El 30 % es el triple del 10 %.'],
+          explanation: '$\\frac{30}{100} \\cdot 250 = 75$.',
+          mistakes: {
+            1: '30 es el porcentaje, no el resultado.',
+            2: '83,3 es $250 \\div 3$; el 30 % no es la tercera parte, es $\\frac{30}{100} \\cdot 250$.',
+            3: '220 es $250 - 30$: restaste el número 30, no el 30 %.',
+          },
+        },
+        {
+          question: 'Una mochila cuesta S/ 120 y tiene 25 % de descuento. ¿Cuánto pagas?',
+          options: ['S/ 90', 'S/ 30', 'S/ 95', 'S/ 150'],
+          answerIndex: 0,
+          hints: ['El 25 % es la cuarta parte: $120 \\div 4$.', 'A 120 réstale ese descuento.'],
+          explanation: 'El descuento es $120 \\div 4 = 30$ soles; pagas $120 - 30 = 90$ soles.',
+          mistakes: {
+            1: 'S/ 30 es el descuento; lo que pagas es $120 - 30$.',
+            2: 'Restaste 25 soles; el 25 % de 120 es 30 soles.',
+            3: 'Sumaste el 25 %: eso sería un aumento, no un descuento.',
+          },
+        },
+        {
+          question: 'En un aula de 40 alumnos, 14 usan lentes. ¿Qué porcentaje usa lentes?',
+          options: ['35 %', '14 %', '26 %', '28 %'],
+          answerIndex: 0,
+          hints: ['Calcula $\\frac{14}{40} \\cdot 100$.'],
+          explanation: '$\\frac{14}{40} = 0{,}35$, o sea el 35 %.',
+          mistakes: {
+            1: '14 es la cantidad de alumnos, no el porcentaje.',
+            2: '26 es $40 - 14$: son los que no usan lentes, y además es una cantidad, no un porcentaje.',
+            3: '28 es $14 \\cdot 2$, que sería el porcentaje si el aula tuviera 50 alumnos.',
+          },
+        },
+        {
+          question: 'Un pasaje de S/ 60 sube 10 % y luego vuelve a subir 10 %. ¿Cuánto cuesta al final?',
+          options: ['S/ 72,60', 'S/ 72', 'S/ 66', 'S/ 80'],
+          answerIndex: 0,
+          hints: ['Primera subida: $60 + 6 = 66$.', 'La segunda subida es el 10 % de 66.'],
+          explanation: '$60 \\to 66 \\to 66 + 6{,}60 = 72{,}60$ soles.',
+          mistakes: {
+            1: 'El segundo 10 % se calcula sobre S/ 66, no sobre S/ 60: $66 + 6{,}60$.',
+            2: 'S/ 66 es el precio después de la primera subida; falta la segunda.',
+            3: 'Sumaste 20 soles; los aumentos son del 10 %, no de 10 soles.',
+          },
+        },
+      ],
+    },
+  ],
+  review: [
+    {
+      question: 'Halla $x$: $\\dfrac{x}{12} = \\dfrac{5}{6}$',
+      options: ['$x = 10$', '$x = 11$', '$x = 14{,}4$', '$x = 2{,}5$'],
+      answerIndex: 0,
+      hints: ['Multiplica en cruz: $6x = 12 \\cdot 5$.'],
+      explanation: '$6x = 60 \\Rightarrow x = 10$.',
+      mistakes: {
+        1: 'Restaste 1 (como $6 - 1 = 5$); multiplica en cruz: $6x = 60$.',
+        2: '14,4 sale de invertir la razón: $\\frac{12}{x} = \\frac{5}{6}$.',
+        3: 'Dividiste 5 entre 2; como 12 es el doble de 6, $x$ es el doble de 5.',
+      },
+    },
+    {
+      question: 'Si 5 lapiceros cuestan S/ 7,50, ¿cuánto cuestan 8 lapiceros?',
+      options: ['S/ 12', 'S/ 10,50', 'S/ 4,69', 'S/ 60'],
+      answerIndex: 0,
+      hints: ['Cada lapicero cuesta $7{,}50 \\div 5$.'],
+      explanation: 'Cada lapicero cuesta S/ 1,50; 8 cuestan $8 \\cdot 1{,}50 = 12$ soles.',
+      mistakes: {
+        1: 'Sumaste S/ 3 por los 3 lapiceros de más; cada uno cuesta S/ 1,50.',
+        2: 'Usaste la regla inversa; más lapiceros cuestan más, no menos.',
+        3: '60 es $7{,}50 \\cdot 8$; falta dividir entre 5.',
+      },
+    },
+    {
+      question: '8 obreros hacen una obra en 9 días. ¿En cuántos días la harían 12 obreros?',
+      options: ['6', '13,5', '5', '8'],
+      answerIndex: 0,
+      hints: ['Más obreros, menos días: es inversa.', 'Plantea $8 \\cdot 9 = 12 \\cdot x$.'],
+      explanation: '$72 = 12x \\Rightarrow x = 6$ días.',
+      mistakes: {
+        1: '13,5 es la regla directa; con más obreros la obra se termina antes.',
+        2: 'Restaste 4 días porque hay 4 obreros más; usa el producto constante.',
+        3: 'Comprueba: $12 \\cdot 8 = 96$, pero $8 \\cdot 9 = 72$.',
+      },
+    },
+    {
+      question: '¿Cuánto es el 15 % de 340?',
+      options: ['51', '15', '22,7', '325'],
+      answerIndex: 0,
+      hints: ['El 10 % de 340 es 34 y el 5 % es la mitad de eso.'],
+      explanation: '$34 + 17 = 51$, o también $\\frac{15}{100} \\cdot 340 = 51$.',
+      mistakes: {
+        1: '15 es el porcentaje, no el resultado.',
+        2: '22,7 es $340 \\div 15$; se multiplica por $\\frac{15}{100}$, no se divide entre 15.',
+        3: '325 es $340 - 15$: restaste el número 15, no el 15 %.',
+      },
+    },
+    {
+      question: 'Un polo de S/ 45 tiene 20 % de descuento. ¿Cuánto pagas?',
+      options: ['S/ 36', 'S/ 9', 'S/ 25', 'S/ 54'],
+      answerIndex: 0,
+      hints: ['El 20 % de 45 es $45 \\div 5$.'],
+      explanation: 'El descuento es S/ 9; pagas $45 - 9 = 36$ soles.',
+      mistakes: {
+        1: 'S/ 9 es el descuento, no lo que pagas.',
+        2: 'Restaste 20 soles; el 20 % de 45 es 9 soles.',
+        3: 'Sumaste el 20 %: eso sería un aumento.',
+      },
+    },
+    {
+      question: '¿Qué magnitudes son inversamente proporcionales?',
+      options: ['Velocidad y tiempo para recorrer una distancia', 'Kilos de fruta y precio', 'Horas trabajadas y dinero ganado', 'Lado de un cuadrado y su perímetro'],
+      answerIndex: 0,
+      hints: ['Busca la pareja en la que, si una se duplica, la otra se reduce a la mitad.'],
+      explanation: 'Si vas al doble de velocidad, tardas la mitad del tiempo: es inversa.',
+      mistakes: {
+        1: 'Más kilos, más precio: es directa.',
+        2: 'Más horas, más dinero: es directa.',
+        3: 'Si el lado se duplica, el perímetro también: es directa.',
+      },
+    },
+  ],
+}
