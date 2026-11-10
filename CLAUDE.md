@@ -72,7 +72,7 @@ frontend/
     features/academy/      types.ts, courses.ts (Curso → Unidad → Clase, contenido de prueba)
     features/teacher/      editorShared.tsx (partes comunes) y un editor por plantilla (Quiz, Match, TrueFalse, Order, Classify, Domino, Roulette)
     features/lab/          balance/ (balanza de ecuaciones), fractions/ (tiras), geoboard/ (geoplano)
-    features/adventure/    data.ts (héroes y etapas), questions.ts (ejercicios al azar), storage.ts (avance en localStorage)
+    features/adventure/    data.ts (héroes y etapas), questions.ts (ejercicios al azar), storage.ts (avance en localStorage), Characters.tsx (dibujos SVG de héroes y monstruos)
     lib/supabase.ts        cliente de Supabase (null si faltan las variables de .env)
     lib/auth.tsx           sesión y perfil (AuthProvider, useAuth)
     lib/results.ts         useRecordGame: guarda resultado y XP con la función record_game

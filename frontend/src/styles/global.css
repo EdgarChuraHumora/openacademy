@@ -958,3 +958,26 @@ a.adv-stage:active { transform: translateY(3px); box-shadow: none; }
 .adv-shop__item small { color: #b9b1ef; font-size: 0.75rem; }
 .adv-shop__item .btn--small { margin-left: 0; width: 100%; }
 @media (min-width: 768px) { .hero-grid { grid-template-columns: repeat(4, 1fr); } }
+.character { display: block; }
+.hero-card__portrait { overflow: hidden; }
+.hero-card__portrait .character { width: 92%; height: 92%; }
+.adv-stage__icon .character { width: 100%; height: 100%; }
+.fighter__icon { position: relative; display: block; }
+.fighter__icon .character { width: 96px; height: 96px; filter: drop-shadow(0 6px 0 rgba(0, 0, 0, 0.25)); }
+.fighter__shield { position: absolute; right: -6px; bottom: 0; font-size: 1.6rem; }
+.adv-result__icon .character { margin: 0 auto; animation: float 2.4s ease-in-out infinite; }
+.adv-banner--hero { display: flex; align-items: center; gap: 10px; text-align: left; }
+.adv-banner--hero .character { flex: none; }
+@media (min-width: 768px) { .fighter__icon .character { width: 130px; height: 130px; } }
+.hero-card { grid-template-columns: 80px 1fr; }
+.hero-card__portrait {
+  width: 80px; height: 80px; overflow: visible; border: none;
+  background: radial-gradient(circle, rgba(255, 201, 60, 0.28) 0%, rgba(255, 201, 60, 0) 68%);
+}
+.hero-card__portrait .character { width: 100%; height: 100%; }
+.hero-card:disabled .hero-card__portrait { background: #1b1640; border-radius: 50%; }
+.adv-stage__icon { width: 54px; height: 54px; background: radial-gradient(circle, #3d3485 0%, #1b1640 75%); }
+@media (min-width: 768px) {
+  .hero-card { grid-template-columns: 1fr; }
+  .hero-card__portrait { width: 110px; height: 110px; }
+}

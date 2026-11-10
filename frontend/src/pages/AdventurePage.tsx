@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { areaLabel, HERO_XP_PER_LEVEL, heroLevel, heroStats, heroes, MAX_UPGRADE, stages, UPGRADE_BONUS, upgradeCost, type Upgrades } from '../features/adventure/data'
+import { EnemyArt, HeroArt } from '../features/adventure/Characters'
 import { heroUpgrades, isHeroUnlocked, isStageUnlocked, loadAdventure, saveAdventure } from '../features/adventure/storage'
 
 const SELECTED_KEY = 'oa-aventura-heroe'
@@ -71,7 +72,7 @@ export default function AdventurePage() {
               aria-pressed={selected === h.id}
               onClick={() => choose(h.id)}
             >
-              <span className="hero-card__portrait" aria-hidden="true">{unlocked ? h.icon : '🔒'}</span>
+              <span className="hero-card__portrait" aria-hidden="true">{unlocked ? <HeroArt id={h.id} label={h.name} size={60} /> : '🔒'}</span>
               <strong>{h.name}</strong>
               <small>{h.title}</small>
               {unlocked ? (
@@ -118,7 +119,7 @@ export default function AdventurePage() {
           const stars = save.stars[s.id] ?? 0
           const body = (
             <>
-              <span className="adv-stage__icon" aria-hidden="true">{open ? s.enemy.icon : '🔒'}</span>
+              <span className="adv-stage__icon" aria-hidden="true">{open ? <EnemyArt stageId={s.id} label={s.enemy.name} size={46} /> : '🔒'}</span>
               <span className="adv-stage__info">
                 <strong>{i + 1}. {s.name}</strong>
                 <small>

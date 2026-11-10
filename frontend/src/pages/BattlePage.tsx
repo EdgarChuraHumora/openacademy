@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
 import MathText from '../components/MathText'
+import { EnemyArt, HeroArt } from '../features/adventure/Characters'
 import { coinReward, heroes, heroLevel, heroStats, stages, type Hero, type Stage } from '../features/adventure/data'
 import { makeQuestion, type BattleQuestion } from '../features/adventure/questions'
 import { heroUpgrades, isHeroUnlocked, isStageUnlocked, loadAdventure, saveAdventure } from '../features/adventure/storage'
@@ -165,7 +166,7 @@ function Battle({ stage, hero, onRestart }: { stage: Stage; hero: Hero; onRestar
     const won = phase === 'won'
     return (
       <section className="adventure stack narrow center">
-        <span className="adv-result__icon" aria-hidden="true">{won ? '🏆' : stage.enemy.icon}</span>
+        <span className="adv-result__icon" aria-hidden="true">{won ? <HeroArt id={hero.id} label={hero.name} size={130} /> : <EnemyArt stageId={stage.id} label={stage.enemy.name} size={130} />}</span>
         <h1>{won ? '¡Victoria!' : 'Derrota…'}</h1>
         {won ? (
           <>
@@ -176,7 +177,7 @@ function Battle({ stage, hero, onRestart }: { stage: Stage; hero: Hero; onRestar
               {tally.correct} de {tally.answered} ejercicios correctos · +{reward.xp} XP · {hero.name} gana +{reward.heroXp} XP de héroe · +{reward.coins} 🪙
             </p>
             {reward.levelUp && <p className="adv-banner">⬆️ ¡{hero.name} subió de nivel! Ahora tiene más vida y ataque.</p>}
-            {newHero && <p className="adv-banner">{newHero.icon} ¡Nuevo héroe: {newHero.name}, {newHero.title}!</p>}
+            {newHero && <p className="adv-banner adv-banner--hero"><HeroArt id={newHero.id} label={newHero.name} size={48} /> ¡Nuevo héroe: {newHero.name}, {newHero.title}!</p>}
           </>
         ) : (
           <p>{stage.enemy.name} ganó esta vez. Repasa los ejercicios y vuelve a intentarlo: cada combate trae ejercicios nuevos.</p>
@@ -204,13 +205,13 @@ function Battle({ stage, hero, onRestart }: { stage: Stage; hero: Hero; onRestar
 
       <div className="arena">
         <div className={`fighter fighter--enemy ${hit?.who === 'enemy' ? 'fighter--hit' : ''}`} key={`e-${hit?.who === 'enemy' ? hit.id : 0}`}>
-          <span className="fighter__icon" aria-hidden="true">{stage.enemy.icon}</span>
+          <span className="fighter__icon" aria-hidden="true"><EnemyArt stageId={stage.id} label={stage.enemy.name} size={96} /></span>
           <strong>{stage.enemy.name}</strong>
           <Bar value={enemyHp} max={stage.enemy.hp} kind="enemy" />
           {hit?.who === 'enemy' && <span className="damage" key={hit.id}>{hit.text}</span>}
         </div>
         <div className={`fighter fighter--hero ${hit?.who === 'hero' ? 'fighter--hit' : ''}`} key={`h-${hit?.who === 'hero' ? hit.id : 0}`}>
-          <span className="fighter__icon" aria-hidden="true">{hero.icon}{shield && '🛡️'}</span>
+          <span className="fighter__icon" aria-hidden="true"><HeroArt id={hero.id} label={hero.name} size={96} />{shield && <span className="fighter__shield">🛡️</span>}</span>
           <strong>{hero.name} · Nv. {heroLevel(save.heroXp[hero.id] ?? 0)}</strong>
           <Bar value={heroHp} max={stats.hp} kind="hero" />
           {hit?.who === 'hero' && <span className="damage damage--hero" key={hit.id}>{hit.text}</span>}
