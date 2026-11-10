@@ -32,6 +32,7 @@ Marca cada casilla al terminarla y haz commit de este archivo para que el progre
 - [x] Modelo Curso → Unidad → Clase (video de YouTube no listado + teoría + ejemplo resuelto + ejercicios) en `features/academy/`
 - [ ] Primer curso completo (temario a definir con Edgar)
   - [x] Álgebra, 1.º de secundaria · Unidad 1: Ecuaciones de primer grado (4 clases + repaso; contenido provisional para que Edgar lo revise)
+  - [x] Unidad 2: Problemas con ecuaciones (lenguaje algebraico, números, edades, compras; 4 clases + repaso, en `features/academy/algebraUnit2.ts`; provisional)
   - [ ] Grabar los videos y pegar su `videoId` en `features/academy/courses.ts`
 - [x] Ejercicios resueltos paso a paso (comprender, planificar, resolver, comprobar)
 - [x] Avance del alumno por clase y unidad (por ahora en el navegador, `lib/progress.ts`; pasar a Supabase)

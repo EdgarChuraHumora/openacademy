@@ -18,7 +18,7 @@ Plataforma web de matemáticas, **para computadora y celular** (diseño responsi
 | Módulo | Inspiración | Público | Estado |
 |---|---|---|---|
 | **Juegos** | Educaplay, Wordwall | Primaria y secundaria | 7 plantillas con datos de prueba (quiz, emparejar, ordenar, V o F, clasificar, dominó, ruleta) |
-| **Academia** | Academias pre-u (tipo "Cachimbo") | Secundaria (principal) y pre-universitario | Álgebra: unidad 1 (4 clases + repaso); videos pendientes |
+| **Academia** | Academias pre-u (tipo "Cachimbo") | Secundaria (principal) y pre-universitario | Álgebra: unidades 1 y 2 (8 clases + 2 repasos); videos pendientes |
 | **Aventura** | Hero Wars (single player) | Primaria y secundaria | 4 héroes, mapa de 9 etapas, combate por turnos con ejercicios al azar, monedas y tienda de mejoras (React; avance en la cuenta, o en el navegador sin sesión) |
 
 La idea central: lo que el alumno aprende en Academia y gana en Juegos (XP, monedas, "fórmulas desbloqueadas") se usa en Aventura para conseguir y mejorar héroes.
@@ -69,7 +69,7 @@ frontend/
     features/games/classify/   types.ts, demoClassify.ts (plantilla Clasificar)
     features/games/domino/     types.ts, demoDominoes.ts (plantilla Dominó)
     features/games/roulette/   types.ts, demoRoulettes.ts, Wheel.tsx (plantilla Ruleta)
-    features/academy/      types.ts, courses.ts (Curso → Unidad → Clase, contenido de prueba)
+    features/academy/      types.ts, courses.ts (Curso → Unidad → Clase, contenido de prueba), algebraUnit2.ts
     features/teacher/      editorShared.tsx (partes comunes) y un editor por plantilla (Quiz, Match, TrueFalse, Order, Classify, Domino, Roulette)
     features/lab/          balance/ (balanza de ecuaciones), fractions/ (tiras), geoboard/ (geoplano)
     features/adventure/    data.ts (héroes y etapas), questions.ts (ejercicios al azar), storage.ts (avance en localStorage), useAdventure.ts (avance en la cuenta), Characters.tsx (dibujos SVG de héroes y monstruos)

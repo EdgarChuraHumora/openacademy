@@ -1,4 +1,5 @@
 import type { Course } from './types'
+import { algebraUnit2 } from './algebraUnit2'
 
 // Contenido de prueba: más adelante vendrá de la base de datos (Supabase)
 export const courses: Course[] = [
@@ -8,7 +9,7 @@ export const courses: Course[] = [
     level: '1.º de secundaria',
     icon: '𝑥',
     color: 'green',
-    description: 'Aprende a resolver ecuaciones paso a paso, con la balanza como aliada.',
+    description: 'Aprende a resolver ecuaciones paso a paso y a usarlas para resolver problemas.',
     units: [
       {
         id: 'ecuaciones-primer-grado',
@@ -258,6 +259,7 @@ export const courses: Course[] = [
           },
         ],
       },
+      algebraUnit2,
     ],
   },
 ]

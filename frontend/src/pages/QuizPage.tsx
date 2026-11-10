@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Mascot from '../components/brand/Mascot'
 import MathText from '../components/MathText'
 import type { Quiz } from '../features/games/quiz/types'
+import { shuffle } from '../features/games/shuffle'
 
 const letters = ['A', 'B', 'C', 'D']
 const XP_CORRECT = 10
@@ -21,6 +22,9 @@ export default function QuizPage({ quiz, exitTo = '/juegos', exitLabel = 'Volver
   const [score, setScore] = useState(0)
   const [xp, setXp] = useState(0)
   const [hintsShown, setHintsShown] = useState(0)
+  // Orden al azar de las opciones de cada pregunta (así no se memoriza "la respuesta es la C")
+  const newOrders = () => quiz.questions.map((q) => shuffle(q.options.length))
+  const [orders, setOrders] = useState(newOrders)
 
   const total = quiz.questions.length
 
@@ -47,6 +51,7 @@ export default function QuizPage({ quiz, exitTo = '/juegos', exitLabel = 'Volver
             setXp(0)
             setHintsShown(0)
             setSelected(null)
+            setOrders(newOrders())
           }}
         >
           Jugar otra vez
@@ -89,7 +94,8 @@ export default function QuizPage({ quiz, exitTo = '/juegos', exitLabel = 'Volver
       <div className="question"><MathText text={question.question} /></div>
 
       <div className="options">
-        {question.options.map((option, index) => {
+        {(orders[current] ?? shuffle(question.options.length)).map((index, position) => {
+          const option = question.options[index]
           let state = ''
           if (answered) {
             if (index === question.answerIndex) state = 'option--correct'
@@ -98,7 +104,7 @@ export default function QuizPage({ quiz, exitTo = '/juegos', exitLabel = 'Volver
           }
           return (
             <button key={option} className={`option ${state}`} onClick={() => choose(index)}>
-              <span className="option__letter">{letters[index]}</span>
+              <span className="option__letter">{letters[position]}</span>
               <MathText text={option} />
             </button>
           )
