@@ -10,6 +10,8 @@ import {
   fetchLeaderboard,
   isOnTime,
   pctClass,
+  assignedLink,
+  resultKey,
   type AssignedGame,
   type Classroom,
   type LeaderRow,
@@ -41,13 +43,15 @@ export default function ClassroomPage() {
         .from('game_results')
         .select('game_id, score, total, created_at')
         .eq('user_id', session.user.id)
-        .in('game_id', a.map((g) => `juego:${g.game_id}`))
+        .in('game_id', a.map(resultKey))
       const map: Record<string, number> = {}
       const timely: Record<string, boolean> = {}
       for (const row of data ?? []) {
-        const key = row.game_id.slice('juego:'.length)
+        const task = a.find((g) => resultKey(g) === row.game_id)
+        if (!task) continue
+        const key = task.game_id
         map[key] = Math.max(map[key] ?? 0, Math.round((100 * row.score) / row.total))
-        const due = a.find((g) => g.game_id === key)?.due_date
+        const due = task.due_date
         timely[key] = (timely[key] ?? false) || !due || isOnTime(row.created_at, due)
       }
       setBest(map)
@@ -96,21 +100,21 @@ export default function ClassroomPage() {
         {!isOwner && (
           <p className="muted">
             {assigned.length === 0
-              ? 'Tu profesor aún no asignó juegos.'
+              ? 'Tu profesor aún no asignó tareas.'
               : pending === 0
-                ? '¡Completaste todos los juegos asignados! Puedes repetirlos para mejorar tu resultado.'
-                : `Te falta${pending === 1 ? '' : 'n'} ${pending} juego${pending === 1 ? '' : 's'} por jugar.`}
+                ? '¡Completaste todas las tareas! Puedes repetirlas para mejorar tu resultado.'
+                : `Te falta${pending === 1 ? '' : 'n'} ${pending} tarea${pending === 1 ? '' : 's'} por hacer.`}
           </p>
         )}
       </div>
 
       {assigned.length > 0 && (
         <>
-          <h2 className="section-title">Juegos asignados</h2>
+          <h2 className="section-title">Tareas asignadas</h2>
           <ul className="assigned-list">
             {assigned.map((g) => (
               <li key={g.game_id}>
-                <Link to={`/juegos/${g.game_id}`} className="assigned-game assigned-game--link">
+                <Link to={assignedLink(g)} className="assigned-game assigned-game--link">
                   <span aria-hidden="true">{g.icon}</span>
                   <div className="assigned-game__info">
                     <strong>{g.title}</strong>
@@ -130,7 +134,7 @@ export default function ClassroomPage() {
                       <span className={dueLabel(g.due_date).className}>{dueLabel(g.due_date).text}</span>
                     )}
                   </div>
-                  <span className="assigned-game__play">Jugar ▶</span>
+                  <span className="assigned-game__play">{g.kind === 'lesson' ? 'Estudiar ▶' : 'Jugar ▶'}</span>
                 </Link>
               </li>
             ))}

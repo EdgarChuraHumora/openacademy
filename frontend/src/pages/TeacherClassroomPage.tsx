@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { games as builtInGames } from '../features/games/catalog'
 import { useAuth } from '../lib/auth'
 import {
+  academyOptions,
   byDue,
   daysLeft,
   dueLabel,
@@ -25,6 +26,7 @@ interface Option {
   id: string
   title: string
   icon: string
+  kind: AssignedGame['kind']
 }
 
 const date = (iso: string) => new Date(iso).toLocaleDateString('es-PE')
@@ -100,9 +102,14 @@ export default function TeacherClassroomPage() {
   }
 
   const assignedIds = new Set(assigned.map((g) => g.game_id))
+  const lessons = academyOptions()
   const options: { group: string; items: Option[] }[] = [
-    { group: 'Mis juegos publicados', items: myGames.map((g) => ({ id: g.id, title: g.title, icon: g.icon })) },
-    { group: 'Juegos de OpenAcademy', items: builtInGames.map((g) => ({ id: g.id, title: g.title, icon: g.icon })) },
+    { group: 'Mis juegos publicados', items: myGames.map((g) => ({ id: g.id, title: g.title, icon: g.icon, kind: 'game' })) },
+    { group: 'Juegos de OpenAcademy', items: builtInGames.map((g) => ({ id: g.id, title: g.title, icon: g.icon, kind: 'game' })) },
+    ...[...new Set(lessons.map((l) => l.group))].map((group) => ({
+      group: `Academia · ${group}`,
+      items: lessons.filter((l) => l.group === group).map((l) => ({ id: l.id, title: l.title, icon: l.icon, kind: 'lesson' as const })),
+    })),
   ]
   const cell = (studentId: string, gameId: string) =>
     report.find((r) => r.student_id === studentId && r.game_id === gameId)
@@ -113,8 +120,8 @@ export default function TeacherClassroomPage() {
     setError('')
     const { error } = await supabase
       .from('classroom_games')
-      .insert({ classroom_id: id, game_id: option.id, title: option.title.slice(0, 80), icon: option.icon, due_date: due || null })
-    if (error) setError('No se pudo asignar el juego.')
+      .insert({ classroom_id: id, game_id: option.id, title: option.title.slice(0, 80), icon: option.icon, due_date: due || null, kind: option.kind })
+    if (error) setError('No se pudo asignar.')
     setPick('')
     setDue('')
     load()
@@ -187,12 +194,12 @@ export default function TeacherClassroomPage() {
 
       {error && <p className="auth__error" role="alert">{error}</p>}
 
-      <h2 className="section-title">Juegos asignados ({assigned.length})</h2>
+      <h2 className="section-title">Tareas asignadas ({assigned.length})</h2>
       <div className="card">
         <label className="field">
-          Asignar un juego
+          Asignar un juego o una clase
           <select value={pick} onChange={(e) => setPick(e.target.value)}>
-            <option value="">Elige un juego…</option>
+            <option value="">Elige un juego o una clase…</option>
             {options.map((o) =>
               o.items.length ? (
                 <optgroup key={o.group} label={o.group}>
@@ -222,7 +229,7 @@ export default function TeacherClassroomPage() {
                 <div className="assigned-game__info">
                   <strong>{g.title}</strong>
                   <span className="muted">
-                    {report.filter((r) => r.game_id === g.game_id).length} de {students.length} lo jugaron
+                    {g.kind === 'lesson' ? '📘 Clase · ' : ''}{report.filter((r) => r.game_id === g.game_id).length} de {students.length} {g.kind === 'lesson' ? 'la completaron' : 'lo jugaron'}
                     {avg !== null && <> · promedio <span className={pctClass(avg)}>{avg}%</span></>}
                   </span>
                   {g.due_date && <span className={dueLabel(g.due_date).className}>{dueLabel(g.due_date).text}</span>}
@@ -250,7 +257,7 @@ export default function TeacherClassroomPage() {
         </div>
       ) : (
         <>
-          <p className="muted">Cada casilla muestra el mejor resultado del alumno en ese juego.</p>
+          <p className="muted">Cada casilla muestra el mejor resultado del alumno en ese juego o en la práctica de esa clase.</p>
           <div className="table-scroll">
             <table className="results-table">
               <thead>

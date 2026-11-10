@@ -63,7 +63,7 @@ Marca cada casilla al terminarla y haz commit de este archivo para que el progre
 - [x] Aulas (`0005_aulas.sql`): el docente crea un aula con código de 6 letras, los alumnos entran con el código o un enlace (`/aulas/unirse/CODIGO`)
 - [x] El docente asigna juegos (propios o de OpenAcademy) y ve el mejor resultado de cada alumno en cada juego; descarga en CSV para Excel
 - [x] Fecha límite opcional para cada juego asignado (`0006_fecha_limite.sql`): el alumno ve cuántos días le quedan y el docente ve quién entregó tarde o no entregó
-- [ ] Asignar clases de la Academia al aula
+- [x] Asignar clases y repasos de la Academia al aula (`0008_aulas_clases.sql`), con los mismos resultados, fechas límite y marca de "tarde" que los juegos
 - [ ] Tablas `organizations` y `memberships` (institución con varios docentes)
 - [ ] Reportes por competencia y por tema
 

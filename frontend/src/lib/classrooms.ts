@@ -1,3 +1,4 @@
+import { courses } from '../features/academy/courses'
 import { supabase } from './supabase'
 
 // Aulas: el docente las crea, los alumnos entran con un código (tablas en 0005_aulas.sql)
@@ -16,6 +17,7 @@ export interface AssignedGame {
   icon: string
   assigned_at: string
   due_date: string | null // "2026-11-14": vence al terminar ese día (hora de Perú)
+  kind: 'game' | 'lesson' // juego, o clase / repaso de la Academia
 }
 
 export interface ClassStudent {
@@ -109,4 +111,29 @@ export function byDue(a: AssignedGame, b: AssignedGame) {
   if (a.due_date) return -1
   if (b.due_date) return 1
   return b.assigned_at.localeCompare(a.assigned_at)
+}
+
+// Clave con la que se guardan los resultados ("juego:tablas" o "academia:algebra/problemas-edades")
+export const resultKey = (g: Pick<AssignedGame, 'kind' | 'game_id'>) =>
+  `${g.kind === 'lesson' ? 'academia' : 'juego'}:${g.game_id}`
+
+// A dónde lleva cada tarea asignada
+export function assignedLink(g: Pick<AssignedGame, 'kind' | 'game_id'>) {
+  if (g.kind !== 'lesson') return `/juegos/${g.game_id}`
+  const [course, unitOrLesson, review] = g.game_id.split('/')
+  return review ? `/academia/${course}/unidad/${unitOrLesson}/repaso` : `/academia/${course}/clase/${unitOrLesson}`
+}
+
+// Clases y repasos de la Academia que el docente puede asignar
+export function academyOptions() {
+  const plain = (t: string) => t.replace(/\$/g, '')
+  return courses.flatMap((c) =>
+    c.units.flatMap((u, i) => {
+      const group = `${c.title} · Unidad ${i + 1}`
+      return [
+        ...u.lessons.map((l) => ({ id: `${c.id}/${l.id}`, title: `${c.title}: ${plain(l.title)}`, icon: '📘', group })),
+        { id: `${c.id}/${u.id}/repaso`, title: `${c.title}: repaso de ${plain(u.title)}`, icon: '⭐', group },
+      ]
+    }),
+  )
 }
