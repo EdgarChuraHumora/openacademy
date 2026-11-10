@@ -39,13 +39,13 @@ export default function HomePage() {
             <p>Balanzas, fracciones y figuras para manipular.</p>
           </div>
         </Link>
-        <div className="module-card module-card--epic">
+        <Link to="/aventura" className="module-card module-card--epic">
           <span className="tile tile--gold">⚔️</span>
           <div>
-            <h3>Aventura <span className="badge badge--gold">Pronto</span></h3>
+            <h3>Aventura <span className="badge badge--gold">Nuevo</span></h3>
             <p>Consigue héroes y mejóralos resolviendo ejercicios.</p>
           </div>
-        </div>
+        </Link>
       </div>
     </section>
   )

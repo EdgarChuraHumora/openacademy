@@ -854,3 +854,95 @@ button { font-family: inherit; }
 .late-mark { display: block; font-size: 0.7rem; font-weight: 800; color: var(--red-dark); }
 .due-input { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 700; color: var(--muted); }
 .due-input input { padding: 4px 6px; border-radius: 8px; border: 2px solid var(--border); font: inherit; min-width: 0; }
+
+/* ---------- Aventura (tema oscuro y dorado) ---------- */
+.adventure {
+  --adv-card: #2a2360; --adv-line: #3d3485;
+  background: radial-gradient(circle at 50% 0%, #2f2672, var(--night) 70%);
+  color: #f4f1ff; border-radius: var(--radius); padding: 18px 16px 24px;
+}
+.adventure h1, .adventure h2 { color: var(--gold); }
+.adventure p { color: #d9d3ff; }
+.adventure .page-head p { margin: 0; }
+.adventure .quiz-close { color: #d9d3ff; }
+.hero-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.hero-card {
+  display: grid; grid-template-columns: 64px 1fr; column-gap: 12px; row-gap: 2px; align-items: center;
+  padding: 12px 14px; text-align: left; font: inherit; color: #f4f1ff; cursor: pointer;
+  background: var(--adv-card); border: 2px solid var(--adv-line); border-radius: 18px;
+  box-shadow: 0 4px 0 #120e30;
+}
+.hero-card > :not(.hero-card__portrait) { grid-column: 2; }
+.hero-card__portrait {
+  grid-row: span 6; width: 64px; height: 64px; display: grid; place-items: center; font-size: 2rem;
+  border-radius: 50%; background: #1b1640; border: 3px solid var(--gold);
+}
+.hero-card small { color: #b9b1ef; }
+.hero-card--selected { border-color: var(--gold); box-shadow: 0 4px 0 var(--yellow-dark); background: #352c78; }
+.hero-card:disabled { opacity: 0.55; cursor: not-allowed; }
+.hero-card:disabled .hero-card__portrait { border-color: var(--adv-line); }
+.hero-card__level { font-weight: 800; color: var(--gold); font-size: 0.85rem; }
+.hero-card__stats { font-weight: 800; font-size: 0.85rem; }
+.hero-card__special { font-size: 0.8rem; color: #d9d3ff; }
+.adv-bar { display: block; height: 8px; border-radius: 999px; background: #120e30; overflow: hidden; }
+.adv-bar > span { display: block; height: 100%; background: var(--gold); border-radius: 999px; transition: width 0.4s; }
+.adv-bar--time > span { transition: width 1s linear; }
+.adv-map { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; position: relative; }
+.adv-stage {
+  display: flex; align-items: center; gap: 12px; padding: 12px 14px; color: #f4f1ff;
+  background: var(--adv-card); border: 2px solid var(--adv-line); border-radius: 18px; box-shadow: 0 4px 0 #120e30;
+}
+a.adv-stage:active { transform: translateY(3px); box-shadow: none; }
+.adv-stage--boss { border-color: var(--red); }
+.adv-stage--locked { opacity: 0.5; }
+.adv-stage__icon { font-size: 1.8rem; width: 48px; height: 48px; flex: none; display: grid; place-items: center; border-radius: 50%; background: #1b1640; }
+.adv-stage__info { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.adv-stage__info small { color: #b9b1ef; }
+.adv-stage__stars { color: var(--gold); letter-spacing: 1px; white-space: nowrap; }
+.adv-note { font-size: 0.85rem; text-align: center; }
+.adv-banner { padding: 10px 14px; border-radius: 14px; background: rgba(255, 201, 60, 0.15); border: 2px solid var(--gold); color: var(--gold) !important; font-weight: 800; }
+.adv-result__icon { font-size: 4.5rem; }
+
+.battle { gap: 12px; }
+.battle__top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.battle__top strong { color: var(--gold); font-family: var(--font-title); text-align: center; }
+.battle__timer { font-weight: 800; white-space: nowrap; }
+.arena { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.fighter {
+  position: relative; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 10px 8px;
+  border-radius: 18px; background: var(--adv-card); border: 2px solid var(--adv-line); text-align: center;
+}
+.fighter strong { font-size: 0.85rem; }
+.fighter--enemy { border-color: #6b2d55; }
+.fighter__icon { font-size: 3rem; line-height: 1.1; animation: float 2.4s ease-in-out infinite; }
+.fighter--hit .fighter__icon { animation: shake 0.45s; }
+.hp { position: relative; width: 100%; height: 16px; border-radius: 999px; background: #120e30; overflow: hidden; }
+.hp > span { display: block; height: 100%; transition: width 0.5s; }
+.hp--hero > span { background: var(--green); }
+.hp--enemy > span { background: var(--red); }
+.hp small { position: absolute; inset: 0; font-size: 0.7rem; font-weight: 800; line-height: 16px; color: #fff; }
+.damage {
+  position: absolute; top: 4px; right: 10px; font-family: var(--font-title); font-size: 1.5rem; font-weight: 700;
+  color: var(--gold); text-shadow: 0 2px 0 #120e30; pointer-events: none; animation: rise 1s ease-out forwards;
+}
+.damage--hero { color: var(--red); }
+.battle__message { margin: 0; min-height: 1.4em; text-align: center; font-weight: 800; color: #f4f1ff !important; }
+.battle__question { color: var(--text); }
+.battle__question h2 { color: var(--text); font-size: 1.2rem; text-align: center; margin: 0 0 12px; }
+.battle__question .feedback { margin-top: 12px; }
+.special-btn { margin-top: 4px; }
+@keyframes float { 50% { transform: translateY(-6px); } }
+@keyframes shake { 20%, 60% { transform: translateX(-8px) rotate(-6deg); } 40%, 80% { transform: translateX(8px) rotate(6deg); } }
+@keyframes rise { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-36px); } }
+@media (prefers-reduced-motion: reduce) {
+  .fighter__icon, .fighter--hit .fighter__icon, .damage { animation: none; }
+}
+@media (min-width: 768px) {
+  .hero-grid { grid-template-columns: repeat(3, 1fr); }
+  .hero-card { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  .hero-card > :not(.hero-card__portrait) { grid-column: 1; }
+  .hero-card__portrait { grid-row: auto; width: 80px; height: 80px; font-size: 2.6rem; }
+  .adventure { padding: 24px 28px 32px; }
+  .fighter__icon { font-size: 4.2rem; }
+}
+.hero-card .adv-bar { justify-self: stretch; width: 100%; }

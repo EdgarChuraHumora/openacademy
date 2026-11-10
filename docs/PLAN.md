@@ -68,9 +68,14 @@ Marca cada casilla al terminarla y haz commit de este archivo para que el progre
 
 ## Fase 5: Aventura (RPG single player)
 
-- [ ] Héroes por área: Aritmética, Álgebra, Geometría, Estadística y Probabilidad
-- [ ] Se desbloquean al dominar temas; se mejoran resolviendo ejercicios del área
-- [ ] Combate por turnos donde cada ataque es un ejercicio (Phaser.js)
+- [x] Primera versión (`/aventura`, hecha con React y CSS; Phaser.js queda para cuando haya mapa animado)
+  - [x] 3 héroes: Numerón (Aritmética), Incógnita (Álgebra) y Compasia (Geometría); los dos últimos se desbloquean ganando etapas
+  - [x] Mapa con 6 etapas y jefe final; cada etapa se abre al ganar la anterior; estrellas según la vida que queda
+  - [x] Combate por turnos: cada ataque es un ejercicio generado al azar (`features/adventure/questions.ts`), 20 s por ejercicio, crítico si responde rápido, poder especial cada 3 aciertos
+  - [x] El héroe sube de nivel (+10 % de vida y ataque) y la victoria suma XP a la cuenta
+- [ ] Guardar el avance de la Aventura en Supabase (hoy está en el navegador)
+- [ ] Héroe de Estadística y Probabilidad; más etapas
+- [ ] Dibujos propios de héroes y monstruos (hoy son emojis)
 - [ ] Inventario, monedas y mejoras
 
 ## Fase 6: Pagos

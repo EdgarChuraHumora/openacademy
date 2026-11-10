@@ -19,7 +19,7 @@ Plataforma web de matemáticas, **para computadora y celular** (diseño responsi
 |---|---|---|---|
 | **Juegos** | Educaplay, Wordwall | Primaria y secundaria | 7 plantillas con datos de prueba (quiz, emparejar, ordenar, V o F, clasificar, dominó, ruleta) |
 | **Academia** | Academias pre-u (tipo "Cachimbo") | Secundaria (principal) y pre-universitario | Álgebra: unidad 1 (4 clases + repaso); videos pendientes |
-| **Aventura** | Hero Wars (single player) | Primaria y secundaria | Solo tarjeta "Pronto" |
+| **Aventura** | Hero Wars (single player) | Primaria y secundaria | 3 héroes, mapa de 6 etapas y combate por turnos con ejercicios al azar (React; avance en el navegador) |
 
 La idea central: lo que el alumno aprende en Academia y gana en Juegos (XP, monedas, "fórmulas desbloqueadas") se usa en Aventura para conseguir y mejorar héroes.
 
@@ -72,6 +72,7 @@ frontend/
     features/academy/      types.ts, courses.ts (Curso → Unidad → Clase, contenido de prueba)
     features/teacher/      editorShared.tsx (partes comunes) y un editor por plantilla (Quiz, Match, TrueFalse, Order, Classify, Domino, Roulette)
     features/lab/          balance/ (balanza de ecuaciones), fractions/ (tiras), geoboard/ (geoplano)
+    features/adventure/    data.ts (héroes y etapas), questions.ts (ejercicios al azar), storage.ts (avance en localStorage)
     lib/supabase.ts        cliente de Supabase (null si faltan las variables de .env)
     lib/auth.tsx           sesión y perfil (AuthProvider, useAuth)
     lib/results.ts         useRecordGame: guarda resultado y XP con la función record_game
@@ -83,7 +84,8 @@ frontend/
                            GamePage (abre cada juego según su tipo), MatchPage, OrderPage, TrueFalsePage, ClassifyPage, DominoPage, RoulettePage,
                            CoursePage, LessonPage, AcademyPracticePage (Academia), RankingPage,
                            TeacherPage (panel docente) y GameEditorPage (elige el editor según el tipo), AdminPage (roles),
-                           TeacherClassroomsPage y TeacherClassroomPage (aulas del docente), MyClassroomsPage y ClassroomPage (aulas del alumno)
+                           TeacherClassroomsPage y TeacherClassroomPage (aulas del docente), MyClassroomsPage y ClassroomPage (aulas del alumno),
+                           AdventurePage (mapa y héroes) y BattlePage (combate)
   vercel.json              rewrite para que funcionen las rutas de React Router
   vite.config.ts           manifest PWA (nombre, colores, iconos)
 backend/

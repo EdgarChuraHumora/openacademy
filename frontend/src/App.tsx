@@ -26,6 +26,8 @@ const TeacherClassroomPage = lazy(() => import('./pages/TeacherClassroomPage'))
 const MyClassroomsPage = lazy(() => import('./pages/MyClassroomsPage'))
 const JoinClassroomPage = lazy(() => import('./pages/MyClassroomsPage').then((m) => ({ default: m.JoinClassroomPage })))
 const ClassroomPage = lazy(() => import('./pages/ClassroomPage'))
+const AdventurePage = lazy(() => import('./pages/AdventurePage'))
+const BattlePage = lazy(() => import('./pages/BattlePage'))
 
 function Lazy({ children }: { children: ReactNode }) {
   return <Suspense fallback={<p className="muted center">Cargando…</p>}>{children}</Suspense>
@@ -65,6 +67,8 @@ export default function App() {
         <Route path="/aulas" element={<Lazy><MyClassroomsPage /></Lazy>} />
         <Route path="/aulas/unirse/:code" element={<Lazy><JoinClassroomPage /></Lazy>} />
         <Route path="/aulas/:id" element={<Lazy><ClassroomPage /></Lazy>} />
+        <Route path="/aventura" element={<Lazy><AdventurePage /></Lazy>} />
+        <Route path="/aventura/batalla/:stageId" element={<Lazy><BattlePage /></Lazy>} />
         <Route path="/perfil" element={<ProfilePage />} />
         <Route
           path="*"
