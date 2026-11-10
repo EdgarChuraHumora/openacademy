@@ -109,9 +109,87 @@ function geometry(tier: Tier): BattleQuestion {
   )
 }
 
+const gcd = (a: number, b: number): number => (b === 0 ? a : gcd(b, a % b))
+const frac = (n: number, d: number) => {
+  const g = gcd(n, d)
+  return d / g === 1 ? `$${n / g}$` : `$\\frac{${n / g}}{${d / g}}$`
+}
+
+// Opciones que no son números (fracciones): la primera de "all" es la correcta
+function buildText(text: string, all: string[], explanation: string): BattleQuestion {
+  const values = [...new Set(all)].slice(0, 4)
+  const order = shuffle(values.length)
+  return { text, options: order.map((i) => values[i]), answerIndex: order.indexOf(0), explanation }
+}
+
+const list = (nums: number[]) => nums.join(', ')
+
+function statistics(tier: Tier): BattleQuestion {
+  const kind = tier === 1 ? pick(['mean', 'mode', 'range'] as const) : pick(['mean', 'median', 'dice', 'bag'] as const)
+  if (kind === 'mean') {
+    const n = tier === 1 ? rand(3, 4) : 5
+    const mean = rand(4, 18)
+    let nums: number[] = []
+    // Números al azar cuyo promedio sea exacto
+    do {
+      nums = Array.from({ length: n - 1 }, () => rand(1, 25))
+      nums.push(mean * n - nums.reduce((a, b) => a + b, 0))
+    } while (nums[n - 1] < 1 || nums[n - 1] > 30)
+    const sum = mean * n
+    return build(`Promedio de: ${list(nums)}`, mean, [sum, mean + 2, Math.round(sum / (n - 1))], `Suma = ${sum}; ${sum} ÷ ${n} = ${mean}`)
+  }
+  if (kind === 'mode') {
+    const mode = rand(2, 15)
+    const others = new Set<number>()
+    while (others.size < 3) {
+      const v = rand(1, 20)
+      if (v !== mode) others.add(v)
+    }
+    const values = [mode, mode, ...others]
+    const nums = shuffle(5).map((i) => values[i])
+    const o = [...others]
+    return build(`Moda de: ${list(nums)}`, mode, [o[0], o[1], Math.max(...nums)], `La moda es el dato que más se repite: ${mode} aparece 2 veces`)
+  }
+  if (kind === 'range') {
+    const nums = Array.from({ length: 5 }, () => rand(2, 40))
+    if (Math.max(...nums) === Math.min(...nums)) nums[0] += 5
+    const max = Math.max(...nums)
+    const min = Math.min(...nums)
+    return build(`Rango de: ${list(nums)}`, max - min, [max, max - min + 1, max + min], `Rango = mayor − menor = ${max} − ${min} = ${max - min}`)
+  }
+  if (kind === 'median') {
+    const nums = Array.from({ length: 5 }, () => rand(1, 30))
+    const sorted = [...nums].sort((a, b) => a - b)
+    const med = sorted[2]
+    return build(`Mediana de: ${list(nums)}`, med, [nums[2], sorted[1], sorted[3]], `Ordenados: ${list(sorted)}. El del medio es ${med}`)
+  }
+  if (kind === 'dice') {
+    const c = pick([
+      { text: 'un número par', n: 3, why: '2, 4 y 6' },
+      { text: 'un número mayor que 4', n: 2, why: '5 y 6' },
+      { text: 'el número 6', n: 1, why: 'solo el 6' },
+      { text: 'un número menor que 3', n: 2, why: '1 y 2' },
+      { text: 'un múltiplo de 3', n: 2, why: '3 y 6' },
+    ])
+    return buildText(
+      `Al lanzar un dado, ¿qué probabilidad hay de sacar ${c.text}?`,
+      [frac(c.n, 6), frac(1, 6), frac(6 - c.n, 6), frac(c.n + 1, 6), frac(5, 6), frac(1, 2), frac(2, 3)],
+      `Casos favorables: ${c.why}, son ${c.n} de 6. Probabilidad = $\\frac{${c.n}}{6}$${c.n === 1 ? '' : ` = ${frac(c.n, 6)}`}`,
+    )
+  }
+  const red = rand(1, 7)
+  const blue = rand(1, 7)
+  return buildText(
+    `En una bolsa hay ${red} bolas rojas y ${blue} azules. ¿Qué probabilidad hay de sacar una roja?`,
+    [frac(red, red + blue), frac(blue, red + blue), `$\\frac{${red}}{${blue}}$`, frac(1, red + blue), frac(red + 1, red + blue + 1), frac(red, red + blue + 1)],
+    `Hay ${red + blue} bolas y ${red} son rojas: probabilidad = ${frac(red, red + blue)}`,
+  )
+}
+
 export function makeQuestion(area: Area | 'mixta', tier: Tier): BattleQuestion {
-  const real: Area = area === 'mixta' ? pick(['aritmetica', 'algebra', 'geometria']) : area
+  const real: Area = area === 'mixta' ? pick(['aritmetica', 'algebra', 'geometria', 'estadistica']) : area
   if (real === 'aritmetica') return arithmetic(tier)
   if (real === 'algebra') return algebra(tier)
+  if (real === 'estadistica') return statistics(tier)
   return geometry(tier)
 }

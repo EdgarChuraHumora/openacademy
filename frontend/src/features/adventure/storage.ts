@@ -1,9 +1,11 @@
-import { heroes, stages, type Hero } from './data'
+import { heroes, stages, type Hero, type Upgrades } from './data'
 
 // Avance de la Aventura (por ahora en el navegador, como el de la Academia)
 export interface AdventureSave {
   heroXp: Record<string, number>
   stars: Record<string, number> // mejor resultado por etapa (1 a 3)
+  coins: number
+  upgrades: Record<string, Upgrades>
 }
 
 const KEY = 'oa-aventura'
@@ -11,9 +13,9 @@ const KEY = 'oa-aventura'
 export function loadAdventure(): AdventureSave {
   try {
     const raw = JSON.parse(localStorage.getItem(KEY) ?? '{}')
-    return { heroXp: raw.heroXp ?? {}, stars: raw.stars ?? {} }
+    return { heroXp: raw.heroXp ?? {}, stars: raw.stars ?? {}, coins: raw.coins ?? 0, upgrades: raw.upgrades ?? {} }
   } catch {
-    return { heroXp: {}, stars: {} }
+    return { heroXp: {}, stars: {}, coins: 0, upgrades: {} }
   }
 }
 
@@ -35,3 +37,5 @@ export function isStageUnlocked(index: number, save: AdventureSave) {
 export function unlockedHeroes(save: AdventureSave) {
   return heroes.filter((h) => isHeroUnlocked(h, save))
 }
+
+export const heroUpgrades = (save: AdventureSave, heroId: string): Upgrades => save.upgrades[heroId] ?? { attack: 0, hp: 0 }

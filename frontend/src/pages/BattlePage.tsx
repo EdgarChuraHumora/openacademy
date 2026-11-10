@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
 import MathText from '../components/MathText'
-import { heroes, heroLevel, heroStats, stages, type Hero, type Stage } from '../features/adventure/data'
+import { coinReward, heroes, heroLevel, heroStats, stages, type Hero, type Stage } from '../features/adventure/data'
 import { makeQuestion, type BattleQuestion } from '../features/adventure/questions'
-import { isHeroUnlocked, isStageUnlocked, loadAdventure, saveAdventure } from '../features/adventure/storage'
+import { heroUpgrades, isHeroUnlocked, isStageUnlocked, loadAdventure, saveAdventure } from '../features/adventure/storage'
 import { useRecordGame } from '../lib/results'
 
 const letters = ['A', 'B', 'C', 'D']
@@ -32,7 +32,7 @@ function Bar({ value, max, kind }: { value: number; max: number; kind: 'hero' | 
 function Battle({ stage, hero, onRestart }: { stage: Stage; hero: Hero; onRestart: () => void }) {
   const record = useRecordGame()
   const [save] = useState(loadAdventure)
-  const stats = heroStats(hero, save.heroXp[hero.id] ?? 0)
+  const stats = heroStats(hero, save.heroXp[hero.id] ?? 0, heroUpgrades(save, hero.id))
   const sameArea = stage.area === hero.area
 
   const [phase, setPhase] = useState<Phase>('question')
@@ -46,7 +46,7 @@ function Battle({ stage, hero, onRestart }: { stage: Stage; hero: Hero; onRestar
   const [message, setMessage] = useState(`¡Un ${stage.enemy.name} salvaje aparece!`)
   const [hit, setHit] = useState<Hit | null>(null)
   const [tally, setTally] = useState({ correct: 0, answered: 0 })
-  const [reward, setReward] = useState({ stars: 0, heroXp: 0, xp: 0, levelUp: false })
+  const [reward, setReward] = useState({ stars: 0, heroXp: 0, xp: 0, coins: 0, levelUp: false })
   // Copias inmediatas de la vida y los aciertos (los temporizadores leen valores viejos del estado)
   const hp = useRef({ hero: stats.hp, enemy: stage.enemy.hp })
   const score = useRef({ correct: 0, answered: 0 })
@@ -110,12 +110,14 @@ function Battle({ stage, hero, onRestart }: { stage: Stage; hero: Hero; onRestar
     if (phase !== 'question' || charge < CHARGE) return
     setCharge(0)
     const kind = hero.special.kind
-    const damage = vary(stats.attack * (kind === 'blast' ? 3 : 1.5))
+    // Tiro de suerte: un dado decide si hace x2, x2.5, x3, x3.5 o x4
+    const luck = 2 + 0.5 * Math.floor(Math.random() * 5)
+    const damage = vary(stats.attack * (kind === 'blast' ? 3 : kind === 'luck' ? luck : 1.5))
     const healed = kind === 'heal' ? Math.min(stats.hp, hp.current.hero + Math.round(stats.hp / 3)) : hp.current.hero
     setLife(healed, hp.current.enemy - damage)
     strike('enemy', `-${damage}`)
     if (kind === 'shield') setShield(true)
-    setMessage(`✨ ¡${hero.special.name}! ${hero.special.description}`)
+    setMessage(kind === 'luck' ? `🎲 ¡${hero.special.name}! Salió x${luck}: ${damage} de daño.` : `✨ ¡${hero.special.name}! ${hero.special.description}`)
     setPhase('feedback')
     setTimeout(next, 1300)
   }
@@ -140,15 +142,18 @@ function Battle({ stage, hero, onRestart }: { stage: Stage; hero: Hero; onRestar
     const ratio = hpLeft / stats.hp
     const stars = ratio >= 0.7 ? 3 : ratio >= 0.35 ? 2 : 1
     const heroXp = 15 * stage.tier + 5 * stars
-    const before = save.heroXp[hero.id] ?? 0
-    const updated = {
-      heroXp: { ...save.heroXp, [hero.id]: before + heroXp },
-      stars: { ...save.stars, [stage.id]: Math.max(save.stars[stage.id] ?? 0, stars) },
-    }
-    saveAdventure(updated)
+    const coins = coinReward(stage.tier, stars)
+    const latest = loadAdventure()
+    const before = latest.heroXp[hero.id] ?? 0
+    saveAdventure({
+      ...latest,
+      heroXp: { ...latest.heroXp, [hero.id]: before + heroXp },
+      stars: { ...latest.stars, [stage.id]: Math.max(latest.stars[stage.id] ?? 0, stars) },
+      coins: latest.coins + coins,
+    })
     const { correct, answered } = score.current
     const xp = Math.min(200, 5 * correct + 10 * stars)
-    setReward({ stars, heroXp, xp, levelUp: heroLevel(before + heroXp) > heroLevel(before) })
+    setReward({ stars, heroXp, xp, coins, levelUp: heroLevel(before + heroXp) > heroLevel(before) })
     record(`aventura:${stage.id}`, correct, Math.max(1, answered), xp)
   }
 
@@ -168,7 +173,7 @@ function Battle({ stage, hero, onRestart }: { stage: Stage; hero: Hero; onRestar
               {[1, 2, 3].map((n) => <span key={n} className={n <= reward.stars ? 'star star--on' : 'star'}>★</span>)}
             </div>
             <p>
-              {tally.correct} de {tally.answered} ejercicios correctos · +{reward.xp} XP · {hero.name} gana +{reward.heroXp} XP de héroe
+              {tally.correct} de {tally.answered} ejercicios correctos · +{reward.xp} XP · {hero.name} gana +{reward.heroXp} XP de héroe · +{reward.coins} 🪙
             </p>
             {reward.levelUp && <p className="adv-banner">⬆️ ¡{hero.name} subió de nivel! Ahora tiene más vida y ataque.</p>}
             {newHero && <p className="adv-banner">{newHero.icon} ¡Nuevo héroe: {newHero.name}, {newHero.title}!</p>}

@@ -19,7 +19,7 @@ Plataforma web de matemáticas, **para computadora y celular** (diseño responsi
 |---|---|---|---|
 | **Juegos** | Educaplay, Wordwall | Primaria y secundaria | 7 plantillas con datos de prueba (quiz, emparejar, ordenar, V o F, clasificar, dominó, ruleta) |
 | **Academia** | Academias pre-u (tipo "Cachimbo") | Secundaria (principal) y pre-universitario | Álgebra: unidad 1 (4 clases + repaso); videos pendientes |
-| **Aventura** | Hero Wars (single player) | Primaria y secundaria | 3 héroes, mapa de 6 etapas y combate por turnos con ejercicios al azar (React; avance en el navegador) |
+| **Aventura** | Hero Wars (single player) | Primaria y secundaria | 4 héroes, mapa de 9 etapas, combate por turnos con ejercicios al azar, monedas y tienda de mejoras (React; avance en el navegador) |
 
 La idea central: lo que el alumno aprende en Academia y gana en Juegos (XP, monedas, "fórmulas desbloqueadas") se usa en Aventura para conseguir y mejorar héroes.
 

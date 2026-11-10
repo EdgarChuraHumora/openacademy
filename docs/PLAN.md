@@ -74,9 +74,10 @@ Marca cada casilla al terminarla y haz commit de este archivo para que el progre
   - [x] Combate por turnos: cada ataque es un ejercicio generado al azar (`features/adventure/questions.ts`), 20 s por ejercicio, crítico si responde rápido, poder especial cada 3 aciertos
   - [x] El héroe sube de nivel (+10 % de vida y ataque) y la victoria suma XP a la cuenta
 - [ ] Guardar el avance de la Aventura en Supabase (hoy está en el navegador)
-- [ ] Héroe de Estadística y Probabilidad; más etapas
+- [x] 4.º héroe: Azaria (Estadística y Probabilidad: promedio, moda, mediana, rango y probabilidad); mapa de 9 etapas
 - [ ] Dibujos propios de héroes y monstruos (hoy son emojis)
-- [ ] Inventario, monedas y mejoras
+- [x] Monedas por victoria y tienda de mejoras por héroe (+6 % de ataque o vida, hasta 5 de cada una)
+- [ ] Inventario y objetos
 
 ## Fase 6: Pagos
 

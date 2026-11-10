@@ -946,3 +946,15 @@ a.adv-stage:active { transform: translateY(3px); box-shadow: none; }
   .fighter__icon { font-size: 4.2rem; }
 }
 .hero-card .adv-bar { justify-self: stretch; width: 100%; }
+.adv-coins {
+  align-self: flex-start; padding: 6px 14px; border-radius: 999px; font-weight: 800; color: var(--gold);
+  background: rgba(255, 201, 60, 0.12); border: 2px solid var(--gold);
+}
+.adv-shop { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.adv-shop__item {
+  display: flex; flex-direction: column; gap: 6px; padding: 12px; border-radius: 16px;
+  background: var(--adv-card); border: 2px solid var(--adv-line);
+}
+.adv-shop__item small { color: #b9b1ef; font-size: 0.75rem; }
+.adv-shop__item .btn--small { margin-left: 0; width: 100%; }
+@media (min-width: 768px) { .hero-grid { grid-template-columns: repeat(4, 1fr); } }

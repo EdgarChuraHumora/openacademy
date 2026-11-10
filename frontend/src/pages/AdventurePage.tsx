@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { areaLabel, HERO_XP_PER_LEVEL, heroLevel, heroStats, heroes, stages } from '../features/adventure/data'
-import { isHeroUnlocked, isStageUnlocked, loadAdventure } from '../features/adventure/storage'
+import { areaLabel, HERO_XP_PER_LEVEL, heroLevel, heroStats, heroes, MAX_UPGRADE, stages, UPGRADE_BONUS, upgradeCost, type Upgrades } from '../features/adventure/data'
+import { heroUpgrades, isHeroUnlocked, isStageUnlocked, loadAdventure, saveAdventure } from '../features/adventure/storage'
 
 const SELECTED_KEY = 'oa-aventura-heroe'
 
@@ -15,7 +15,7 @@ function readSelected() {
 
 // /aventura: elige un héroe y una etapa del mapa
 export default function AdventurePage() {
-  const save = loadAdventure()
+  const [save, setSave] = useState(loadAdventure)
   const [selected, setSelected] = useState(() => {
     const id = readSelected()
     const hero = heroes.find((h) => h.id === id)
@@ -31,6 +31,21 @@ export default function AdventurePage() {
     }
   }
 
+  const current = heroes.find((h) => h.id === selected) ?? heroes[0]
+  const owned = heroUpgrades(save, current.id)
+
+  function buy(type: keyof Upgrades) {
+    const cost = upgradeCost(owned[type])
+    if (save.coins < cost || owned[type] >= MAX_UPGRADE) return
+    const next = {
+      ...save,
+      coins: save.coins - cost,
+      upgrades: { ...save.upgrades, [current.id]: { ...owned, [type]: owned[type] + 1 } },
+    }
+    saveAdventure(next)
+    setSave(next)
+  }
+
   return (
     <section className="adventure stack">
       <div className="page-head">
@@ -38,12 +53,14 @@ export default function AdventurePage() {
         <p>Elige a tu héroe y derrota a los monstruos resolviendo ejercicios. Cada respuesta correcta es un ataque.</p>
       </div>
 
+      <div className="adv-coins">🪙 {save.coins} monedas</div>
+
       <h2 className="section-title">Tus héroes</h2>
       <div className="hero-grid">
         {heroes.map((h) => {
           const unlocked = isHeroUnlocked(h, save)
           const xp = save.heroXp[h.id] ?? 0
-          const stats = heroStats(h, xp)
+          const stats = heroStats(h, xp, heroUpgrades(save, h.id))
           const lockStage = stages.find((s) => s.id === h.unlockAfter)
           return (
             <button
@@ -71,6 +88,28 @@ export default function AdventurePage() {
           )
         })}
       </div>
+
+      <h2 className="section-title">Tienda de {current.name}</h2>
+      <div className="adv-shop">
+        {([
+          ['attack', '⚔️ Más ataque'],
+          ['hp', '❤️ Más vida'],
+        ] as const).map(([type, label]) => {
+          const n = owned[type]
+          const cost = upgradeCost(n)
+          const maxed = n >= MAX_UPGRADE
+          return (
+            <div key={type} className="adv-shop__item">
+              <strong>{label}</strong>
+              <small>+{Math.round(UPGRADE_BONUS * 100)} % cada mejora · {n}/{MAX_UPGRADE}</small>
+              <button className="btn btn--yellow btn--small" disabled={maxed || save.coins < cost} onClick={() => buy(type)}>
+                {maxed ? 'Al máximo' : `Comprar · ${cost} 🪙`}
+              </button>
+            </div>
+          )
+        })}
+      </div>
+      <p className="adv-note">Gana monedas venciendo etapas: más estrellas, más monedas.</p>
 
       <h2 className="section-title">Mapa</h2>
       <ol className="adv-map">
