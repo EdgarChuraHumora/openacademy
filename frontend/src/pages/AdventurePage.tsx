@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { areaLabel, HERO_XP_PER_LEVEL, heroLevel, heroStats, heroes, MAX_UPGRADE, stages, UPGRADE_BONUS, upgradeCost, type Upgrades } from '../features/adventure/data'
 import { EnemyArt, HeroArt } from '../features/adventure/Characters'
-import { heroUpgrades, isHeroUnlocked, isStageUnlocked, loadAdventure, saveAdventure } from '../features/adventure/storage'
+import { heroUpgrades, isHeroUnlocked, isStageUnlocked, type AdventureSave } from '../features/adventure/storage'
+import { useAdventure } from '../features/adventure/useAdventure'
 
 const SELECTED_KEY = 'oa-aventura-heroe'
 
@@ -16,7 +17,28 @@ function readSelected() {
 
 // /aventura: elige un héroe y una etapa del mapa
 export default function AdventurePage() {
-  const [save, setSave] = useState(loadAdventure)
+  const { save, online, failed, buy } = useAdventure()
+  if (failed) {
+    return (
+      <section className="adventure stack narrow center">
+        <p>No se pudo cargar tu aventura. Revisa tu conexión y vuelve a intentarlo.</p>
+        <button className="btn btn--yellow" onClick={() => window.location.reload()}>Reintentar</button>
+      </section>
+    )
+  }
+  if (!save) return <p className="muted center">Cargando tu aventura…</p>
+  return <AdventureMap save={save} online={online} buy={buy} />
+}
+
+interface MapProps {
+  save: AdventureSave
+  online: boolean
+  buy: (heroId: string, type: keyof Upgrades) => Promise<string | null>
+}
+
+function AdventureMap({ save, online, buy }: MapProps) {
+  const [shopError, setShopError] = useState('')
+  const [busy, setBusy] = useState(false)
   const [selected, setSelected] = useState(() => {
     const id = readSelected()
     const hero = heroes.find((h) => h.id === id)
@@ -35,16 +57,10 @@ export default function AdventurePage() {
   const current = heroes.find((h) => h.id === selected) ?? heroes[0]
   const owned = heroUpgrades(save, current.id)
 
-  function buy(type: keyof Upgrades) {
-    const cost = upgradeCost(owned[type])
-    if (save.coins < cost || owned[type] >= MAX_UPGRADE) return
-    const next = {
-      ...save,
-      coins: save.coins - cost,
-      upgrades: { ...save.upgrades, [current.id]: { ...owned, [type]: owned[type] + 1 } },
-    }
-    saveAdventure(next)
-    setSave(next)
+  async function purchase(type: keyof Upgrades) {
+    setBusy(true)
+    setShopError((await buy(current.id, type)) ?? '')
+    setBusy(false)
   }
 
   return (
@@ -55,6 +71,15 @@ export default function AdventurePage() {
       </div>
 
       <div className="adv-coins">🪙 {save.coins} monedas</div>
+      <p className="adv-note adv-note--left">
+        {online ? (
+          '☁️ Tu avance se guarda en tu cuenta.'
+        ) : (
+          <>
+            Tu avance se guarda solo en este navegador. <Link to="/login">Inicia sesión</Link> para guardarlo en tu cuenta.
+          </>
+        )}
+      </p>
 
       <h2 className="section-title">Tus héroes</h2>
       <div className="hero-grid">
@@ -103,13 +128,14 @@ export default function AdventurePage() {
             <div key={type} className="adv-shop__item">
               <strong>{label}</strong>
               <small>+{Math.round(UPGRADE_BONUS * 100)} % cada mejora · {n}/{MAX_UPGRADE}</small>
-              <button className="btn btn--yellow btn--small" disabled={maxed || save.coins < cost} onClick={() => buy(type)}>
+              <button className="btn btn--yellow btn--small" disabled={busy || maxed || save.coins < cost} onClick={() => purchase(type)}>
                 {maxed ? 'Al máximo' : `Comprar · ${cost} 🪙`}
               </button>
             </div>
           )
         })}
       </div>
+      {shopError && <p className="auth__error" role="alert">{shopError}</p>}
       <p className="adv-note">Gana monedas venciendo etapas: más estrellas, más monedas.</p>
 
       <h2 className="section-title">Mapa</h2>

@@ -4,7 +4,8 @@ import MathText from '../components/MathText'
 import { EnemyArt, HeroArt } from '../features/adventure/Characters'
 import { coinReward, heroes, heroLevel, heroStats, stages, type Hero, type Stage } from '../features/adventure/data'
 import { makeQuestion, type BattleQuestion } from '../features/adventure/questions'
-import { heroUpgrades, isHeroUnlocked, isStageUnlocked, loadAdventure, saveAdventure } from '../features/adventure/storage'
+import { heroUpgrades, isHeroUnlocked, isStageUnlocked, type AdventureSave } from '../features/adventure/storage'
+import { useAdventure } from '../features/adventure/useAdventure'
 import { useRecordGame } from '../lib/results'
 
 const letters = ['A', 'B', 'C', 'D']
@@ -30,9 +31,19 @@ function Bar({ value, max, kind }: { value: number; max: number; kind: 'hero' | 
   )
 }
 
-function Battle({ stage, hero, onRestart }: { stage: Stage; hero: Hero; onRestart: () => void }) {
+interface BattleProps {
+  stage: Stage
+  hero: Hero
+  initialSave: AdventureSave
+  onWin: (stageId: string, heroId: string, stars: number) => Promise<string | null>
+  onRestart: () => void
+}
+
+function Battle({ stage, hero, initialSave, onWin, onRestart }: BattleProps) {
   const record = useRecordGame()
-  const [save] = useState(loadAdventure)
+  // Avance al empezar el combate (para saber qué se desbloquea al ganar)
+  const [save] = useState(initialSave)
+  const [saveError, setSaveError] = useState('')
   const stats = heroStats(hero, save.heroXp[hero.id] ?? 0, heroUpgrades(save, hero.id))
   const sameArea = stage.area === hero.area
 
@@ -144,14 +155,8 @@ function Battle({ stage, hero, onRestart }: { stage: Stage; hero: Hero; onRestar
     const stars = ratio >= 0.7 ? 3 : ratio >= 0.35 ? 2 : 1
     const heroXp = 15 * stage.tier + 5 * stars
     const coins = coinReward(stage.tier, stars)
-    const latest = loadAdventure()
-    const before = latest.heroXp[hero.id] ?? 0
-    saveAdventure({
-      ...latest,
-      heroXp: { ...latest.heroXp, [hero.id]: before + heroXp },
-      stars: { ...latest.stars, [stage.id]: Math.max(latest.stars[stage.id] ?? 0, stars) },
-      coins: latest.coins + coins,
-    })
+    const before = save.heroXp[hero.id] ?? 0
+    onWin(stage.id, hero.id, stars).then((message) => setSaveError(message ?? ''))
     const { correct, answered } = score.current
     const xp = Math.min(200, 5 * correct + 10 * stars)
     setReward({ stars, heroXp, xp, coins, levelUp: heroLevel(before + heroXp) > heroLevel(before) })
@@ -177,6 +182,7 @@ function Battle({ stage, hero, onRestart }: { stage: Stage; hero: Hero; onRestar
               {tally.correct} de {tally.answered} ejercicios correctos · +{reward.xp} XP · {hero.name} gana +{reward.heroXp} XP de héroe · +{reward.coins} 🪙
             </p>
             {reward.levelUp && <p className="adv-banner">⬆️ ¡{hero.name} subió de nivel! Ahora tiene más vida y ataque.</p>}
+            {saveError && <p className="auth__error" role="alert">{saveError}</p>}
             {newHero && <p className="adv-banner adv-banner--hero"><HeroArt id={newHero.id} label={newHero.name} size={48} /> ¡Nuevo héroe: {newHero.name}, {newHero.title}!</p>}
           </>
         ) : (
@@ -254,12 +260,13 @@ function Battle({ stage, hero, onRestart }: { stage: Stage; hero: Hero; onRestar
 export default function BattlePage() {
   const { stageId } = useParams()
   const [params] = useSearchParams()
-  const save = loadAdventure()
+  const { save, win } = useAdventure()
+  const [round, setRound] = useState(0)
+  if (!save) return <p className="muted center">Cargando tu aventura…</p>
   const index = stages.findIndex((s) => s.id === stageId)
   const stage = stages[index]
   const chosen = heroes.find((h) => h.id === params.get('heroe'))
   const hero = chosen && isHeroUnlocked(chosen, save) ? chosen : heroes[0]
-  const [round, setRound] = useState(0)
 
   if (!stage || !isStageUnlocked(index, save)) {
     return (
@@ -269,5 +276,5 @@ export default function BattlePage() {
       </section>
     )
   }
-  return <Battle key={`${stage.id}-${hero.id}-${round}`} stage={stage} hero={hero} onRestart={() => setRound((r) => r + 1)} />
+  return <Battle key={`${stage.id}-${hero.id}-${round}`} stage={stage} hero={hero} initialSave={save} onWin={win} onRestart={() => setRound((r) => r + 1)} />
 }

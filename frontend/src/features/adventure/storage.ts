@@ -27,6 +27,14 @@ export function saveAdventure(save: AdventureSave) {
   }
 }
 
+export function clearLocalAdventure() {
+  try {
+    localStorage.removeItem(KEY)
+  } catch {
+    // nada que borrar
+  }
+}
+
 export const isHeroUnlocked = (hero: Hero, save: AdventureSave) => !hero.unlockAfter || (save.stars[hero.unlockAfter] ?? 0) > 0
 
 // Una etapa se abre al ganar la anterior
